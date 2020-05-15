@@ -1,8 +1,15 @@
 import * as React from 'react'
+import styled from 'styled-components'
+
+const StyledSummary = styled.div`
+  color: ${props => props.theme.$success};
+`
 
 const Summary: React.FC = () => {
   return (
-    <div>记账页</div>
+    <StyledSummary>
+      记账页
+    </StyledSummary>
   )
 }
 
