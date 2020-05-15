@@ -2,6 +2,7 @@ import * as React from 'react'
 import styled from 'styled-components'
 import Icon from '../components/Icon'
 import Divider from '../components/Dividier'
+import Record from '../components/Record'
 
 const StyledSummary = styled.div`
   color: ${props => props.theme.$white};
@@ -73,6 +74,10 @@ const Summary: React.FC = () => {
           <span>总收入￥{totalIncome}</span>
         </BriefSection>
       </Header>
+
+      <ul>
+        <Record/>
+      </ul>
     </StyledSummary>
   )
 }
