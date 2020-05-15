@@ -4,7 +4,7 @@ import Summary from './pages/Summary'
 import theme from './theme'
 
 const StyledApp = styled.div`
-  max-width: 540px;
+  max-width: 480px;
   margin: 0 auto;
   background: #EDEDED;
   height: 100vh;
