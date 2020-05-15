@@ -1,12 +1,14 @@
 import * as React from 'react'
 import styled from 'styled-components'
 import Icon from '../components/Icon'
+import Divider from '../components/Dividier'
 
 const StyledSummary = styled.div`
   color: ${props => props.theme.$white};
 `
 
 const Header = styled.header`
+  padding: 0 14px;
   background: ${props => props.theme.$success};
   .title {
     text-align: center;
@@ -15,7 +17,7 @@ const Header = styled.header`
 `
 
 const TypeButton = styled.button`
-  padding: 6px 12px;
+  padding: 8px 16px;
   color: ${props => props.theme.$white};
   background: #53BC82;
   border: none;
@@ -32,6 +34,7 @@ const Summary: React.FC = () => {
         <section>
           <TypeButton>
             <span>全部类型</span>
+            <Divider/>
             <Icon name="yingyong"/>
           </TypeButton>
         </section>
