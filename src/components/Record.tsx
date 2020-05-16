@@ -11,10 +11,11 @@ const StyledRecord = styled.li`
   border-radius: 8px;
   margin-bottom: 8px;
   background: white;
+  color: ${props => props.theme.$mainText};
+  overflow: hidden;
   &:last-child {
     margin-bottom: 0;
   }
-  color: ${props => props.theme.$mainText};
 `
 
 const Header = styled.header`
@@ -39,6 +40,24 @@ const AmountSection = styled.section`
   }
 `
 
+const Main = styled.section`
+  padding: 24px 18px;
+  display: flex;
+  .record-content {
+    flex-grow: 1;
+    padding: 0 16px;
+    &-details {
+      color: ${props => props.theme.$placeholder};
+      > span {
+        font-size: ${props => props.theme.$smallTextSize}
+      }
+    }
+    &-amount {
+      font-size: ${props => props.theme.$mainTextSize};
+    }
+  }
+`
+
 const Record: React.FC = () => {
   const category = DEFAULT_CATEGORIES[2]
 
@@ -57,20 +76,20 @@ const Record: React.FC = () => {
         </AmountSection>
       </Header>
 
-      <section>
+      <Main>
         <Category category={category} type="expense"/>
-        <div>
+        <div className="record-content">
           <div>其他</div>
-          <div>
+          <div className="record-content-details">
             <span>01:00</span>
             <Divider/>
             <span>同程旅行-退款</span>
           </div>
         </div>
-        <div>
+        <div className="record-content-amount">
           -8.00
         </div>
-      </section>
+      </Main>
     </StyledRecord>
   )
 }
