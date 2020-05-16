@@ -5,6 +5,12 @@ import Divider from '../components/Dividier'
 import MonthRecord from '../components/MonthRecord'
 import useRecordList from '../hooks/useRecordList'
 
+const StyledSummary = styled.div`
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+`
+
 const Header = styled.header`
   padding: 60px 14px 8px;
   background: ${props => props.theme.$success};
@@ -48,6 +54,7 @@ const BriefSection = styled.section`
 
 const RecordList = styled.ul`
   padding: 8px;
+  flex-grow: 1;
   overflow: auto;
 `
 
@@ -58,7 +65,7 @@ const Summary: React.FC = () => {
   const totalExpense = 300
 
   return (
-    <div>
+    <StyledSummary>
       <Header>
         <p className="title">记账本</p>
 
@@ -87,7 +94,7 @@ const Summary: React.FC = () => {
           ))
         }
       </RecordList>
-    </div>
+    </StyledSummary>
   )
 }
 
