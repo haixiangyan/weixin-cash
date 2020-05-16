@@ -62,7 +62,7 @@ const DayRecord: React.FC<TProps> = (props) => {
       <ul>
         {
           recordList && recordList.map(record => (
-            <EachRecord key={record.date} record={record}/>
+            <EachRecord key={record.id} record={record}/>
           ))
         }
       </ul>

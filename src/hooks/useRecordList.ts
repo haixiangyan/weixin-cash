@@ -4,6 +4,7 @@ import {DAY, MONTH} from '../lib/date'
 
 export type TRecordType = 'expense' | 'income'
 export type TRawRecord = {
+  id: string
   date: string
   categoryId: number
   amount: number
@@ -31,6 +32,7 @@ export const RECORD_TYPE_MAPPER = {
 
 export const DEFAULT_RECORDS: TRawRecord[] = [
   {
+    id: '1',
     date: dayjs('2020-04-04').toISOString(),
     categoryId: 2,
     amount: 300,
@@ -38,6 +40,7 @@ export const DEFAULT_RECORDS: TRawRecord[] = [
     type: 'expense'
   },
   {
+    id: '2',
     date: dayjs('2020-03-04').toISOString(),
     categoryId: 3,
     amount: 400,
@@ -45,6 +48,7 @@ export const DEFAULT_RECORDS: TRawRecord[] = [
     type: 'income'
   },
   {
+    id: '3',
     date: dayjs('2020-03-03').toISOString(),
     categoryId: 4,
     amount: 200,
@@ -52,6 +56,7 @@ export const DEFAULT_RECORDS: TRawRecord[] = [
     type: 'expense'
   },
   {
+    id: '4',
     date: dayjs('2020-03-03').toISOString(),
     categoryId: 1,
     amount: 500,

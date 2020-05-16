@@ -24,7 +24,7 @@ const App: React.FC = () => {
             <Route exact path="/">
               <Summary/>
             </Route>
-            <Route path="/eee">
+            <Route path="/record/:id">
               <div>hello</div>
             </Route>
           </Switch>
