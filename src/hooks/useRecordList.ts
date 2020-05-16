@@ -10,8 +10,16 @@ export type TRecord = {
   note: string
   type: TRecordType
 }
+type TDayRecord= {
+  day: string
+  recordList: TRecord[]
+}
+type TMonthRecord = {
+  month: string
+  recordList: TDayRecord[]
+}
 
-const DEFAULT_RECORDS: TRecord[] = [
+export const DEFAULT_RECORDS: TRecord[] = [
   {
     date: dayjs('2020-06-04').toISOString(),
     categoryId: 2,
@@ -42,37 +50,41 @@ const DEFAULT_RECORDS: TRecord[] = [
   }
 ]
 
-export const parseRecordList = (rawRecordList: TRecord[]) => {
-  let list: any = []
+export const appendRecord = (prevRecordList: TMonthRecord[], rawRecord: TRecord) => {
+  const month = dayjs(rawRecord.date).format(MONTH)
+  const day = dayjs(rawRecord.date).format(DAY)
+  // 找 month
+  let monthData = prevRecordList.find((item: any) => item.month === month)
+  if (!monthData) {
+    monthData = {month, recordList: []}
+    prevRecordList.push(monthData)
+  }
+
+  // 找 day
+  let dayData = monthData.recordList.find((item: any) => item.day === day)
+  if (!dayData) {
+    dayData = {day, recordList: []}
+    monthData.recordList.push(dayData)
+  }
+
+  // 插入值
+  dayData.recordList.push(rawRecord)
+}
+
+export const bulkAppendRecords = (prevRecordList: TMonthRecord[], rawRecordList: TRecord[]) => {
+  let recordList: TMonthRecord[] = JSON.parse(JSON.stringify(prevRecordList))
 
   rawRecordList.forEach((rawRecord: TRecord) => {
-    const month = dayjs(rawRecord.date).format(MONTH)
-    const day = dayjs(rawRecord.date).format(DAY)
-    // 找 month
-    let monthData = list.find((item: any) => item.month === month)
-    if (!monthData) {
-      monthData = {month, recordList: []}
-      list.push(monthData)
-    }
-
-    // 找 day
-    let dayData = monthData.recordList.find((item: any) => item.day === day)
-    if (!dayData) {
-      dayData = {day, recordList: []}
-      monthData.recordList.push(dayData)
-    }
-
-    // 插入值
-    dayData.recordList.push(rawRecord)
+    appendRecord(recordList, rawRecord)
   })
 
-  return list
+  return recordList
 }
 
 const useRecordList = () => {
-  const [recordList] = useState<TRecord[]>(parseRecordList(DEFAULT_RECORDS))
+  const [recordList] = useState<TMonthRecord[]>(bulkAppendRecords([], DEFAULT_RECORDS))
 
-  return {recordList}
+  return {recordList, bulkAppendRecords}
 }
 
 export default useRecordList

@@ -1,8 +1,8 @@
 import dayjs from 'dayjs'
-import {parseRecordList, TRecord} from '../hooks/useRecordList'
+import {bulkAppendRecords, TRecord} from '../hooks/useRecordList'
 
 describe('useRecordList', () => {
-  it('parseRecordList', () => {
+  it('bulkAppendRecords', () => {
     const rawRecordList: TRecord[] = [
       {
         date: dayjs('2020-06-04').toISOString(),
@@ -54,7 +54,7 @@ describe('useRecordList', () => {
       }
     ]
 
-    const recordList = parseRecordList(rawRecordList)
+    const recordList = bulkAppendRecords([], rawRecordList)
     expect(recordList).toStrictEqual(expectedRecordList)
   })
 })
