@@ -2,6 +2,10 @@ import * as React from 'react'
 import Divider from './Dividier'
 import styled from 'styled-components'
 import Tag from './Tag'
+import Category from './Category'
+import {DEFAULT_CATEGORIES} from '../lib/category'
+
+export type TRecordType = 'expense' | 'income'
 
 const StyledRecord = styled.li`
   border-radius: 8px;
@@ -36,6 +40,8 @@ const AmountSection = styled.section`
 `
 
 const Record: React.FC = () => {
+  const category = DEFAULT_CATEGORIES[2]
+
   return (
     <StyledRecord>
       <Header>
@@ -52,7 +58,7 @@ const Record: React.FC = () => {
       </Header>
 
       <section>
-        <div>ICON</div>
+        <Category category={category} type="expense"/>
         <div>
           <div>其他</div>
           <div>
