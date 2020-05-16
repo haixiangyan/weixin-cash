@@ -46,7 +46,7 @@ const DayRecord: React.FC<TProps> = (props) => {
     <StyledDayRecord>
       <Header>
         <DateSection>
-          <span style={{marginRight: 8}}>5月14日</span>
+          <span style={{marginRight: 8}}>{day}</span>
           <span>星期二</span>
         </DateSection>
         <AmountSection>
