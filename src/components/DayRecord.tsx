@@ -1,13 +1,11 @@
 import * as React from 'react'
-import Divider from './Dividier'
 import styled from 'styled-components'
 import Tag from './Tag'
-import Category from './Category'
-import {DEFAULT_CATEGORIES} from '../lib/category'
+import EachRecord from './EachRecord'
 
 export type TRecordType = 'expense' | 'income'
 
-const StyledRecord = styled.li`
+const StyledDayRecord = styled.ul`
   border-radius: 8px;
   margin-bottom: 8px;
   background: white;
@@ -40,29 +38,9 @@ const AmountSection = styled.section`
   }
 `
 
-const Main = styled.section`
-  padding: 24px 18px;
-  display: flex;
-  .record-content {
-    flex-grow: 1;
-    padding: 0 16px;
-    &-details {
-      color: ${props => props.theme.$placeholder};
-      > span {
-        font-size: ${props => props.theme.$smallTextSize}
-      }
-    }
-    &-amount {
-      font-size: ${props => props.theme.$mainTextSize};
-    }
-  }
-`
-
-const Record: React.FC = () => {
-  const category = DEFAULT_CATEGORIES[2]
-
+const DayRecord: React.FC = () => {
   return (
-    <StyledRecord>
+    <StyledDayRecord>
       <Header>
         <DateSection>
           <span style={{marginRight: 8}}>5月14日</span>
@@ -76,22 +54,11 @@ const Record: React.FC = () => {
         </AmountSection>
       </Header>
 
-      <Main>
-        <Category category={category} type="expense"/>
-        <div className="record-content">
-          <div>其他</div>
-          <div className="record-content-details">
-            <span>01:00</span>
-            <Divider gap={8}/>
-            <span>同程旅行-退款</span>
-          </div>
-        </div>
-        <div className="record-content-amount">
-          -8.00
-        </div>
-      </Main>
-    </StyledRecord>
+      <ul>
+        <EachRecord/>
+      </ul>
+    </StyledDayRecord>
   )
 }
 
-export default Record
+export default DayRecord

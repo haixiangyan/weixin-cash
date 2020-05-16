@@ -2,7 +2,7 @@ import * as React from 'react'
 import styled from 'styled-components'
 import Icon from '../components/Icon'
 import Divider from '../components/Dividier'
-import Record from '../components/Record'
+import MonthRecord from '../components/MonthRecord'
 
 const Header = styled.header`
   padding: 60px 14px 8px;
@@ -77,7 +77,7 @@ const Summary: React.FC = () => {
       </Header>
 
       <RecordList>
-        <Record/>
+        <MonthRecord/>
       </RecordList>
     </div>
   )
