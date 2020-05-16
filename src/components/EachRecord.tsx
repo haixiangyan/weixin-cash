@@ -3,6 +3,11 @@ import Category from './Category'
 import Divider from './Dividier'
 import {DEFAULT_CATEGORIES} from '../lib/category'
 import styled from 'styled-components'
+import {TRecord} from '../hooks/useRecordList'
+
+type TProps = {
+  record: TRecord
+}
 
 const StyledEachRecord = styled.li`
   padding: 24px 18px;
@@ -22,12 +27,13 @@ const StyledEachRecord = styled.li`
   }
 `
 
-const EachRecord: React.FC = () => {
-  const category = DEFAULT_CATEGORIES[2]
+const EachRecord: React.FC<TProps> = (props) => {
+  const {record} = props
+  const category = DEFAULT_CATEGORIES.find(c => c.id === record.categoryId)
 
   return (
     <StyledEachRecord>
-      <Category category={category} type="expense"/>
+      <Category category={category!} type="expense"/>
       <div className="record-content">
         <div>其他</div>
         <div className="record-content-details">

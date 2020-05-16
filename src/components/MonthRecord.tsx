@@ -1,10 +1,19 @@
 import * as React from 'react'
 import DayRecord from './DayRecord'
+import {TMonthRecord} from '../hooks/useRecordList'
 
-const MonthRecord: React.FC = () => {
+type TProps = TMonthRecord & {}
+
+const MonthRecord: React.FC<TProps> = (props) => {
+  const {month, recordList} = props
+
   return (
     <ul>
-      <DayRecord/>
+      {
+        recordList && recordList.map(dayRecord => (
+          <DayRecord key={dayRecord.day} {...dayRecord}/>
+        ))
+      }
     </ul>
   )
 }

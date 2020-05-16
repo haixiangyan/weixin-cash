@@ -4,7 +4,7 @@ import {DAY, MONTH} from '../lib/date'
 
 export type TRecordType = 'expense' | 'income'
 export type TRecord = {
-  date: string | Date
+  date: string
   categoryId: number
   amount: number
   note: string

@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import Icon from '../components/Icon'
 import Divider from '../components/Dividier'
 import MonthRecord from '../components/MonthRecord'
+import useRecordList from '../hooks/useRecordList'
 
 const Header = styled.header`
   padding: 60px 14px 8px;
@@ -50,6 +51,8 @@ const RecordList = styled.ul`
 `
 
 const Summary: React.FC = () => {
+  const {recordList} = useRecordList()
+
   const totalIncome = 420
   const totalExpense = 300
 
@@ -77,7 +80,11 @@ const Summary: React.FC = () => {
       </Header>
 
       <RecordList>
-        <MonthRecord/>
+        {
+          recordList && recordList.map(monthRecord => (
+            <MonthRecord key={monthRecord.month} {...monthRecord}/>
+          ))
+        }
       </RecordList>
     </div>
   )

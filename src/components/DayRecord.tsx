@@ -2,6 +2,9 @@ import * as React from 'react'
 import styled from 'styled-components'
 import Tag from './Tag'
 import EachRecord from './EachRecord'
+import {TDayRecord} from '../hooks/useRecordList'
+
+type TProps = TDayRecord & {}
 
 const StyledDayRecord = styled.ul`
   border-radius: 8px;
@@ -36,7 +39,9 @@ const AmountSection = styled.section`
   }
 `
 
-const DayRecord: React.FC = () => {
+const DayRecord: React.FC<TProps> = (props) => {
+  const {day, recordList} = props
+
   return (
     <StyledDayRecord>
       <Header>
@@ -53,7 +58,11 @@ const DayRecord: React.FC = () => {
       </Header>
 
       <ul>
-        <EachRecord/>
+        {
+          recordList && recordList.map(record => (
+            <EachRecord key={record.date} record={record}/>
+          ))
+        }
       </ul>
     </StyledDayRecord>
   )
