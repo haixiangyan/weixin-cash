@@ -55,21 +55,21 @@ export const appendRecord = (prevRecordList: TMonthRecord[], rawRecord: TRecord)
   const month = dayjs(rawRecord.date).format(MONTH)
   const day = dayjs(rawRecord.date).format(DAY)
   // 找 month
-  let monthData = prevRecordList.find((item: any) => item.month === month)
-  if (!monthData) {
-    monthData = {month, recordList: []}
-    prevRecordList.push(monthData)
+  let monthRecord = prevRecordList.find((m: TMonthRecord) => m.month === month)
+  if (!monthRecord) {
+    monthRecord = {month, recordList: []}
+    prevRecordList.push(monthRecord)
   }
 
   // 找 day
-  let dayData = monthData.recordList.find((item: any) => item.day === day)
-  if (!dayData) {
-    dayData = {day, recordList: []}
-    monthData.recordList.push(dayData)
+  let dayRecord = monthRecord.recordList.find((d: TDayRecord) => d.day === day)
+  if (!dayRecord) {
+    dayRecord = {day, recordList: []}
+    monthRecord.recordList.push(dayRecord)
   }
 
   // 插入值
-  dayData.recordList.push(rawRecord)
+  dayRecord.recordList.push(rawRecord)
 }
 
 // 批量追加多个 Record
