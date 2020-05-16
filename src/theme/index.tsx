@@ -8,10 +8,10 @@ const theme = {
   $subText: '#909399',
   $placeholder: '#C0C4CC',
 
-  $largeTextSize: '20px',
-  $mainTextSize: '18px',
-  $normalTextSize: '16px',
-  $smallTextSize: '14px',
+  $largeTextSize: '18px',
+  $mainTextSize: '16px',
+  $normalTextSize: '14px',
+  $smallTextSize: '12px',
 }
 
 export default theme
