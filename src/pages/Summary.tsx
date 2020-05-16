@@ -48,6 +48,7 @@ const BriefSection = styled.section`
 
 const RecordList = styled.ul`
   padding: 8px;
+  overflow: auto;
 `
 
 const Summary: React.FC = () => {
