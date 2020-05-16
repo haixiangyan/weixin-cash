@@ -37,7 +37,7 @@ const EachRecord: React.FC<TProps> = (props) => {
 
   return (
     <StyledEachRecord>
-      <Category category={category!} type="expense"/>
+      <Category category={category!} type={type}/>
       <div className="record-content">
         <div>其他</div>
         <div className="record-content-details">
