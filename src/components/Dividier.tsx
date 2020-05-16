@@ -1,15 +1,27 @@
 import * as React from 'react'
 import styled from 'styled-components'
 
-const VerticalDivider = styled.span`
-  border-right: 1px solid #eee;
-  margin: 0 16px;
-`
+type TProps = {
+  gap?: number
+  color?: string
+}
 
-const Divider: React.FC = () => {
+const VerticalDivider = styled.span<TProps>(props => ({
+  borderRight: '1px solid',
+  margin: `0 ${props.gap}px`,
+  borderColor: props.color
+}))
+
+const Divider: React.FC<TProps> = (props) => {
+
   return (
-    <VerticalDivider/>
+    <VerticalDivider {...props}/>
   )
+}
+
+Divider.defaultProps = {
+  gap: 16,
+  color: '#eee'
 }
 
 export default Divider

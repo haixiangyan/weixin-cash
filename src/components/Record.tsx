@@ -82,7 +82,7 @@ const Record: React.FC = () => {
           <div>其他</div>
           <div className="record-content-details">
             <span>01:00</span>
-            <Divider/>
+            <Divider gap={8}/>
             <span>同程旅行-退款</span>
           </div>
         </div>

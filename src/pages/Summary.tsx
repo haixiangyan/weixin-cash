@@ -61,7 +61,7 @@ const Summary: React.FC = () => {
         <section>
           <TypeButton>
             <span>全部类型</span>
-            <Divider/>
+            <Divider color="#68C895"/>
             <Icon name="application"/>
           </TypeButton>
         </section>
