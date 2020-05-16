@@ -10,11 +10,11 @@ export type TRecord = {
   note: string
   type: TRecordType
 }
-type TDayRecord= {
+export type TDayRecord= {
   day: string
   recordList: TRecord[]
 }
-type TMonthRecord = {
+export type TMonthRecord = {
   month: string
   recordList: TDayRecord[]
 }
@@ -84,7 +84,7 @@ export const bulkAppendRecords = (prevRecordList: TMonthRecord[], rawRecordList:
 const useRecordList = () => {
   const [recordList] = useState<TMonthRecord[]>(bulkAppendRecords([], DEFAULT_RECORDS))
 
-  return {recordList, bulkAppendRecords}
+  return {recordList, appendRecord, bulkAppendRecords}
 }
 
 export default useRecordList
