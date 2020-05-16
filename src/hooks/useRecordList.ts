@@ -50,6 +50,7 @@ export const DEFAULT_RECORDS: TRecord[] = [
   }
 ]
 
+// 追加单个 Record
 export const appendRecord = (prevRecordList: TMonthRecord[], rawRecord: TRecord) => {
   const month = dayjs(rawRecord.date).format(MONTH)
   const day = dayjs(rawRecord.date).format(DAY)
@@ -71,6 +72,7 @@ export const appendRecord = (prevRecordList: TMonthRecord[], rawRecord: TRecord)
   dayData.recordList.push(rawRecord)
 }
 
+// 批量追加多个 Record
 export const bulkAppendRecords = (prevRecordList: TMonthRecord[], rawRecordList: TRecord[]) => {
   let recordList: TMonthRecord[] = JSON.parse(JSON.stringify(prevRecordList))
 
