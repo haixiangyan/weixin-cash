@@ -4,6 +4,8 @@ import Icon from '../components/Icon'
 import Divider from '../components/Dividier'
 import MonthRecord from '../components/MonthRecord'
 import useRecordList from '../hooks/useRecordList'
+import dayjs from 'dayjs'
+import {MONTH} from '../lib/date'
 
 const StyledSummary = styled.div`
   height: 100%;
@@ -62,6 +64,7 @@ const Summary: React.FC = () => {
   const {recordList} = useRecordList()
 
   const {incomeTotal, expenseTotal} = recordList[0]
+  const curtMonth = dayjs().format(MONTH)
 
   return (
     <StyledSummary>
@@ -78,7 +81,7 @@ const Summary: React.FC = () => {
 
         <BriefSection>
           <MonthButton>
-            <span>2020年4月</span>
+            <span>{curtMonth}</span>
             <Icon name="dropdown"/>
           </MonthButton>
           <span style={{marginRight: 12}}>总支出￥{expenseTotal}</span>
