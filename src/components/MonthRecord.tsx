@@ -4,7 +4,9 @@ import {TMonthRecord} from '../hooks/useRecordList'
 import styled from 'styled-components'
 import Divider from './Dividier'
 
-type TProps = TMonthRecord & {}
+type TProps = {
+  monthRecord: TMonthRecord
+}
 
 const Header = styled.div`
   padding: 8px 18px;
@@ -17,20 +19,20 @@ const Header = styled.div`
 const RecordList = styled.li``
 
 const MonthRecord: React.FC<TProps> = (props) => {
-  const {month, recordList} = props
+  const {month, recordList, incomeTotal, expenseTotal} = props.monthRecord
 
   return (
     <RecordList>
       <Header>
         <span>{month}</span>
         <Divider gap={8}/>
-        <span>总支出￥xxx</span>
-        <span>总收入￥yyy</span>
+        <span style={{marginRight: 12}}>总支出￥{expenseTotal}</span>
+        <span>总收入￥{incomeTotal}</span>
       </Header>
       <ul>
         {
           recordList && recordList.map(dayRecord => (
-            <DayRecord key={dayRecord.day} {...dayRecord}/>
+            <DayRecord key={dayRecord.day} dayRecord={dayRecord}/>
           ))
         }
       </ul>

@@ -24,14 +24,14 @@ const StyledCategory = styled.span<TStyledCategory>(props =>({
   display: 'inline-flex',
   alignItems: 'center',
   justifyContent: 'center',
-  height: 46,
-  width: 46,
+  height: 40,
+  width: 40,
   background: props.background,
   borderRadius: '50%',
   svg: {
     fill: props.fill,
-    height: 26,
-    width: 26
+    height: 24,
+    width: 24
   }
 }))
 

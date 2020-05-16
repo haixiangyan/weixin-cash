@@ -3,10 +3,12 @@ import Category from './Category'
 import Divider from './Dividier'
 import {DEFAULT_CATEGORIES} from '../lib/category'
 import styled from 'styled-components'
-import {TRecord} from '../hooks/useRecordList'
+import {TRawRecord} from '../hooks/useRecordList'
+import dayjs from 'dayjs'
+import {TIME} from '../lib/date'
 
 type TProps = {
-  record: TRecord
+  record: TRawRecord
 }
 
 const StyledEachRecord = styled.li`
@@ -28,8 +30,10 @@ const StyledEachRecord = styled.li`
 `
 
 const EachRecord: React.FC<TProps> = (props) => {
-  const {record} = props
-  const category = DEFAULT_CATEGORIES.find(c => c.id === record.categoryId)
+  const {date, amount, categoryId, note, type} = props.record
+
+  const category = DEFAULT_CATEGORIES.find(c => c.id === categoryId)
+  const time = dayjs(date).format(TIME)
 
   return (
     <StyledEachRecord>
@@ -37,13 +41,14 @@ const EachRecord: React.FC<TProps> = (props) => {
       <div className="record-content">
         <div>其他</div>
         <div className="record-content-details">
-          <span>01:00</span>
+          <span>{time}</span>
           <Divider gap={8}/>
-          <span>同程旅行-退款</span>
+          <span>{note}</span>
         </div>
       </div>
       <div className="record-content-amount">
-        -8.00
+        {type === 'income' ? '+' : '-'}
+        {amount}
       </div>
     </StyledEachRecord>
   )
