@@ -31,28 +31,28 @@ export const RECORD_TYPE_MAPPER = {
 
 export const DEFAULT_RECORDS: TRawRecord[] = [
   {
-    date: dayjs('2020-06-04').toISOString(),
+    date: dayjs('2020-04-04').toISOString(),
     categoryId: 2,
     amount: 300,
     note: '吃黄焖鸡米饭',
     type: 'expense'
   },
   {
-    date: dayjs('2020-05-04').toISOString(),
+    date: dayjs('2020-03-04').toISOString(),
     categoryId: 3,
     amount: 400,
     note: '工资',
     type: 'income'
   },
   {
-    date: dayjs('2020-05-03').toISOString(),
+    date: dayjs('2020-03-03').toISOString(),
     categoryId: 4,
     amount: 200,
     note: '衣服',
     type: 'expense'
   },
   {
-    date: dayjs('2020-05-03').toISOString(),
+    date: dayjs('2020-03-03').toISOString(),
     categoryId: 1,
     amount: 500,
     note: '学费',

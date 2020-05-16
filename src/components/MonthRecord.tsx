@@ -3,6 +3,8 @@ import DayRecord from './DayRecord'
 import {TMonthRecord} from '../hooks/useRecordList'
 import styled from 'styled-components'
 import Divider from './Dividier'
+import dayjs from 'dayjs'
+import {MONTH} from '../lib/date'
 
 type TProps = {
   monthRecord: TMonthRecord
@@ -21,14 +23,19 @@ const RecordList = styled.li``
 const MonthRecord: React.FC<TProps> = (props) => {
   const {month, recordList, incomeTotal, expenseTotal} = props.monthRecord
 
+  const curtMonth = dayjs().format(MONTH)
+
   return (
     <RecordList>
-      <Header>
-        <span>{month}</span>
-        <Divider gap={8}/>
-        <span style={{marginRight: 12}}>总支出￥{expenseTotal}</span>
-        <span>总收入￥{incomeTotal}</span>
-      </Header>
+      {
+        curtMonth !== month &&  // 只显示非当月的记录
+        <Header>
+          <span>{month}</span>
+          <Divider gap={8}/>
+          <span style={{marginRight: 12}}>总支出￥{expenseTotal}</span>
+          <span>总收入￥{incomeTotal}</span>
+        </Header>
+      }
       <ul>
         {
           recordList && recordList.map(dayRecord => (
