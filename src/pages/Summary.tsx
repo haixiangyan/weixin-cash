@@ -61,8 +61,7 @@ const RecordList = styled.ul`
 const Summary: React.FC = () => {
   const {recordList} = useRecordList()
 
-  const totalIncome = 420
-  const totalExpense = 300
+  const {incomeTotal, expenseTotal} = recordList[0]
 
   return (
     <StyledSummary>
@@ -82,15 +81,15 @@ const Summary: React.FC = () => {
             <span>2020年4月</span>
             <Icon name="dropdown"/>
           </MonthButton>
-          <span style={{marginRight: 10}}>总支出￥{totalExpense}</span>
-          <span>总收入￥{totalIncome}</span>
+          <span style={{marginRight: 12}}>总支出￥{expenseTotal}</span>
+          <span>总收入￥{incomeTotal}</span>
         </BriefSection>
       </Header>
 
       <RecordList>
         {
           recordList && recordList.map(monthRecord => (
-            <MonthRecord key={monthRecord.month} {...monthRecord}/>
+            <MonthRecord key={monthRecord.month} monthRecord={monthRecord}/>
           ))
         }
       </RecordList>

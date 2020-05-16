@@ -1,9 +1,9 @@
 import dayjs from 'dayjs'
-import {bulkAppendRecords, TRecord} from '../hooks/useRecordList'
+import {bulkAppendRecords, TRawRecord} from '../hooks/useRecordList'
 
 describe('useRecordList', () => {
   it('bulkAppendRecords', () => {
-    const rawRecordList: TRecord[] = [
+    const rawRecordList: TRawRecord[] = [
       {
         date: dayjs('2020-06-04').toISOString(),
         categoryId: 2,

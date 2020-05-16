@@ -4,7 +4,9 @@ import Tag from './Tag'
 import EachRecord from './EachRecord'
 import {TDayRecord} from '../hooks/useRecordList'
 
-type TProps = TDayRecord & {}
+type TProps = {
+  dayRecord: TDayRecord
+}
 
 const StyledDayRecord = styled.ul`
   border-radius: 8px;
@@ -40,7 +42,7 @@ const AmountSection = styled.section`
 `
 
 const DayRecord: React.FC<TProps> = (props) => {
-  const {day, recordList} = props
+  const {day, expenseTotal, incomeTotal, recordList} = props.dayRecord
 
   return (
     <StyledDayRecord>
@@ -51,9 +53,9 @@ const DayRecord: React.FC<TProps> = (props) => {
         </DateSection>
         <AmountSection>
           <Tag>支</Tag>
-          <span style={{marginRight: 16}}>359.00</span>
+          <span style={{marginRight: 16}}>{expenseTotal}</span>
           <Tag>收</Tag>
-          <span>888.00</span>
+          <span>{incomeTotal}</span>
         </AmountSection>
       </Header>
 
