@@ -3,8 +3,6 @@ import styled from 'styled-components'
 import Tag from './Tag'
 import EachRecord from './EachRecord'
 
-export type TRecordType = 'expense' | 'income'
-
 const StyledDayRecord = styled.ul`
   border-radius: 8px;
   margin-bottom: 8px;

@@ -1,7 +1,7 @@
 import * as React from 'react'
 import styled from 'styled-components'
 import Icon from './Icon'
-import {TRecordType} from './DayRecord'
+import {TRecordType} from '../hooks/useRecords'
 import {CATEGORY_COLOR} from '../lib/category'
 
 type TCategory = {
