@@ -5,6 +5,8 @@ import {FULL_TIME} from '../lib/date'
 import {TRawRecord} from '../hooks/useRecordList'
 import {DEFAULT_CATEGORIES} from '../lib/category'
 import styled from 'styled-components'
+import Divider from './Dividier'
+import Icon from './Icon'
 
 type TProps = {
   rawRecord: TRawRecord
@@ -39,6 +41,22 @@ const DetailsTable = styled.table`
   }
 `
 
+const DeleteButton = styled.button`
+  color: ${props => props.theme.$danger};
+  svg {
+    fill: ${props => props.theme.$danger}
+  }
+`
+
+const ActionSection = styled.section`
+  display: flex;
+  padding: 16px 0 0;
+  border-top: 1px solid #eee;
+  > button {
+    flex-grow: 1;
+  }
+`
+
 const RecordDetails: React.FC<TProps> = (props) => {
   const {amount, type, date, note, categoryId} = props.rawRecord
 
@@ -67,10 +85,17 @@ const RecordDetails: React.FC<TProps> = (props) => {
         </tr>
         </tbody>
       </DetailsTable>
-      <footer>
-        <button>删除</button>
-        <button>编辑</button>
-      </footer>
+      <ActionSection>
+        <DeleteButton>
+          <Icon name="trash"/>
+          <span style={{marginLeft: 8}}>删除</span>
+        </DeleteButton>
+        <Divider gap={0}/>
+        <button>
+          <Icon name="edit"/>
+          <span style={{marginLeft: 8}}>编辑</span>
+        </button>
+      </ActionSection>
     </StyledRecordDetails>
   )
 }

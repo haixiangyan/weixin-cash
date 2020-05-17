@@ -1,6 +1,7 @@
 const theme = {
   $white: '#edf5ed',
   $success: '#40B475',
+  $danger: '#F76361',
   $warning: '#F0B739',
   $linkText: '#576F96',
   $mainText: '#303133',
