@@ -11,12 +11,12 @@ type TProps = {
 }
 
 const StyledRecordDetails = styled.div`
-  padding: 24px;
+  padding: 16px;
   background: white;
   border-radius: 8px;
   text-align: center;
   h3 {
-    margin: 16px 0;
+    margin: 20px 0;
     font-size: 2.4em;
     font-weight: normal;
     letter-spacing: 1px;
@@ -28,6 +28,15 @@ const CategorySection = styled.section`
   align-items: center;
   justify-content: center;
   margin-top: 12px;
+`
+
+const DetailsTable = styled.table`
+  text-align: left;
+  border-spacing: 8px;
+  td:first-child {
+    color: ${props => props.theme.$subText};
+    padding-right: 12px;
+  }
 `
 
 const RecordDetails: React.FC<TProps> = (props) => {
@@ -46,18 +55,18 @@ const RecordDetails: React.FC<TProps> = (props) => {
         {type === 'expense' ? '-' : '+'}
         {amount}
       </h3>
-      <table>
+      <DetailsTable>
         <tbody>
         <tr>
-          <td className="record-field-key">记录时间</td>
+          <td>记录时间</td>
           <td>{dayjs(date).format(FULL_TIME)}</td>
         </tr>
         <tr>
-          <td className="record-field-key">备注</td>
+          <td>备注</td>
           <td>{note}</td>
         </tr>
         </tbody>
-      </table>
+      </DetailsTable>
       <footer>
         <button>删除</button>
         <button>编辑</button>
