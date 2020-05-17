@@ -33,6 +33,7 @@ const CategorySection = styled.section`
 `
 
 const DetailsTable = styled.table`
+  margin-bottom: 16px;
   text-align: left;
   border-spacing: 8px;
   td:first-child {
@@ -54,6 +55,8 @@ const ActionSection = styled.section`
   border-top: 1px solid #eee;
   > button {
     flex-grow: 1;
+    background: none;
+    border: none;
   }
 `
 
