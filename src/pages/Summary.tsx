@@ -7,6 +7,7 @@ import useRecordList from '../hooks/useRecordList'
 import dayjs from 'dayjs'
 import {MONTH} from '../lib/date'
 import Sticker from '../components/Sticker'
+import theme from '../theme'
 
 const StyledSummary = styled.div`
   height: 100%;
@@ -103,7 +104,7 @@ const Summary: React.FC = () => {
       </RecordList>
 
       <Sticker>
-        <Icon name="pen"/>
+        <Icon name="pen" size={22} color={theme.$success}/>
       </Sticker>
     </StyledSummary>
   )
