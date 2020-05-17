@@ -13,38 +13,43 @@ type TCategory = {
 type TProps = {
   category: TCategory
   type: TRecordType | 'none'
+  size?: number
 }
 
 type TStyledCategory = {
   background: string
   fill: string
+  size: number
 }
 
 const StyledCategory = styled.span<TStyledCategory>(props =>({
+  padding: 8,
   display: 'inline-flex',
   alignItems: 'center',
   justifyContent: 'center',
-  height: 40,
-  width: 40,
   background: props.background,
   borderRadius: '50%',
   svg: {
     fill: props.fill,
-    height: 24,
-    width: 24
+    height: props.size,
+    width: props.size
   }
 }))
 
 const Category: React.FC<TProps> = (props) => {
-  const {category, type} = props
+  const {category, type, size} = props
 
   const color = CATEGORY_COLOR[type]
 
   return (
-    <StyledCategory {...color}>
+    <StyledCategory {...color} size={size!}>
       <Icon name={category.iconName}/>
     </StyledCategory>
   )
+}
+
+Category.defaultProps = {
+  size: 24
 }
 
 export default Category

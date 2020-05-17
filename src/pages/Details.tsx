@@ -13,6 +13,10 @@ const Header = styled.header`
   padding: 12px;
 `
 
+const Main = styled.section`
+  padding: 0 12px;
+`
+
 const Details: React.FC = () => {
   const {goBack} = useHistory()
   const {id} = useParams<TParams>()
@@ -28,7 +32,9 @@ const Details: React.FC = () => {
         <Icon name="left" onClick={goBack} size="1.5em"/>
       </Header>
 
-      <RecordDetails rawRecord={rawRecord}/>
+      <Main>
+        <RecordDetails rawRecord={rawRecord}/>
+      </Main>
     </div>
   )
 }
