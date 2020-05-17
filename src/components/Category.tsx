@@ -19,11 +19,10 @@ type TProps = {
 type TStyledCategory = {
   background: string
   fill: string
-  size: number
 }
 
 const StyledCategory = styled.span<TStyledCategory>(props =>({
-  padding: 8,
+  padding: 6,
   display: 'inline-flex',
   alignItems: 'center',
   justifyContent: 'center',
@@ -31,8 +30,6 @@ const StyledCategory = styled.span<TStyledCategory>(props =>({
   borderRadius: '50%',
   svg: {
     fill: props.fill,
-    height: props.size,
-    width: props.size
   }
 }))
 
@@ -42,8 +39,8 @@ const Category: React.FC<TProps> = (props) => {
   const color = CATEGORY_COLOR[type]
 
   return (
-    <StyledCategory {...color} size={size!}>
-      <Icon name={category.iconName}/>
+    <StyledCategory {...color}>
+      <Icon name={category.iconName} size={size}/>
     </StyledCategory>
   )
 }
