@@ -6,14 +6,17 @@ import styled from 'styled-components'
 import {TRawRecord} from '../hooks/useRecordList'
 import dayjs from 'dayjs'
 import {TIME} from '../lib/date'
+import {Link} from 'react-router-dom'
 
 type TProps = {
   record: TRawRecord
 }
 
-const StyledEachRecord = styled.li`
+const StyledEachRecord = styled(Link)`
   padding: 24px 18px;
   display: flex;
+  color: ${props => props.theme.$normalText};
+  text-decoration: none;
   .record-content {
     flex-grow: 1;
     padding: 0 16px;
@@ -30,27 +33,29 @@ const StyledEachRecord = styled.li`
 `
 
 const EachRecord: React.FC<TProps> = (props) => {
-  const {date, amount, categoryId, note, type} = props.record
+  const {id, date, amount, categoryId, note, type} = props.record
 
   const category = DEFAULT_CATEGORIES.find(c => c.id === categoryId)
   const time = dayjs(date).format(TIME)
 
   return (
-    <StyledEachRecord>
-      <Category category={category!} type={type}/>
-      <div className="record-content">
-        <div>其他</div>
-        <div className="record-content-details">
-          <span>{time}</span>
-          <Divider gap={8}/>
-          <span>{note}</span>
+    <li>
+      <StyledEachRecord to={`/record/${id}`}>
+        <Category category={category!} type={type}/>
+        <div className="record-content">
+          <div>其他</div>
+          <div className="record-content-details">
+            <span>{time}</span>
+            <Divider gap={8}/>
+            <span>{note}</span>
+          </div>
         </div>
-      </div>
-      <div className="record-content-amount">
-        {type === 'income' ? '+' : '-'}
-        {amount}
-      </div>
-    </StyledEachRecord>
+        <div className="record-content-amount">
+          {type === 'income' ? '+' : '-'}
+          {amount}
+        </div>
+      </StyledEachRecord>
+    </li>
   )
 }
 
