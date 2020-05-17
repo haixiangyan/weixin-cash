@@ -6,6 +6,7 @@ import MonthRecord from '../components/MonthRecord'
 import useRecordList from '../hooks/useRecordList'
 import dayjs from 'dayjs'
 import {MONTH} from '../lib/date'
+import Sticker from '../components/Sticker'
 
 const StyledSummary = styled.div`
   height: 100%;
@@ -75,14 +76,14 @@ const Summary: React.FC = () => {
           <TypeButton>
             <span>全部类型</span>
             <Divider color="#68C895"/>
-            <Icon name="application"/>
+            <Icon color="#edf5ed" name="application"/>
           </TypeButton>
         </section>
 
         <BriefSection>
           <MonthButton>
             <span>{curtMonth}</span>
-            <Icon name="dropdown"/>
+            <Icon color="#A0D8BB" name="dropdown"/>
           </MonthButton>
           <span style={{marginRight: 12}}>
             总支出￥{expenseTotal.toFixed(2)}
@@ -100,6 +101,10 @@ const Summary: React.FC = () => {
           ))
         }
       </RecordList>
+
+      <Sticker>
+        <Icon name="pen"/>
+      </Sticker>
     </StyledSummary>
   )
 }
