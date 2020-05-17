@@ -10,7 +10,7 @@ type TParams = {
 }
 
 const Header = styled.header`
-  padding: 12px;
+  padding: 24px 12px;
 `
 
 const Main = styled.section`
