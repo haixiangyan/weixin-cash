@@ -8,6 +8,7 @@ import dayjs from 'dayjs'
 import {MONTH} from '../lib/date'
 import Sticker from '../components/Sticker'
 import theme from '../theme'
+import Drawer from '../components/Drawer'
 
 const StyledSummary = styled.div`
   height: 100%;
@@ -106,6 +107,10 @@ const Summary: React.FC = () => {
       <Sticker>
         <Icon name="pen" size={22} color={theme.$success}/>
       </Sticker>
+
+      <Drawer>
+        hello
+      </Drawer>
     </StyledSummary>
   )
 }
