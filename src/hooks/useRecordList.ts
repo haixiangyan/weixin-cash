@@ -122,7 +122,13 @@ const useRecordList = () => {
     return recordList.find(m => m.month === month)
   }
 
-  return {recordList, appendRecord, bulkAppendRecords, getMonthRecord}
+  return {
+    rawRecordList: DEFAULT_RECORDS,
+    recordList,
+    appendRecord,
+    bulkAppendRecords,
+    getMonthRecord
+  }
 }
 
 export default useRecordList

@@ -6,6 +6,7 @@ import {
   Route,
 } from "react-router-dom";
 import Summary from './pages/Summary'
+import Record from './pages/Record'
 import theme from './theme'
 
 const StyledApp = styled.div`
@@ -25,7 +26,7 @@ const App: React.FC = () => {
               <Summary/>
             </Route>
             <Route path="/record/:id">
-              <div>hello</div>
+              <Record/>
             </Route>
           </Switch>
         </StyledApp>
