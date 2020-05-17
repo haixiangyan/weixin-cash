@@ -1,26 +1,30 @@
 import * as React from 'react'
 import {SVGAttributes} from 'react'
 import styled from 'styled-components'
+import theme from '../theme'
 
 type TProps = SVGAttributes<SVGElement> & {
   name: string
-  size?: string
+  color?: string
+  size?: number
 }
 
 type TStyledIcon = {
-  size: string
+  size: number
 }
 
 const StyledIcon = styled.svg<TStyledIcon>(props => ({
   width: props.size,
-  height: props.size
+  height: props.size,
+  fill: props.color
 }))
 
 const Icon: React.FC<TProps> = (props) => {
-  const {name, size, ...attributes} = props
+  const {name, color, size, ...attributes} = props
 
   return (
     <StyledIcon size={size!}
+                color={color}
                 className="icon"
                 aria-hidden="true"
                 {...attributes}>
@@ -30,7 +34,8 @@ const Icon: React.FC<TProps> = (props) => {
 }
 
 Icon.defaultProps = {
-  size: '1em'
+  size: 16,
+  color: theme.$normalText
 }
 
 export default Icon
