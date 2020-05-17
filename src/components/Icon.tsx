@@ -6,11 +6,11 @@ import theme from '../theme'
 type TProps = SVGAttributes<SVGElement> & {
   name: string
   color?: string
-  size?: string
+  size?: number
 }
 
 type TStyledIcon = {
-  size: string
+  size: number
 }
 
 const StyledIcon = styled.svg<TStyledIcon>(props => ({
@@ -34,7 +34,7 @@ const Icon: React.FC<TProps> = (props) => {
 }
 
 Icon.defaultProps = {
-  size: '1em',
+  size: 16,
   color: theme.$normalText
 }
 

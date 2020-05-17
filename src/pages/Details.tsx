@@ -29,7 +29,7 @@ const Details: React.FC = () => {
   return (
     <div>
       <Header>
-        <Icon name="left" onClick={goBack} size="1.5em"/>
+        <Icon name="left" onClick={goBack} size={24}/>
       </Header>
 
       <Main>

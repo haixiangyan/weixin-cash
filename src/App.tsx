@@ -10,6 +10,7 @@ import Details from './pages/Details'
 import theme from './theme'
 
 const StyledApp = styled.div`
+  position: relative;
   max-width: 480px;
   margin: 0 auto;
   background: #EDEDED;
