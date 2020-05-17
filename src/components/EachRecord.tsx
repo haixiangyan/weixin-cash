@@ -52,7 +52,7 @@ const EachRecord: React.FC<TProps> = (props) => {
         </div>
         <div className="record-content-amount">
           {type === 'income' ? '+' : '-'}
-          {amount}
+          {amount.toFixed(2)}
         </div>
       </StyledEachRecord>
     </li>

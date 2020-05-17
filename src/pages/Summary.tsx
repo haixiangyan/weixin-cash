@@ -84,8 +84,12 @@ const Summary: React.FC = () => {
             <span>{curtMonth}</span>
             <Icon name="dropdown"/>
           </MonthButton>
-          <span style={{marginRight: 12}}>总支出￥{expenseTotal}</span>
-          <span>总收入￥{incomeTotal}</span>
+          <span style={{marginRight: 12}}>
+            总支出￥{expenseTotal.toFixed(2)}
+          </span>
+          <span>
+            总收入￥{incomeTotal.toFixed(2)}
+          </span>
         </BriefSection>
       </Header>
 

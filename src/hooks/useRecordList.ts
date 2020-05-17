@@ -93,14 +93,12 @@ export const appendRecord = (prevRecordList: TMonthRecord[], rawRecord: TRawReco
 const updateTotal = (monthRecord: TMonthRecord, dayRecord: TDayRecord, rawRecord: TRawRecord) => {
   const {amount, type} = rawRecord
 
-  const diff = amount * RECORD_TYPE_MAPPER[type]
-
   if (type === 'expense') {
-    dayRecord.expenseTotal += diff
-    monthRecord.expenseTotal += diff
+    dayRecord.expenseTotal += amount
+    monthRecord.expenseTotal += amount
   } else {
-    dayRecord.incomeTotal += diff
-    monthRecord.incomeTotal += diff
+    dayRecord.incomeTotal += amount
+    monthRecord.incomeTotal += amount
   }
 }
 
