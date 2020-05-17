@@ -17,10 +17,13 @@ const StyledIcon = styled.svg<TStyledIcon>(props => ({
 }))
 
 const Icon: React.FC<TProps> = (props) => {
-  const {name, size} = props
+  const {name, size, ...attributes} = props
 
   return (
-    <StyledIcon size={size!} className="icon" aria-hidden="true">
+    <StyledIcon size={size!}
+                className="icon"
+                aria-hidden="true"
+                {...attributes}>
       <use xlinkHref={`#icon-${name}`}/>
     </StyledIcon>
   )
