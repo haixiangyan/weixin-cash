@@ -18,7 +18,7 @@ const StyledRecordDetails = styled.div`
   border-radius: 8px;
   text-align: center;
   h3 {
-    margin: 20px 0;
+    margin: 16px 0;
     font-size: 2.4em;
     font-weight: normal;
     letter-spacing: 1px;
@@ -69,7 +69,7 @@ const RecordDetails: React.FC<TProps> = (props) => {
   return (
     <StyledRecordDetails>
       <CategorySection>
-        <Category category={category} type={type} size={8}/>
+        <Category category={category} type={type} size={14}/>
         <span style={{marginLeft: 8}}>{category.name}</span>
       </CategorySection>
       <h3>

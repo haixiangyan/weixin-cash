@@ -8,6 +8,8 @@ import dayjs from 'dayjs'
 import {MONTH} from '../lib/date'
 import Sticker from '../components/Sticker'
 import theme from '../theme'
+import Drawer from '../components/Drawer'
+import {useState} from 'react'
 
 const StyledSummary = styled.div`
   height: 100%;
@@ -64,6 +66,7 @@ const RecordList = styled.ul`
 
 const Summary: React.FC = () => {
   const {recordList} = useRecordList()
+  const [showLedgerForm, setShowLedgerForm] = useState(false)
 
   const {incomeTotal, expenseTotal} = recordList[0]
   const curtMonth = dayjs().format(MONTH)
@@ -103,9 +106,14 @@ const Summary: React.FC = () => {
         }
       </RecordList>
 
-      <Sticker>
+      <Sticker onClick={() => setShowLedgerForm(true)}>
         <Icon name="pen" size={22} color={theme.$success}/>
       </Sticker>
+
+      <Drawer show={showLedgerForm}
+              onClickShadow={() => setShowLedgerForm(false)}>
+        hello
+      </Drawer>
     </StyledSummary>
   )
 }
