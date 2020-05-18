@@ -1,7 +1,10 @@
 import * as React from 'react'
 import styled from 'styled-components'
-import {useState} from 'react'
 
+type TProps = {
+  show: boolean
+  onClickShadow: () => void
+}
 type TShadow = {
   show: boolean
 }
@@ -29,11 +32,11 @@ const Main = styled.div<TStyledMain>(() => ({
 }))
 
 
-const Drawer: React.FC = (props) => {
-  const [show, setShow] = useState(true)
+const Drawer: React.FC<TProps> = (props) => {
+  const {show, onClickShadow} = props
 
   return (
-    <Shadow show={show} onClick={() => setShow(false)}>
+    <Shadow show={show} onClick={onClickShadow}>
       <Main show={show}>
         {props.children}
       </Main>

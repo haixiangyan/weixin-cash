@@ -1,5 +1,8 @@
 import * as React from 'react'
+import {AllHTMLAttributes} from 'react'
 import styled from 'styled-components'
+
+type TProps = AllHTMLAttributes<HTMLDivElement> & {}
 
 const StyledSticker = styled.div`
   display: flex;
@@ -16,9 +19,11 @@ const StyledSticker = styled.div`
   border-radius: 50%;
 `
 
-const Sticker: React.FC = (props) => {
+const Sticker: React.FC<TProps> = (props) => {
+  const {onClick} = props
+
   return (
-    <StyledSticker>
+    <StyledSticker onClick={onClick}>
       {props.children}
     </StyledSticker>
   )
