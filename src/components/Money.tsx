@@ -37,9 +37,33 @@ const AmountSection = styled.section`
   }
 `
 
+const CategoryList = styled.ul`
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  overflow-x: auto;
+  list-style: none;
+`
+
+const CategoryItem = styled.li`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 16px;
+  &:last-child {
+    margin-right: 0;
+  }
+`
+
+const CategoryText = styled.span`
+  font-size: .8em;
+  margin-top: 8px;
+  color: ${props => props.theme.$subText};
+  word-break: keep-all;
+`
+
 const Money: React.FC = () => {
   const [type] = useState<TRecordType>('income')
-  const category = DEFAULT_CATEGORIES[0]
 
   return (
     <div>
@@ -60,12 +84,16 @@ const Money: React.FC = () => {
         <span>￥</span>
         <input type="text"/>
       </AmountSection>
-      <ul>
-        <li>
-          <Category category={category} type="expense"/>
-          <span>{category.name}</span>
-        </li>
-      </ul>
+      <CategoryList>
+        {
+          DEFAULT_CATEGORIES.map((category => (
+            <CategoryItem key={category.id}>
+              <Category category={category} type="expense" size={18}/>
+              <CategoryText>{category.name}</CategoryText>
+            </CategoryItem>
+          )))
+        }
+      </CategoryList>
       <section>
         <button>添加备注</button>
       </section>
