@@ -20,7 +20,8 @@ const TypeSection = styled.section`
 
 const AmountSection = styled.section`
   display: flex;
-  padding: 0 16px;
+  width: 90%;
+  margin: 0 auto;
   border-bottom: 1px solid #eee;
   > span {
     font-size: 2.5em;
