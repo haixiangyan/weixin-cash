@@ -68,6 +68,10 @@ const CategoryText = styled.span`
 
 const NoteSection = styled.section`
   padding: 0 24px 24px;
+  > span {
+    color: ${props => props.theme.$linkText};
+    cursor: pointer;
+  }
 `
 
 const Money: React.FC<TProps> = (props) => {
@@ -104,7 +108,7 @@ const Money: React.FC<TProps> = (props) => {
         }
       </CategoryList>
       <NoteSection>
-        <a>添加备注</a>
+        <span>添加备注</span>
       </NoteSection>
       <div>
         数字面板
