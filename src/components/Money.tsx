@@ -38,7 +38,7 @@ const AmountSection = styled.section`
 `
 
 const CategoryList = styled.ul`
-  padding: 16px 24px;
+  padding: 24px;
   display: flex;
   align-items: center;
   overflow-x: auto;
@@ -60,6 +60,10 @@ const CategoryText = styled.span`
   margin-top: 8px;
   color: ${props => props.theme.$subText};
   word-break: keep-all;
+`
+
+const NoteSection = styled.section`
+  padding: 0 24px 24px;
 `
 
 const Money: React.FC = () => {
@@ -94,9 +98,9 @@ const Money: React.FC = () => {
           )))
         }
       </CategoryList>
-      <section>
-        <button>添加备注</button>
-      </section>
+      <NoteSection>
+        <a>添加备注</a>
+      </NoteSection>
       <div>
         数字面板
       </div>
