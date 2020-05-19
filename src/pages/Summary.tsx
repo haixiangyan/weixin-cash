@@ -113,7 +113,7 @@ const Summary: React.FC = () => {
 
       <Drawer show={showLedgerForm}
               onClickShadow={() => setShowLedgerForm(false)}>
-        <Money/>
+        <Money closeDrawer={() => setShowLedgerForm(false)}/>
       </Drawer>
     </StyledSummary>
   )

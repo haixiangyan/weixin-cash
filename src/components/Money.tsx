@@ -7,6 +7,10 @@ import {useState} from 'react'
 import {TRecordType} from '../hooks/useRecordList'
 import Button from './Button'
 
+type TProps = {
+  closeDrawer: () => void
+}
+
 const Header = styled.header`
   padding: 16px;
 `
@@ -66,13 +70,14 @@ const NoteSection = styled.section`
   padding: 0 24px 24px;
 `
 
-const Money: React.FC = () => {
+const Money: React.FC<TProps> = (props) => {
+  const {closeDrawer} = props
   const [type] = useState<TRecordType>('income')
 
   return (
     <div>
       <Header>
-        <Icon name="cancel" size={18}/>
+        <Icon onClick={closeDrawer} name="cancel" size={18}/>
       </Header>
       <TypeSection>
         <div>
