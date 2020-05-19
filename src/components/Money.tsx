@@ -26,10 +26,13 @@ const AmountSection = styled.section`
     font-size: 2.5em;
   }
   > input {
+    padding-left: 8px;
+    flex-grow: 1;
     border: none;
     outline: none;
     height: 64px;
-    font-size: 2.5em;
+    font-size: 2em;
+    text-align: right;
   }
 `
 
