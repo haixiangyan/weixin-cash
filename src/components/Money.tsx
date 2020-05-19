@@ -18,6 +18,21 @@ const TypeSection = styled.section`
   justify-content: space-between;
 `
 
+const AmountSection = styled.section`
+  display: flex;
+  padding: 0 16px;
+  border-bottom: 1px solid #eee;
+  > span {
+    font-size: 2.5em;
+  }
+  > input {
+    border: none;
+    outline: none;
+    height: 64px;
+    font-size: 2.5em;
+  }
+`
+
 const Money: React.FC = () => {
   const [type] = useState<TRecordType>('income')
   const category = DEFAULT_CATEGORIES[0]
@@ -37,9 +52,10 @@ const Money: React.FC = () => {
           <Icon name="dropdown" size={8}/>
         </Button>
       </TypeSection>
-      <section>
+      <AmountSection>
+        <span>￥</span>
         <input type="text"/>
-      </section>
+      </AmountSection>
       <ul>
         <li>
           <Category category={category} type="expense"/>
