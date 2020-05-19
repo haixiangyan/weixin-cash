@@ -6,6 +6,7 @@ import {DEFAULT_CATEGORIES} from '../lib/category'
 import {useState} from 'react'
 import {TRecordType} from '../hooks/useRecordList'
 import Button from './Button'
+import NumberPad from './NumbePad'
 
 type TProps = {
   closeDrawer: () => void
@@ -74,6 +75,11 @@ const NoteSection = styled.section`
   }
 `
 
+const NumberPadSection = styled.section`
+  padding: 12px;
+  background: #FAFAFA;
+`
+
 const Money: React.FC<TProps> = (props) => {
   const {closeDrawer} = props
   const [type] = useState<TRecordType>('income')
@@ -110,9 +116,9 @@ const Money: React.FC<TProps> = (props) => {
       <NoteSection>
         <span>添加备注</span>
       </NoteSection>
-      <div>
-        数字面板
-      </div>
+      <NumberPadSection>
+        <NumberPad/>
+      </NumberPadSection>
     </div>
   )
 }
