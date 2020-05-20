@@ -1,7 +1,7 @@
 import * as React from 'react'
 import Category from './Category'
 import Divider from './Dividier'
-import {DEFAULT_CATEGORIES} from '../lib/category'
+import {DEFAULT_EXPENSE_CATEGORIES} from '../lib/category'
 import styled from 'styled-components'
 import {TRawRecord} from '../hooks/useRecordList'
 import dayjs from 'dayjs'
@@ -35,7 +35,7 @@ const StyledEachRecord = styled(Link)`
 const EachRecord: React.FC<TProps> = (props) => {
   const {id, date, amount, categoryId, note, type} = props.record
 
-  const category = DEFAULT_CATEGORIES.find(c => c.id === categoryId)
+  const category = DEFAULT_EXPENSE_CATEGORIES.find(c => c.id === categoryId)
   const time = dayjs(date).format(TIME)
 
   return (

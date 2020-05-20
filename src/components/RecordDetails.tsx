@@ -3,7 +3,7 @@ import Category from './Category'
 import dayjs from 'dayjs'
 import {FULL_TIME} from '../lib/date'
 import {TRawRecord} from '../hooks/useRecordList'
-import {DEFAULT_CATEGORIES} from '../lib/category'
+import {DEFAULT_EXPENSE_CATEGORIES} from '../lib/category'
 import styled from 'styled-components'
 import Divider from './Dividier'
 import Icon from './Icon'
@@ -63,7 +63,7 @@ const ActionSection = styled.section`
 const RecordDetails: React.FC<TProps> = (props) => {
   const {amount, type, date, note, categoryId} = props.rawRecord
 
-  const category = DEFAULT_CATEGORIES.find(c => c.id === categoryId)
+  const category = DEFAULT_EXPENSE_CATEGORIES.find(c => c.id === categoryId)
   if (!category) return <div>页面出错</div>
 
   return (

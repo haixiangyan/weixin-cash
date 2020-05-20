@@ -2,7 +2,7 @@ import * as React from 'react'
 import styled from 'styled-components'
 import Icon from './Icon'
 import Category from './Category'
-import {DEFAULT_CATEGORIES} from '../lib/category'
+import {DEFAULT_EXPENSE_CATEGORIES, DEFAULT_INCOME_CATEGORIES} from '../lib/category'
 import {useState} from 'react'
 import {TRecordType} from '../hooks/useRecordList'
 import Button from './Button'
@@ -84,9 +84,11 @@ const NumberPadSection = styled.section`
 const Money: React.FC<TProps> = (props) => {
   const {closeDrawer} = props
   const [recordType, setRecordType] = useState<TRecordType>('expense')
-  const [selectedCategoryId, setSelectedCategoryId] = useState<number>(DEFAULT_CATEGORIES[0].id)
+  const [selectedCategoryId, setSelectedCategoryId] = useState<number>(DEFAULT_EXPENSE_CATEGORIES[0].id)
   const [amount, setAmount] = useState(0)
   const [amountString, setAmountString] = useState('0')
+
+  const categories = recordType === 'expense' ? DEFAULT_EXPENSE_CATEGORIES : DEFAULT_INCOME_CATEGORIES
 
   const onChangeAmount = (newValue: string) => {
     setAmountString(newValue)
@@ -120,7 +122,7 @@ const Money: React.FC<TProps> = (props) => {
       </AmountSection>
       <CategoryList>
         {
-          DEFAULT_CATEGORIES.map((category => (
+          categories.map((category => (
             <CategoryItem key={category.id}
                           onClick={() => setSelectedCategoryId(category.id)}>
               <Category category={category}

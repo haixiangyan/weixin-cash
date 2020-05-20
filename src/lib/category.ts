@@ -15,7 +15,25 @@ export const CATEGORY_COLOR = {
   }
 }
 
-export const DEFAULT_CATEGORIES = [
+export const DEFAULT_INCOME_CATEGORIES = [
+  {
+    id: 1,
+    name: '服饰美容',
+    iconName: 'shirt'
+  },
+  {
+    id: 2,
+    name: '餐饮',
+    iconName: 'rice'
+  },
+  {
+    id: 3,
+    name: '交通',
+    iconName: 'bus'
+  },
+]
+
+export const DEFAULT_EXPENSE_CATEGORIES = [
   {
     id: 1,
     name: '服饰美容',
