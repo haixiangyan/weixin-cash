@@ -24,12 +24,6 @@ export type TMonthRecord = TRecord & {
   recordList: TDayRecord[]
 }
 
-export const RECORD_TYPE_MAPPER = {
-  'expense': -1,
-  'income': 1,
-  'none': 0
-}
-
 export const DEFAULT_RECORDS: TRawRecord[] = [
   {
     id: '1',
@@ -113,15 +107,22 @@ export const bulkAppendRecords = (prevRecordList: TMonthRecord[], rawRecordList:
   return recordList
 }
 
+const fetchRawRecordList = (): TRawRecord[] => {
+  const rawString = window.localStorage.getItem('rawRecordList')
+  return !rawString ? DEFAULT_RECORDS : JSON.parse(rawString)
+}
+
 const useRecordList = () => {
-  const [recordList] = useState<TMonthRecord[]>(bulkAppendRecords([], DEFAULT_RECORDS))
+  const [rawRecordList, setRawRecordList] = useState(fetchRawRecordList())
+  const [recordList] = useState(bulkAppendRecords([], rawRecordList))
 
   const getMonthRecord = (month: string) => { // '2020年4月'
     return recordList.find(m => m.month === month)
   }
 
   return {
-    rawRecordList: DEFAULT_RECORDS,
+    rawRecordList,
+    setRawRecordList,
     recordList,
     appendRecord,
     bulkAppendRecords,

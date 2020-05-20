@@ -1,9 +1,9 @@
 import * as React from 'react'
+import {useState} from 'react'
 import styled from 'styled-components'
 import Icon from './Icon'
 import Category from './Category'
 import {DEFAULT_EXPENSE_CATEGORIES, DEFAULT_INCOME_CATEGORIES} from '../lib/category'
-import {useState} from 'react'
 import {TRecordType} from '../hooks/useRecordList'
 import Button from './Button'
 import NumberPad from './NumbePad'
@@ -98,6 +98,18 @@ const Money: React.FC<TProps> = (props) => {
     setAmount(parseFloat(newValue))
   }
 
+  const onOK = () => {
+    const newRawRecord = {
+      amount,
+      categoryId: selectedCategoryId,
+      date: new Date().toISOString(),
+      id: new Date().getTime().toString(),
+      note: '',
+      type: recordType
+    }
+    console.log('加入', newRawRecord)
+  }
+
   return (
     <div>
       <Header>
@@ -143,7 +155,7 @@ const Money: React.FC<TProps> = (props) => {
         <NumberPad value={amountString}
                    recordType={recordType}
                    onChange={onChangeAmount}
-                   onOK={() => {}}/>
+                   onOK={onOK}/>
       </NumberPadSection>
     </div>
   )
