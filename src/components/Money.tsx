@@ -113,6 +113,8 @@ const Money: React.FC<TProps> = (props) => {
 
     addRawRecord(newRawRecord)
 
+    closeDrawer()
+
     alert('已添加该记录')
   }
 
