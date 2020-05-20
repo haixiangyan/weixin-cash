@@ -58,7 +58,12 @@ const updateAmount = (prevValue: string, text: string) => {
 
   const newValue = prevValue + text
 
-  return parseFloat(newValue) > MAX_AMOUNT ? prevValue : newValue
+  if (parseFloat(newValue) > MAX_AMOUNT) {
+    alert(`输入金额不能超过${MAX_AMOUNT}`)
+    return prevValue
+  }
+
+  return newValue
 }
 
 const NumberPad: React.FC<TProps> = (props) => {
