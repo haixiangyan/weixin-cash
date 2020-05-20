@@ -17,7 +17,7 @@ const Header = styled.header`
 `
 
 const TypeSection = styled.section`
-  padding: 16px 24px;
+  padding: 16px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -108,7 +108,7 @@ const Money: React.FC<TProps> = (props) => {
             收入
           </Button>
         </div>
-        <Button>
+        <Button style={{marginRight: 0}}>
           <span style={{marginRight: 4}}>5月5号</span>
           <Icon name="dropdown" size={8}/>
         </Button>
@@ -121,7 +121,7 @@ const Money: React.FC<TProps> = (props) => {
         {
           DEFAULT_CATEGORIES.map((category => (
             <CategoryItem key={category.id}>
-              <Category category={category} recordType={recordType} size={18}/>
+              <Category category={category} recordType={recordType} size={20}/>
               <CategoryText>{category.name}</CategoryText>
             </CategoryItem>
           )))
