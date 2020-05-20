@@ -12,11 +12,11 @@ const StyledNumberPad = styled.div`
     float: left;
     width: 25%;
     height: 64px;
-    border: none;
     background: white;
     font-size: 1.3em;
     outline: none;
     border-radius: 4px;
+    border: 4px solid #FAFAFA;
     &.zero {
       width: 50%;
     }
@@ -94,7 +94,7 @@ const NumberPad: React.FC<TProps> = (props) => {
   }
 
   return (
-    <StyledNumberPad onClick={onClickPad}>
+    <StyledNumberPad className="clearfix" onClick={onClickPad}>
       <button>1</button>
       <button>2</button>
       <button>3</button>

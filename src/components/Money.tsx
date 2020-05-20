@@ -77,7 +77,7 @@ const NoteSection = styled.section`
 `
 
 const NumberPadSection = styled.section`
-  padding: 12px;
+  padding: 4px;
   background: #FAFAFA;
 `
 

@@ -26,3 +26,9 @@ a, button {
   fill: currentColor;
   overflow: hidden;
 }
+
+.clearfix::after {
+  content: '';
+  display: block;
+  clear: both;
+}
