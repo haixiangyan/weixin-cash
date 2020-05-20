@@ -1,6 +1,12 @@
 import * as React from 'react'
 import styled from 'styled-components'
 
+type TProps = {
+  value: string
+  onChange: (newValue: string) => void
+  onOK: () => void
+}
+
 const StyledNumberPad = styled.div`
   > button {
     float: left;
@@ -24,9 +30,54 @@ const StyledNumberPad = styled.div`
   }
 `
 
-const NumberPad: React.FC = () => {
+const updateAmount = (prevValue: string, text: string) => {
+  const MAX_AMOUNT = 100000
+  const MAX_DECIMAL_LENGTH = 2
+
+  // 非法情况
+  if (!/[\d.]/.test(text)) return prevValue
+
+  if (prevValue.includes('.')) {
+    // 如果 text 是 .
+    if (text === '.') return prevValue
+
+    // 如果是数字
+    if (!isNaN(parseFloat(text))) {
+      // 判断是否超出
+      const [integer, decimal] = prevValue.split('.')
+
+      return decimal.length >= MAX_DECIMAL_LENGTH ? prevValue : prevValue + text
+    }
+
+    return prevValue
+  }
+
+  if (prevValue === '0') {
+    return text === '.' ? prevValue + text : text
+  }
+
+  const newValue = prevValue + text
+  return parseFloat(newValue) > MAX_AMOUNT ? prevValue : newValue
+}
+
+const NumberPad: React.FC<TProps> = (props) => {
+  const {value, onOK, onChange} = props
+
+  const onClickPad = (e: React.MouseEvent<HTMLDivElement>) => {
+    const text = (e.target as HTMLButtonElement).textContent
+    // null
+    if (!text) return
+
+    // OK
+    if (text === 'OK') return onOK()
+
+    // 其他
+    const newValue = updateAmount(value, text)
+    onChange(newValue)
+  }
+
   return (
-    <StyledNumberPad>
+    <StyledNumberPad onClick={onClickPad}>
       <button>1</button>
       <button>2</button>
       <button>3</button>
