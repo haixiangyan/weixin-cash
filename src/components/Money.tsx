@@ -6,6 +6,7 @@ import {DEFAULT_CATEGORIES} from '../lib/category'
 import {useState} from 'react'
 import {TRecordType} from '../hooks/useRecordList'
 import Button from './Button'
+import NumberPad from './NumbePad'
 
 type TProps = {
   closeDrawer: () => void
@@ -30,13 +31,14 @@ const AmountSection = styled.section`
   > span {
     font-size: 2.5em;
   }
-  > input {
+  > div {
     padding-left: 8px;
     flex-grow: 1;
     border: none;
     outline: none;
     height: 64px;
     font-size: 2em;
+    line-height: 2em;
     text-align: right;
   }
 `
@@ -74,9 +76,21 @@ const NoteSection = styled.section`
   }
 `
 
+const NumberPadSection = styled.section`
+  padding: 12px;
+  background: #FAFAFA;
+`
+
 const Money: React.FC<TProps> = (props) => {
   const {closeDrawer} = props
   const [type] = useState<TRecordType>('income')
+  const [amount, setAmount] = useState(0)
+  const [amountString, setAmountString] = useState('0')
+
+  const onChangeAmount = (newValue: string) => {
+    setAmountString(newValue)
+    setAmount(parseFloat(newValue))
+  }
 
   return (
     <div>
@@ -86,7 +100,7 @@ const Money: React.FC<TProps> = (props) => {
       <TypeSection>
         <div>
           <Button type={type === 'expense' ? 'success' : 'none'}>支出</Button>
-          <Button type={type === 'income' ? 'warning': 'none'}>收入</Button>
+          <Button type={type === 'income' ? 'warning' : 'none'}>收入</Button>
         </div>
         <Button>
           <span style={{marginRight: 4}}>5月5号</span>
@@ -95,7 +109,7 @@ const Money: React.FC<TProps> = (props) => {
       </TypeSection>
       <AmountSection>
         <span>￥</span>
-        <input type="text"/>
+        <div>{amountString}</div>
       </AmountSection>
       <CategoryList>
         {
@@ -110,9 +124,11 @@ const Money: React.FC<TProps> = (props) => {
       <NoteSection>
         <span>添加备注</span>
       </NoteSection>
-      <div>
-        数字面板
-      </div>
+      <NumberPadSection>
+        <NumberPad value={amountString}
+                   onChange={onChangeAmount}
+                   onOK={() => {}}/>
+      </NumberPadSection>
     </div>
   )
 }
