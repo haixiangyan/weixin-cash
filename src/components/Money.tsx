@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import Icon from './Icon'
 import Category from './Category'
 import {DEFAULT_EXPENSE_CATEGORIES, DEFAULT_INCOME_CATEGORIES} from '../lib/category'
-import {TRecordType} from '../hooks/useRecordList'
+import useRecordList, {TRecordType} from '../hooks/useRecordList'
 import Button from './Button'
 import NumberPad from './NumbePad'
 
@@ -86,6 +86,7 @@ const NumberPadSection = styled.section`
 
 const Money: React.FC<TProps> = (props) => {
   const {closeDrawer} = props
+  const {addRawRecord} = useRecordList()
   const [recordType, setRecordType] = useState<TRecordType>('expense')
   const [selectedCategoryId, setSelectedCategoryId] = useState<number>(DEFAULT_EXPENSE_CATEGORIES[0].id)
   const [amount, setAmount] = useState(0)
@@ -99,6 +100,8 @@ const Money: React.FC<TProps> = (props) => {
   }
 
   const onOK = () => {
+    if (amount === 0) return alert('金额不能为0')
+
     const newRawRecord = {
       amount,
       categoryId: selectedCategoryId,
@@ -107,7 +110,10 @@ const Money: React.FC<TProps> = (props) => {
       note: '',
       type: recordType
     }
-    console.log('加入', newRawRecord)
+
+    addRawRecord(newRawRecord)
+
+    alert('已添加该记录')
   }
 
   return (

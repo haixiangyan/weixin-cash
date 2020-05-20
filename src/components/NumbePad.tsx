@@ -91,7 +91,7 @@ const NumberPad: React.FC<TProps> = (props) => {
     if (!text) return
 
     // OK
-    if (text === 'OK') return onOK()
+    if (text === '确定') return onOK()
 
     // Del
     if (text === 'Del') return onDel()

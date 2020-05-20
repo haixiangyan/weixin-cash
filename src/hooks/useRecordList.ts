@@ -1,5 +1,5 @@
 import dayjs from 'dayjs'
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import {DAY, MONTH} from '../lib/date'
 
 export type TRecordType = 'expense' | 'income'
@@ -107,17 +107,32 @@ export const bulkAppendRecords = (prevRecordList: TMonthRecord[], rawRecordList:
   return recordList
 }
 
-const fetchRawRecordList = (): TRawRecord[] => {
-  const rawString = window.localStorage.getItem('rawRecordList')
-  return !rawString ? DEFAULT_RECORDS : JSON.parse(rawString)
-}
-
 const useRecordList = () => {
-  const [rawRecordList, setRawRecordList] = useState(fetchRawRecordList())
-  const [recordList] = useState(bulkAppendRecords([], rawRecordList))
+  const ITEM_NAME = 'rawRecordList'
+  const [rawRecordList, setRawRecordList] = useState<TRawRecord[]>([])
+  const [recordList, setRecordList] = useState<TMonthRecord[]>([])
+
+  // 获取 raw record list
+  useEffect(() => {
+    const rawString = window.localStorage.getItem(ITEM_NAME)
+
+    const rawRecordList = !rawString ? DEFAULT_RECORDS : JSON.parse(rawString)
+
+    setRawRecordList(rawRecordList)
+    setRecordList(bulkAppendRecords([], rawRecordList))
+  }, [])
 
   const getMonthRecord = (month: string) => { // '2020年4月'
     return recordList.find(m => m.month === month)
+  }
+
+  const addRawRecord = (rawRecord: TRawRecord) => {
+    const newRawRecord = [rawRecord, ...rawRecordList]
+
+    window.localStorage.setItem(ITEM_NAME, JSON.stringify(newRawRecord))
+
+    setRawRecordList(newRawRecord)
+    setRecordList(bulkAppendRecords([], newRawRecord))
   }
 
   return {
@@ -126,6 +141,7 @@ const useRecordList = () => {
     recordList,
     appendRecord,
     bulkAppendRecords,
+    addRawRecord,
     getMonthRecord
   }
 }
