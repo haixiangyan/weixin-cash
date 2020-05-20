@@ -37,7 +37,7 @@ const Drawer: React.FC<TProps> = (props) => {
 
   return (
     <Shadow show={show} onClick={onClickShadow}>
-      <Main show={show}>
+      <Main show={show} onClick={e => e.stopPropagation()}>
         {props.children}
       </Main>
     </Shadow>

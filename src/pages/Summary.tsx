@@ -10,6 +10,7 @@ import Sticker from '../components/Sticker'
 import theme from '../theme'
 import Drawer from '../components/Drawer'
 import {useState} from 'react'
+import Money from '../components/Money'
 
 const StyledSummary = styled.div`
   height: 100%;
@@ -66,7 +67,7 @@ const RecordList = styled.ul`
 
 const Summary: React.FC = () => {
   const {recordList} = useRecordList()
-  const [showLedgerForm, setShowLedgerForm] = useState(false)
+  const [showLedgerForm, setShowLedgerForm] = useState(true)
 
   const {incomeTotal, expenseTotal} = recordList[0]
   const curtMonth = dayjs().format(MONTH)
@@ -112,7 +113,7 @@ const Summary: React.FC = () => {
 
       <Drawer show={showLedgerForm}
               onClickShadow={() => setShowLedgerForm(false)}>
-        hello
+        <Money closeDrawer={() => setShowLedgerForm(false)}/>
       </Drawer>
     </StyledSummary>
   )
