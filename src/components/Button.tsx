@@ -2,12 +2,12 @@ import * as React from 'react'
 import styled from 'styled-components'
 import theme from '../theme'
 
-type TProps = {
-  type?: 'success' | 'warning' | 'none'
+type TProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+  recordType?: 'success' | 'warning' | 'none'
 }
 
 type TStyledButton = {
-  _type: 'success' | 'warning' | 'none'
+  recordType: 'success' | 'warning' | 'none'
 }
 
 const BUTTON_COLOR = {
@@ -29,7 +29,7 @@ const BUTTON_COLOR = {
 }
 
 const StyledButton = styled.button<TStyledButton>(props => {
-  const {background, borderColor, color} = BUTTON_COLOR[props._type!]
+  const {background, borderColor, color} = BUTTON_COLOR[props.recordType!]
 
   return {
     display: 'inline-flex',
@@ -37,6 +37,7 @@ const StyledButton = styled.button<TStyledButton>(props => {
     justifyContent: 'center',
     padding: '4px 12px',
     background,
+    outline: 'none',
     borderRadius: '16px',
     marginRight: '8px',
     border: `1px solid ${borderColor}`,
@@ -45,17 +46,17 @@ const StyledButton = styled.button<TStyledButton>(props => {
 })
 
 const Button: React.FC<TProps> = (props) => {
-  const {type} = props
+  const {recordType, ...attributes} = props
 
   return (
-    <StyledButton _type={type!}>
+    <StyledButton {...attributes} recordType={recordType!}>
       {props.children}
     </StyledButton>
   )
 }
 
 Button.defaultProps = {
-  type: 'none'
+  recordType: 'none'
 }
 
 export default Button

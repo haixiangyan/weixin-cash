@@ -83,7 +83,7 @@ const NumberPadSection = styled.section`
 
 const Money: React.FC<TProps> = (props) => {
   const {closeDrawer} = props
-  const [type] = useState<TRecordType>('income')
+  const [recordType, setRecordType] = useState<TRecordType>('expense')
   const [amount, setAmount] = useState(0)
   const [amountString, setAmountString] = useState('0')
 
@@ -99,8 +99,14 @@ const Money: React.FC<TProps> = (props) => {
       </Header>
       <TypeSection>
         <div>
-          <Button type={type === 'expense' ? 'success' : 'none'}>支出</Button>
-          <Button type={type === 'income' ? 'warning' : 'none'}>收入</Button>
+          <Button recordType={recordType === 'expense' ? 'success' : 'none'}
+                  onClick={() => setRecordType('expense')}>
+            支出
+          </Button>
+          <Button recordType={recordType === 'income' ? 'warning' : 'none'}
+                  onClick={() => setRecordType('income')}>
+            收入
+          </Button>
         </div>
         <Button>
           <span style={{marginRight: 4}}>5月5号</span>
