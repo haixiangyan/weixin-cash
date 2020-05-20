@@ -113,14 +113,16 @@ const useRecordList = () => {
   const [recordList, setRecordList] = useState<TMonthRecord[]>([])
 
   // 获取 raw record list
-  useEffect(() => {
+  useEffect(() => fetchData(), [])
+
+  const fetchData = () => {
     const rawString = window.localStorage.getItem(ITEM_NAME)
 
     const rawRecordList = !rawString ? DEFAULT_RECORDS : JSON.parse(rawString)
 
     setRawRecordList(rawRecordList)
     setRecordList(bulkAppendRecords([], rawRecordList))
-  }, [])
+  }
 
   const getMonthRecord = (month: string) => { // '2020年4月'
     return recordList.find(m => m.month === month)
@@ -142,7 +144,8 @@ const useRecordList = () => {
     appendRecord,
     bulkAppendRecords,
     addRawRecord,
-    getMonthRecord
+    getMonthRecord,
+    fetchData
   }
 }
 

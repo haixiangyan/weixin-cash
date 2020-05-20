@@ -66,11 +66,16 @@ const RecordList = styled.ul`
 `
 
 const Summary: React.FC = () => {
-  const {recordList} = useRecordList()
+  const {recordList, fetchData} = useRecordList()
   const [showLedgerForm, setShowLedgerForm] = useState(false)
 
   const {incomeTotal, expenseTotal} = {incomeTotal: 100, expenseTotal: 200}
   const curtMonth = dayjs().format(MONTH)
+
+  const closeDrawer = () => {
+    fetchData()
+    setShowLedgerForm(false)
+  }
 
   return (
     <StyledSummary>
@@ -112,8 +117,8 @@ const Summary: React.FC = () => {
       </Sticker>
 
       <Drawer show={showLedgerForm}
-              onClickShadow={() => setShowLedgerForm(false)}>
-        <Money closeDrawer={() => setShowLedgerForm(false)}/>
+              onClickShadow={closeDrawer}>
+        <Money closeDrawer={closeDrawer}/>
       </Drawer>
     </StyledSummary>
   )
