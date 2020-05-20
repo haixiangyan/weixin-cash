@@ -12,7 +12,7 @@ type TCategory = {
 
 type TProps = {
   category: TCategory
-  type: TRecordType | 'none'
+  recordType: TRecordType | 'none'
   size?: number
 }
 
@@ -34,9 +34,9 @@ const StyledCategory = styled.span<TStyledCategory>(props =>({
 }))
 
 const Category: React.FC<TProps> = (props) => {
-  const {category, type, size} = props
+  const {category, recordType, size} = props
 
-  const color = CATEGORY_COLOR[type]
+  const color = CATEGORY_COLOR[recordType]
 
   return (
     <StyledCategory {...color}>

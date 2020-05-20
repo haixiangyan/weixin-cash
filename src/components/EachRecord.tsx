@@ -41,7 +41,7 @@ const EachRecord: React.FC<TProps> = (props) => {
   return (
     <li>
       <StyledEachRecord to={`/record/${id}`}>
-        <Category category={category!} type={type}/>
+        <Category category={category!} recordType={type}/>
         <div className="record-content">
           <div>其他</div>
           <div className="record-content-details">

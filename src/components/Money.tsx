@@ -121,7 +121,7 @@ const Money: React.FC<TProps> = (props) => {
         {
           DEFAULT_CATEGORIES.map((category => (
             <CategoryItem key={category.id}>
-              <Category category={category} type="expense" size={18}/>
+              <Category category={category} recordType={recordType} size={18}/>
               <CategoryText>{category.name}</CategoryText>
             </CategoryItem>
           )))
@@ -132,6 +132,7 @@ const Money: React.FC<TProps> = (props) => {
       </NoteSection>
       <NumberPadSection>
         <NumberPad value={amountString}
+                   recordType={recordType}
                    onChange={onChangeAmount}
                    onOK={() => {}}/>
       </NumberPadSection>

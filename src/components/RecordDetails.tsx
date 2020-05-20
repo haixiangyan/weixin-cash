@@ -69,7 +69,7 @@ const RecordDetails: React.FC<TProps> = (props) => {
   return (
     <StyledRecordDetails>
       <CategorySection>
-        <Category category={category} type={type} size={14}/>
+        <Category category={category} recordType={type} size={14}/>
         <span style={{marginLeft: 8}}>{category.name}</span>
       </CategorySection>
       <h3>
