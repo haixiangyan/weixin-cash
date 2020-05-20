@@ -57,11 +57,20 @@ const updateAmount = (prevValue: string, text: string) => {
   }
 
   const newValue = prevValue + text
+
   return parseFloat(newValue) > MAX_AMOUNT ? prevValue : newValue
 }
 
 const NumberPad: React.FC<TProps> = (props) => {
   const {value, onOK, onChange} = props
+
+  const onDel = () => {
+    if (value === '0') return
+
+    if (value.length === 1) return onChange('0')
+
+    onChange(value.slice(0, -1))
+  }
 
   const onClickPad = (e: React.MouseEvent<HTMLDivElement>) => {
     const text = (e.target as HTMLButtonElement).textContent
@@ -70,6 +79,9 @@ const NumberPad: React.FC<TProps> = (props) => {
 
     // OK
     if (text === 'OK') return onOK()
+
+    // Del
+    if (text === 'Del') return onDel()
 
     // 其他
     const newValue = updateAmount(value, text)
