@@ -67,7 +67,7 @@ const RecordList = styled.ul`
 
 const Summary: React.FC = () => {
   const {recordList} = useRecordList()
-  const [showLedgerForm, setShowLedgerForm] = useState(true)
+  const [showLedgerForm, setShowLedgerForm] = useState(false)
 
   const {incomeTotal, expenseTotal} = {incomeTotal: 100, expenseTotal: 200}
   const curtMonth = dayjs().format(MONTH)
