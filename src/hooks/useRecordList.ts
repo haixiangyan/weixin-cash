@@ -131,12 +131,12 @@ const useRecordList = () => {
   }
 
   const addRawRecord = (rawRecord: TRawRecord) => {
-    const newRawRecord = [rawRecord, ...rawRecordList]
+    const newRawRecordList = [rawRecord, ...rawRecordList]
 
-    window.localStorage.setItem(ITEM_NAME, JSON.stringify(newRawRecord))
+    window.localStorage.setItem(ITEM_NAME, JSON.stringify(newRawRecordList))
 
-    setRawRecordList(newRawRecord)
-    setRecordList(bulkAppendRecords([], newRawRecord))
+    setRawRecordList(newRawRecordList)
+    setRecordList(bulkAppendRecords([], newRawRecordList))
   }
 
   const filterRecordList = (categoryId: number, month: Dayjs) => {
@@ -152,13 +152,39 @@ const useRecordList = () => {
   }
 
   const deleteRecord = (id: string) => {
-    const newRawRecord = rawRecordList.filter(r => r.id !== id)
+    const newRawRecordList = rawRecordList.filter(r => r.id !== id)
 
     // 保存
-    window.localStorage.setItem(ITEM_NAME, JSON.stringify(newRawRecord))
+    window.localStorage.setItem(ITEM_NAME, JSON.stringify(newRawRecordList))
 
-    setRawRecordList(newRawRecord)
-    setRecordList(bulkAppendRecords([], newRawRecord))
+    setRawRecordList(newRawRecordList)
+    setRecordList(bulkAppendRecords([], newRawRecordList))
+  }
+
+  const editRecord = (rawRecord: TRawRecord) => {
+    const copy: TRawRecord[] = JSON.parse(JSON.stringify(rawRecordList))
+    let index = -1
+
+    // 找到该 record
+    copy.some((r, i) => {
+      if (r.id === rawRecord.id) {
+        index = i
+        return true
+      }
+      return false
+    })
+
+    const newRawRecordList = [
+      ...copy.slice(index),
+      {...rawRecord},
+      ...copy.slice(index + 1, copy.length)
+    ]
+
+    // 保存
+    window.localStorage.setItem(ITEM_NAME, JSON.stringify(newRawRecordList))
+
+    setRawRecordList(newRawRecordList)
+    setRecordList(bulkAppendRecords([], newRawRecordList))
   }
 
   return {
@@ -171,7 +197,8 @@ const useRecordList = () => {
     getMonthRecord,
     fetchData,
     filterRecordList,
-    deleteRecord
+    deleteRecord,
+    editRecord
   }
 }
 

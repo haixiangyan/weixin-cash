@@ -8,6 +8,7 @@ import Button from './Button'
 import NumberPad from './NumbePad'
 
 type TProps = {
+  value?: TRawRecord
   closeDrawer: () => void
   onSubmit: (newRawRecord: TRawRecord) => void
 }
@@ -83,13 +84,13 @@ const NumberPadSection = styled.section`
 `
 
 const Money: React.FC<TProps> = (props) => {
-  const {closeDrawer, onSubmit} = props
+  const {closeDrawer, onSubmit, value} = props
 
-  const [note, setNote] = useState('')
-  const [recordType, setRecordType] = useState<TRecordType>('expense')
-  const [selectedCategoryId, setSelectedCategoryId] = useState<number>(DEFAULT_EXPENSE_CATEGORIES[0].id)
-  const [amount, setAmount] = useState(0)
-  const [amountString, setAmountString] = useState('0')
+  const [note, setNote] = useState(value ? value.note : '')
+  const [recordType, setRecordType] = useState<TRecordType>(value ? value.type : 'expense')
+  const [selectedCategoryId, setSelectedCategoryId] = useState<number>(value ? value.categoryId : DEFAULT_EXPENSE_CATEGORIES[0].id)
+  const [amount, setAmount] = useState(value ? value.amount : 0)
+  const [amountString, setAmountString] = useState(value ? value.amount.toString() : '0')
 
   const categories = recordType === 'expense' ? DEFAULT_EXPENSE_CATEGORIES : DEFAULT_INCOME_CATEGORIES
 
