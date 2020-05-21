@@ -10,6 +10,7 @@ import Icon from './Icon'
 
 type TProps = {
   rawRecord: TRawRecord
+  onDelete: (id: string) => void
 }
 
 const StyledRecordDetails = styled.div`
@@ -61,10 +62,17 @@ const ActionSection = styled.section`
 `
 
 const RecordDetails: React.FC<TProps> = (props) => {
-  const {amount, type, date, note, categoryId} = props.rawRecord
+  const {rawRecord, onDelete} = props
+  const {id, amount, type, date, note, categoryId} = rawRecord
 
   const category = DEFAULT_EXPENSE_CATEGORIES.find(c => c.id === categoryId)
   if (!category) return <div>页面出错</div>
+
+  const deleteRecord = () => {
+    if (!window.confirm('删除后无法恢复，是否删除？')) return
+
+    onDelete(id)
+  }
 
   return (
     <StyledRecordDetails>
@@ -89,7 +97,7 @@ const RecordDetails: React.FC<TProps> = (props) => {
         </tbody>
       </DetailsTable>
       <ActionSection>
-        <DeleteButton>
+        <DeleteButton onClick={deleteRecord}>
           <Icon name="trash"/>
           <span style={{marginLeft: 8}}>删除</span>
         </DeleteButton>

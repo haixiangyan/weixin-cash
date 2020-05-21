@@ -18,13 +18,22 @@ const Main = styled.section`
 `
 
 const Details: React.FC = () => {
-  const {goBack} = useHistory()
+  const {goBack, push} = useHistory()
   const {id} = useParams<TParams>()
 
-  const {rawRecordList} = useRecordList()
+  const {rawRecordList, deleteRecord} = useRecordList()
 
+  // 是否找到该 record
   const rawRecord = rawRecordList.find(r => r.id === id)
   if (!rawRecord) return <div>页面出错</div>
+
+  const onDelete = (id: string) => {
+    deleteRecord(id)
+
+    push('/')
+
+    alert('删除成功')
+  }
 
   return (
     <div>
@@ -33,7 +42,7 @@ const Details: React.FC = () => {
       </Header>
 
       <Main>
-        <RecordDetails rawRecord={rawRecord}/>
+        <RecordDetails onDelete={onDelete} rawRecord={rawRecord}/>
       </Main>
     </div>
   )

@@ -151,6 +151,16 @@ const useRecordList = () => {
     return bulkAppendRecords([], filtered)
   }
 
+  const deleteRecord = (id: string) => {
+    const newRawRecord = rawRecordList.filter(r => r.id !== id)
+
+    // 保存
+    window.localStorage.setItem(ITEM_NAME, JSON.stringify(newRawRecord))
+
+    setRawRecordList(newRawRecord)
+    setRecordList(bulkAppendRecords([], newRawRecord))
+  }
+
   return {
     rawRecordList,
     setRawRecordList,
@@ -160,7 +170,8 @@ const useRecordList = () => {
     addRawRecord,
     getMonthRecord,
     fetchData,
-    filterRecordList
+    filterRecordList,
+    deleteRecord
   }
 }
 
