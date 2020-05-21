@@ -10,7 +10,7 @@ import NumberPad from './NumbePad'
 
 type TProps = {
   closeDrawer: () => void
-  submit: (newRawRecord: TRawRecord) => void
+  onSubmit: (newRawRecord: TRawRecord) => void
 }
 
 const Header = styled.header`
@@ -86,7 +86,9 @@ const NumberPadSection = styled.section`
 `
 
 const Money: React.FC<TProps> = (props) => {
-  const {closeDrawer, submit} = props
+  const {closeDrawer, onSubmit} = props
+
+  const [note, setNote] = useState('')
   const [recordType, setRecordType] = useState<TRecordType>('expense')
   const [selectedCategoryId, setSelectedCategoryId] = useState<number>(DEFAULT_EXPENSE_CATEGORIES[0].id)
   const [amount, setAmount] = useState(0)
@@ -99,6 +101,11 @@ const Money: React.FC<TProps> = (props) => {
     setAmount(parseFloat(newValue))
   }
 
+  const addNote = () => {
+    const newNote = prompt('添加备注', '') || ''
+    setNote(newNote)
+  }
+
   const onOK = () => {
     if (amount === 0) return alert('金额不能为0')
 
@@ -107,11 +114,11 @@ const Money: React.FC<TProps> = (props) => {
       categoryId: selectedCategoryId,
       date: new Date().toISOString(),
       id: new Date().getTime().toString(),
-      note: '',
+      note,
       type: recordType
     }
 
-    submit(newRawRecord)
+    onSubmit(newRawRecord)
 
     closeDrawer()
 
@@ -157,7 +164,7 @@ const Money: React.FC<TProps> = (props) => {
         }
       </CategoryList>
       <NoteSection>
-        <span>添加备注</span>
+        <span onClick={addNote}>添加备注</span>
       </NoteSection>
       <NumberPadSection>
         <NumberPad value={amountString}

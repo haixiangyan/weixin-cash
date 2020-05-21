@@ -29,6 +29,7 @@ const Main = styled.div<TStyledMain>(() => ({
   zIndex: 5,
   borderRadius: '8px 8px 0 0',
   background: 'white',
+  overflow: 'hidden'
 }))
 
 

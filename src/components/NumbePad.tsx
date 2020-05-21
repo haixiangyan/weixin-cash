@@ -52,7 +52,7 @@ const updateAmount = (prevValue: string, text: string) => {
     // 如果是数字
     if (!isNaN(parseFloat(text))) {
       // 判断是否超出
-      const [integer, decimal] = prevValue.split('.')
+      const decimal = prevValue.split('.')[1]
 
       return decimal.length >= MAX_DECIMAL_LENGTH ? prevValue : prevValue + text
     }
