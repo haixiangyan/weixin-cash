@@ -21,7 +21,6 @@ const TypeSection = styled.section`
   padding: 16px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
 `
 
 const AmountSection = styled.section`
@@ -139,19 +138,13 @@ const Money: React.FC<TProps> = (props) => {
         <Icon onClick={closeDrawer} name="cancel" size={18}/>
       </Header>
       <TypeSection>
-        <div>
-          <Button recordType={recordType === 'expense' ? 'success' : 'none'}
-                  onClick={() => setRecordType('expense')}>
-            支出
-          </Button>
-          <Button recordType={recordType === 'income' ? 'warning' : 'none'}
-                  onClick={() => setRecordType('income')}>
-            收入
-          </Button>
-        </div>
-        <Button style={{marginRight: 0}}>
-          <span style={{marginRight: 4}}>5月5号</span>
-          <Icon name="dropdown" size={8}/>
+        <Button recordType={recordType === 'expense' ? 'success' : 'none'}
+                onClick={() => setRecordType('expense')}>
+          支出
+        </Button>
+        <Button recordType={recordType === 'income' ? 'warning' : 'none'}
+                onClick={() => setRecordType('income')}>
+          收入
         </Button>
       </TypeSection>
       <AmountSection>

@@ -75,7 +75,7 @@ const Empty = styled.div`
 `
 
 const Summary: React.FC = () => {
-  const [showMonth, toggleMonth] = useState(true)
+  const [showMonth, toggleMonth] = useState(false)
   const [showFilter, toggleFilter] = useState(false)
   const [showMoney, toggleMoney] = useState(false)
 
