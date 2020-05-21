@@ -86,13 +86,22 @@ const NumberPadSection = styled.section`
 const Money: React.FC<TProps> = (props) => {
   const {closeDrawer, onSubmit, value} = props
 
-  const [note, setNote] = useState(value ? value.note : '')
-  const [recordType, setRecordType] = useState<TRecordType>(value ? value.type : 'expense')
-  const [selectedCategoryId, setSelectedCategoryId] = useState<number>(value ? value.categoryId : DEFAULT_EXPENSE_CATEGORIES[0].id)
-  const [amount, setAmount] = useState(value ? value.amount : 0)
-  const [amountString, setAmountString] = useState(value ? value.amount.toString() : '0')
+  const rawRecord: TRawRecord = value ? value : {
+    date: new Date().toISOString(),
+    id: new Date().getTime().toString(),
+    amount: 0,
+    categoryId: 1,
+    note: '',
+    type: 'expense'
+  }
 
-  const categories = recordType === 'expense' ? DEFAULT_EXPENSE_CATEGORIES : DEFAULT_INCOME_CATEGORIES
+  const [note, setNote] = useState(rawRecord.note)
+  const [type, setType] = useState<TRecordType>(rawRecord.type)
+  const [categoryId, setCategoryId] = useState<number>(rawRecord.categoryId)
+  const [amount, setAmount] = useState(rawRecord.amount)
+  const [amountString, setAmountString] = useState(rawRecord.amount.toString())
+
+  const categories = type === 'expense' ? DEFAULT_EXPENSE_CATEGORIES : DEFAULT_INCOME_CATEGORIES
 
   const onChangeAmount = (newValue: string) => {
     setAmountString(newValue)
@@ -113,30 +122,27 @@ const Money: React.FC<TProps> = (props) => {
     if (amount === 0) return alert('金额不能为0')
 
     const newRawRecord = {
+      ...rawRecord,
       amount,
-      categoryId: selectedCategoryId,
-      date: new Date().toISOString(),
-      id: new Date().getTime().toString(),
+      categoryId,
       note,
-      type: recordType
+      type
     }
 
     onSubmit(newRawRecord)
 
     closeDrawer()
-
-    alert('已添加该记录')
   }
 
   return (
     <div>
       <TypeSection>
-        <Button recordType={recordType === 'expense' ? 'success' : 'none'}
-                onClick={() => setRecordType('expense')}>
+        <Button recordType={type === 'expense' ? 'success' : 'none'}
+                onClick={() => setType('expense')}>
           支出
         </Button>
-        <Button recordType={recordType === 'income' ? 'warning' : 'none'}
-                onClick={() => setRecordType('income')}>
+        <Button recordType={type === 'income' ? 'warning' : 'none'}
+                onClick={() => setType('income')}>
           收入
         </Button>
       </TypeSection>
@@ -148,9 +154,9 @@ const Money: React.FC<TProps> = (props) => {
         {
           categories.map((category => (
             <CategoryItem key={category.id}
-                          onClick={() => setSelectedCategoryId(category.id)}>
+                          onClick={() => setCategoryId(category.id)}>
               <Category category={category}
-                        recordType={selectedCategoryId === category.id ? recordType : 'none'}
+                        recordType={categoryId === category.id ? type : 'none'}
                         size={20}/>
               <CategoryText>{category.name}</CategoryText>
             </CategoryItem>
@@ -163,7 +169,7 @@ const Money: React.FC<TProps> = (props) => {
       </NoteSection>
       <NumberPadSection>
         <NumberPad value={amountString}
-                   recordType={recordType}
+                   recordType={type}
                    onChange={onChangeAmount}
                    onOK={onOK}/>
       </NumberPadSection>

@@ -42,6 +42,8 @@ const Details: React.FC = () => {
 
   const onEdit = (rawRecord: TRawRecord) => {
     editRecord(rawRecord)
+
+    alert('修改成功')
   }
 
   return (

@@ -175,9 +175,9 @@ const useRecordList = () => {
     })
 
     const newRawRecordList = [
-      ...copy.slice(index),
+      ...copy.slice(0, index),
       {...rawRecord},
-      ...copy.slice(index + 1, copy.length)
+      ...copy.slice(index + 1)
     ]
 
     // 保存
