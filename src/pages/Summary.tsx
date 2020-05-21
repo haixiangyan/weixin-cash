@@ -12,6 +12,7 @@ import theme from '../theme'
 import Drawer from '../components/Drawer'
 import Money from '../components/Money'
 import CategoryFilter from '../components/CategoryFilter'
+import {ALL_CATEGORIES} from '../lib/category'
 
 const StyledSummary = styled.div`
   height: 100%;
@@ -74,12 +75,14 @@ const Empty = styled.div`
 
 const Summary: React.FC = () => {
   // Category 的 filter
-  const [filter, setFilter] = useState(-1)
+  const [filterId, setFilterId] = useState(-1)
   const [showFilter, toggleFilter] = useState(false)
   const {fetchData, addRawRecord, filterRecordList} = useRecordList()
   const [showMoney, toggleMoney] = useState(false)
 
-  const recordList = filterRecordList(filter)
+  const recordList = filterRecordList(filterId)
+
+  const filter = ALL_CATEGORIES.find(c => c.id === filterId)
 
   const {incomeTotal, expenseTotal} = {incomeTotal: 100, expenseTotal: 200}
   const curtMonth = dayjs().format(MONTH)
@@ -96,7 +99,7 @@ const Summary: React.FC = () => {
 
         <section>
           <TypeButton onClick={() => toggleFilter(true)}>
-            <span>全部类型</span>
+            <span>{filter ? filter.name : '全部类型'}</span>
             <Divider color="#68C895"/>
             <Icon color="#edf5ed" name="application"/>
           </TypeButton>
@@ -117,7 +120,7 @@ const Summary: React.FC = () => {
       </Header>
 
       {
-        recordList.length === 0 ?
+        recordList.length !== 0 ?
           <RecordList>
             {
               recordList.map(monthRecord => (
@@ -136,9 +139,9 @@ const Summary: React.FC = () => {
       {/*过滤 Category*/}
       <Drawer show={showFilter}
               onClickShadow={() => toggleFilter(false)}>
-        <CategoryFilter value={filter}
+        <CategoryFilter value={filterId}
                         closeDrawer={() => toggleFilter(false)}
-                        onSubmit={(id) => setFilter(id)}/>
+                        onSubmit={(id) => setFilterId(id)}/>
       </Drawer>
 
       {/*记账*/}
