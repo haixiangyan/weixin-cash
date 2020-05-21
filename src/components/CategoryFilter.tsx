@@ -1,5 +1,4 @@
 import * as React from 'react'
-import Icon from './Icon'
 import styled from 'styled-components'
 import {ALL_TYPE, DEFAULT_EXPENSE_CATEGORIES, DEFAULT_INCOME_CATEGORIES} from '../lib/category'
 
@@ -13,17 +12,7 @@ type TCategoryItem = {
   selected: boolean
 }
 
-const Header = styled.header`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px;
-  border-bottom: 1px solid #eee;
-  font-size: ${props => props.theme.$largeTextSize};
-  background:  #FAFAFA;
-`
-
-const Main = styled.section`
+const StyledCategoryFilter = styled.section`
   max-height: 48vh;
   padding: 32px 16px;
   background:  #FAFAFA;
@@ -67,44 +56,37 @@ const CategoryFilter: React.FC<TProps> = (props) => {
   }
 
   return (
-    <div>
-      <Header>
-        <Icon onClick={closeDrawer} name="cancel" size={18}/>
-        <span>请选择类型</span>
-        <Icon name="cancel" color="transparent"/>
-      </Header>
-      <Main>
-        <CategoryItem selected={value === -1} onClick={() => submit(ALL_TYPE)}>
-          全部类型
-        </CategoryItem>
+    <StyledCategoryFilter>
+      <CategoryItem selected={value === -1} onClick={() => submit(ALL_TYPE)}>
+        全部类型
+      </CategoryItem>
 
-        <Tag>支出</Tag>
-        <FilterSection>
-          {
-            DEFAULT_EXPENSE_CATEGORIES.map(c => (
-              <CategoryItem key={c.id}
-                            onClick={() => submit(c.id)}
-                            selected={value === c.id}>
-                {c.name}
-              </CategoryItem>
-            ))
-          }
-        </FilterSection>
+      <Tag>支出</Tag>
+      <FilterSection>
+        {
+          DEFAULT_EXPENSE_CATEGORIES.map(c => (
+            <CategoryItem key={c.id}
+                          onClick={() => submit(c.id)}
+                          selected={value === c.id}>
+              {c.name}
+            </CategoryItem>
+          ))
+        }
+      </FilterSection>
 
-        <Tag>收入</Tag>
-        <FilterSection>
-          {
-            DEFAULT_INCOME_CATEGORIES.map(c => (
-              <CategoryItem key={c.id}
-                            onClick={() => submit(c.id)}
-                            selected={value === c.id}>
-                {c.name}
-              </CategoryItem>
-            ))
-          }
-        </FilterSection>
-      </Main>
-    </div>
+      <Tag>收入</Tag>
+      <FilterSection>
+        {
+          DEFAULT_INCOME_CATEGORIES.map(c => (
+            <CategoryItem key={c.id}
+                          onClick={() => submit(c.id)}
+                          selected={value === c.id}>
+              {c.name}
+            </CategoryItem>
+          ))
+        }
+      </FilterSection>
+    </StyledCategoryFilter>
   )
 }
 

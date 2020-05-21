@@ -139,7 +139,8 @@ const Summary: React.FC = () => {
 
       {/*选择月份*/}
       <Drawer show={showMonth}
-              onClickShadow={() => toggleMonth(false)}>
+              title="请选择月份"
+              closeDrawer={() => toggleMonth(false)}>
         <MonthPanel value={month}
                     closeDrawer={() => toggleMonth(false)}
                     onSubmit={(newMonth: Dayjs) => setMonth(newMonth)}/>
@@ -147,7 +148,7 @@ const Summary: React.FC = () => {
 
       {/*过滤 Category*/}
       <Drawer show={showFilter}
-              onClickShadow={() => toggleFilter(false)}>
+              closeDrawer={() => toggleFilter(false)}>
         <CategoryFilter value={filterId}
                         closeDrawer={() => toggleFilter(false)}
                         onSubmit={(id) => setFilterId(id)}/>
@@ -155,7 +156,7 @@ const Summary: React.FC = () => {
 
       {/*记账*/}
       <Drawer show={showMoney}
-              onClickShadow={closeMoney}>
+              closeDrawer={closeMoney}>
         <Money closeDrawer={closeMoney}
                onSubmit={(newRawRecord) => addRawRecord(newRawRecord)}/>
       </Drawer>

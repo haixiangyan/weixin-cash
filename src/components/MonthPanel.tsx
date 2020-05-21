@@ -1,5 +1,4 @@
 import * as React from 'react'
-import Icon from './Icon'
 import styled from 'styled-components'
 import dayjs, {Dayjs} from 'dayjs'
 
@@ -13,17 +12,7 @@ type TMonthItem = {
   selected: boolean
 }
 
-const Header = styled.header`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px;
-  border-bottom: 1px solid #eee;
-  font-size: ${props => props.theme.$largeTextSize};
-  background:  #FAFAFA;
-`
-
-const Main = styled.section`
+const StyledMonthPanel = styled.section`
   padding: 0 16px;
   background:  #FAFAFA;
 `
@@ -78,49 +67,41 @@ const MonthPanel: React.FC<TProps> = (props) => {
   }
 
   return (
-    <div>
-      <Header>
-        <Icon onClick={closeDrawer} name="cancel" size={18}/>
-        <span>请选择月份</span>
-        <Icon name="cancel" color="transparent"/>
-      </Header>
+    <StyledMonthPanel>
+      {/*今年的月份*/}
+      {
+        thisYearMonths &&
+        <Year>
+          <p>{thisYear.get('year')}</p>
+          <MonthList>
+            {thisYearMonths.map(m =>
+              <MonthItem selected={m.isSame(value, 'date')}
+                         key={m.get('month')}
+                         onClick={() => submit(m)}>
+                {m.get('month') + 1}月
+              </MonthItem>
+            )}
+          </MonthList>
+        </Year>
+      }
 
-      <Main>
-        {/*今年的月份*/}
-        {
-          thisYearMonths &&
-          <Year>
-            <p>{thisYear.get('year')}</p>
-            <MonthList>
-              {thisYearMonths.map(m =>
-                <MonthItem selected={m.isSame(value, 'date')}
-                           key={m.get('month')}
-                           onClick={() => submit(m)}>
-                  {m.get('month') + 1}月
-                </MonthItem>
-              )}
-            </MonthList>
-          </Year>
-        }
-
-        {/*去年的月份*/}
-        {
-          prevYearMonths.length !== 0 &&
-          <Year>
-            <p>{prevYear.get('year')}</p>
-            <MonthList>
-              {prevYearMonths.map(m =>
-                <MonthItem selected={m.isSame(value, 'date')}
-                           key={m.get('month')}
-                           onClick={() => submit(m)}>
-                  {m.get('month') + 1}月
-                </MonthItem>
-              )}
-            </MonthList>
-          </Year>
-        }
-      </Main>
-    </div>
+      {/*去年的月份*/}
+      {
+        prevYearMonths.length !== 0 &&
+        <Year>
+          <p>{prevYear.get('year')}</p>
+          <MonthList>
+            {prevYearMonths.map(m =>
+              <MonthItem selected={m.isSame(value, 'date')}
+                         key={m.get('month')}
+                         onClick={() => submit(m)}>
+                {m.get('month') + 1}月
+              </MonthItem>
+            )}
+          </MonthList>
+        </Year>
+      }
+    </StyledMonthPanel>
   )
 }
 

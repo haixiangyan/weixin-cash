@@ -1,7 +1,6 @@
 import * as React from 'react'
 import {useState} from 'react'
 import styled from 'styled-components'
-import Icon from './Icon'
 import Category from './Category'
 import {DEFAULT_EXPENSE_CATEGORIES, DEFAULT_INCOME_CATEGORIES} from '../lib/category'
 import {TRawRecord, TRecordType} from '../hooks/useRecordList'
@@ -12,10 +11,6 @@ type TProps = {
   closeDrawer: () => void
   onSubmit: (newRawRecord: TRawRecord) => void
 }
-
-const Header = styled.header`
-  padding: 16px;
-`
 
 const TypeSection = styled.section`
   padding: 16px;
@@ -134,9 +129,6 @@ const Money: React.FC<TProps> = (props) => {
 
   return (
     <div>
-      <Header>
-        <Icon onClick={closeDrawer} name="cancel" size={18}/>
-      </Header>
       <TypeSection>
         <Button recordType={recordType === 'expense' ? 'success' : 'none'}
                 onClick={() => setRecordType('expense')}>
