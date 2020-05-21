@@ -2,7 +2,6 @@ import * as React from 'react'
 import Icon from './Icon'
 import styled from 'styled-components'
 import {DEFAULT_EXPENSE_CATEGORIES, DEFAULT_INCOME_CATEGORIES} from '../lib/category'
-import {useState} from 'react'
 
 type TProps = {
   value: number
@@ -22,13 +21,6 @@ const Header = styled.header`
   border-bottom: 1px solid #eee;
   font-size: ${props => props.theme.$largeTextSize};
   background:  #FAFAFA;
-`
-
-const ConfirmButton = styled.button`
-  border: none;
-  outline: none;
-  background: transparent;
-  color: ${props => props.theme.$success}
 `
 
 const Main = styled.section`
@@ -67,12 +59,12 @@ const CategoryItem = styled.div<TCategoryItem>`
 `
 
 const CategoryFilter: React.FC<TProps> = (props) => {
+  const ALL = -1
+
   const {value, closeDrawer, onSubmit} = props
 
-  const [selected, setSelected] = useState(value)
-
-  const submit = () => {
-    onSubmit(selected)
+  const submit = (id: number) => {
+    onSubmit(id)
     closeDrawer()
   }
 
@@ -81,10 +73,10 @@ const CategoryFilter: React.FC<TProps> = (props) => {
       <Header>
         <Icon onClick={closeDrawer} name="cancel" size={18}/>
         <span>请选择类型</span>
-        <ConfirmButton onClick={submit}>确定</ConfirmButton>
+        <Icon name="cancel" color="transparent"/>
       </Header>
       <Main>
-        <CategoryItem selected={value === -1} onClick={() => onSubmit(-1)}>
+        <CategoryItem selected={value === -1} onClick={() => submit(ALL)}>
           全部类型
         </CategoryItem>
 
@@ -93,7 +85,7 @@ const CategoryFilter: React.FC<TProps> = (props) => {
           {
             DEFAULT_EXPENSE_CATEGORIES.map(c => (
               <CategoryItem key={c.id}
-                            onClick={() => onSubmit(c.id)}
+                            onClick={() => submit(c.id)}
                             selected={value === c.id}>
                 {c.name}
               </CategoryItem>
@@ -106,7 +98,7 @@ const CategoryFilter: React.FC<TProps> = (props) => {
           {
             DEFAULT_INCOME_CATEGORIES.map(c => (
               <CategoryItem key={c.id}
-                            onClick={() => setSelected(c.id)}
+                            onClick={() => submit(c.id)}
                             selected={value === c.id}>
                 {c.name}
               </CategoryItem>

@@ -70,7 +70,7 @@ const Summary: React.FC = () => {
   // Category 的 filter
   const [filter, setFilter] = useState(-1)
   const [showFilter, toggleFilter] = useState(true)
-  const {recordList, fetchData, addRawRecord} = useRecordList()
+  const {fetchData, addRawRecord, filterRecordList} = useRecordList()
   const [showMoney, toggleMoney] = useState(false)
 
   const {incomeTotal, expenseTotal} = {incomeTotal: 100, expenseTotal: 200}
@@ -80,6 +80,8 @@ const Summary: React.FC = () => {
     fetchData()
     toggleMoney(false)
   }
+
+  const recordList = filterRecordList(filter)
 
   return (
     <StyledSummary>

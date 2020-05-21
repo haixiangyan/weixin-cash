@@ -109,6 +109,8 @@ export const bulkAppendRecords = (prevRecordList: TMonthRecord[], rawRecordList:
 
 const useRecordList = () => {
   const ITEM_NAME = 'rawRecordList'
+  const ALL = -1
+
   const [rawRecordList, setRawRecordList] = useState<TRawRecord[]>([])
   const [recordList, setRecordList] = useState<TMonthRecord[]>([])
 
@@ -137,6 +139,14 @@ const useRecordList = () => {
     setRecordList(bulkAppendRecords([], newRawRecord))
   }
 
+  const filterRecordList = (categoryId: number) => {
+    if (categoryId === ALL) return recordList
+
+    const filtered = rawRecordList.filter(r => r.categoryId === categoryId)
+
+    return bulkAppendRecords([], filtered)
+  }
+
   return {
     rawRecordList,
     setRawRecordList,
@@ -145,7 +155,8 @@ const useRecordList = () => {
     bulkAppendRecords,
     addRawRecord,
     getMonthRecord,
-    fetchData
+    fetchData,
+    filterRecordList
   }
 }
 
