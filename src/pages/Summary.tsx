@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import Icon from '../components/Icon'
 import Divider from '../components/Dividier'
 import MonthRecord from '../components/MonthRecord'
-import useRecordList from '../hooks/useRecordList'
+import useRecordList, {TRawRecord} from '../hooks/useRecordList'
 import dayjs, {Dayjs} from 'dayjs'
 import {MONTH} from '../lib/date'
 import Sticker from '../components/Sticker'
@@ -93,6 +93,12 @@ const Summary: React.FC = () => {
     toggleMoney(false)
   }
 
+  const onAddRecord = (newRawRecord : TRawRecord) => {
+    addRawRecord(newRawRecord)
+
+    alert('已添加该记录')
+  }
+
   return (
     <StyledSummary>
       <Header>
@@ -158,7 +164,7 @@ const Summary: React.FC = () => {
       <Drawer show={showMoney}
               closeDrawer={closeMoney}>
         <Money closeDrawer={closeMoney}
-               onSubmit={(newRawRecord) => addRawRecord(newRawRecord)}/>
+               onSubmit={onAddRecord}/>
       </Drawer>
     </StyledSummary>
   )

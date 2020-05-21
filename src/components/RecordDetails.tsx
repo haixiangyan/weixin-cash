@@ -11,6 +11,7 @@ import Icon from './Icon'
 type TProps = {
   rawRecord: TRawRecord
   onDelete: (id: string) => void
+  onEdit: () => void
 }
 
 const StyledRecordDetails = styled.div`
@@ -62,7 +63,7 @@ const ActionSection = styled.section`
 `
 
 const RecordDetails: React.FC<TProps> = (props) => {
-  const {rawRecord, onDelete} = props
+  const {rawRecord, onDelete, onEdit} = props
   const {id, amount, type, date, note, categoryId} = rawRecord
 
   const category = DEFAULT_EXPENSE_CATEGORIES.find(c => c.id === categoryId)
@@ -102,7 +103,7 @@ const RecordDetails: React.FC<TProps> = (props) => {
           <span style={{marginLeft: 8}}>删除</span>
         </DeleteButton>
         <Divider gap={0}/>
-        <button>
+        <button onClick={onEdit}>
           <Icon name="edit"/>
           <span style={{marginLeft: 8}}>编辑</span>
         </button>
