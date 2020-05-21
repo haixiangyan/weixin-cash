@@ -1,6 +1,7 @@
-import dayjs from 'dayjs'
+import dayjs, {Dayjs} from 'dayjs'
 import {useEffect, useState} from 'react'
 import {DAY, MONTH} from '../lib/date'
+import {ALL_TYPE} from '../lib/category'
 
 export type TRecordType = 'expense' | 'income'
 export type TRawRecord = {
@@ -109,7 +110,6 @@ export const bulkAppendRecords = (prevRecordList: TMonthRecord[], rawRecordList:
 
 const useRecordList = () => {
   const ITEM_NAME = 'rawRecordList'
-  const ALL = -1
 
   const [rawRecordList, setRawRecordList] = useState<TRawRecord[]>([])
   const [recordList, setRecordList] = useState<TMonthRecord[]>([])
@@ -139,10 +139,14 @@ const useRecordList = () => {
     setRecordList(bulkAppendRecords([], newRawRecord))
   }
 
-  const filterRecordList = (categoryId: number) => {
-    if (categoryId === ALL) return recordList
-
-    const filtered = rawRecordList.filter(r => r.categoryId === categoryId)
+  const filterRecordList = (categoryId: number, month: Dayjs) => {
+    const filtered = rawRecordList.filter(r => {
+      if (categoryId === ALL_TYPE) return true // 所有类型
+      return r.categoryId === categoryId // 对应类型
+    }).filter(r => {
+      if (month.isSame(dayjs(), 'month')) return true // 当月
+      return dayjs(r.date).isSame(month, 'month') // 对应月份
+    })
 
     return bulkAppendRecords([], filtered)
   }

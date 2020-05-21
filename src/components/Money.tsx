@@ -1,7 +1,6 @@
 import * as React from 'react'
 import {useState} from 'react'
 import styled from 'styled-components'
-import Icon from './Icon'
 import Category from './Category'
 import {DEFAULT_EXPENSE_CATEGORIES, DEFAULT_INCOME_CATEGORIES} from '../lib/category'
 import {TRawRecord, TRecordType} from '../hooks/useRecordList'
@@ -13,15 +12,10 @@ type TProps = {
   onSubmit: (newRawRecord: TRawRecord) => void
 }
 
-const Header = styled.header`
-  padding: 16px;
-`
-
 const TypeSection = styled.section`
   padding: 16px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
 `
 
 const AmountSection = styled.section`
@@ -135,23 +129,14 @@ const Money: React.FC<TProps> = (props) => {
 
   return (
     <div>
-      <Header>
-        <Icon onClick={closeDrawer} name="cancel" size={18}/>
-      </Header>
       <TypeSection>
-        <div>
-          <Button recordType={recordType === 'expense' ? 'success' : 'none'}
-                  onClick={() => setRecordType('expense')}>
-            支出
-          </Button>
-          <Button recordType={recordType === 'income' ? 'warning' : 'none'}
-                  onClick={() => setRecordType('income')}>
-            收入
-          </Button>
-        </div>
-        <Button style={{marginRight: 0}}>
-          <span style={{marginRight: 4}}>5月5号</span>
-          <Icon name="dropdown" size={8}/>
+        <Button recordType={recordType === 'expense' ? 'success' : 'none'}
+                onClick={() => setRecordType('expense')}>
+          支出
+        </Button>
+        <Button recordType={recordType === 'income' ? 'warning' : 'none'}
+                onClick={() => setRecordType('income')}>
+          收入
         </Button>
       </TypeSection>
       <AmountSection>

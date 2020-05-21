@@ -1,9 +1,11 @@
 import * as React from 'react'
 import styled from 'styled-components'
+import Icon from './Icon'
 
 type TProps = {
   show: boolean
-  onClickShadow: () => void
+  closeDrawer: () => void
+  title?: string
 }
 type TShadow = {
   show: boolean
@@ -22,6 +24,16 @@ const Shadow = styled.div<TShadow>(props => ({
   display: props.show ? 'block' : 'none'
 }))
 
+const Header = styled.header`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  border-bottom: 1px solid #eee;
+  font-size: ${props => props.theme.$largeTextSize};
+  background:  #FAFAFA;
+`
+
 const Main = styled.div<TStyledMain>(() => ({
   position: 'absolute',
   width: '100%',
@@ -32,17 +44,26 @@ const Main = styled.div<TStyledMain>(() => ({
   overflow: 'hidden'
 }))
 
-
 const Drawer: React.FC<TProps> = (props) => {
-  const {show, onClickShadow} = props
+  const {show, title, closeDrawer} = props
 
   return (
-    <Shadow show={show} onClick={onClickShadow}>
+    <Shadow show={show} onClick={closeDrawer}>
       <Main show={show} onClick={e => e.stopPropagation()}>
+        <Header>
+          <Icon onClick={closeDrawer} name="cancel" size={18}/>
+          <span>{title}</span>
+          <Icon name="cancel" color="transparent"/>
+        </Header>
+
         {props.children}
       </Main>
     </Shadow>
   )
+}
+
+Drawer.defaultProps = {
+  title: ''
 }
 
 export default Drawer

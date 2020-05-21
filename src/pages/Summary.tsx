@@ -5,13 +5,15 @@ import Icon from '../components/Icon'
 import Divider from '../components/Dividier'
 import MonthRecord from '../components/MonthRecord'
 import useRecordList from '../hooks/useRecordList'
-import dayjs from 'dayjs'
+import dayjs, {Dayjs} from 'dayjs'
 import {MONTH} from '../lib/date'
 import Sticker from '../components/Sticker'
 import theme from '../theme'
 import Drawer from '../components/Drawer'
 import Money from '../components/Money'
 import CategoryFilter from '../components/CategoryFilter'
+import {ALL_CATEGORIES, ALL_TYPE} from '../lib/category'
+import MonthPanel from '../components/MonthPanel'
 
 const StyledSummary = styled.div`
   height: 100%;
@@ -66,22 +68,30 @@ const RecordList = styled.ul`
   overflow: auto;
 `
 
+const Empty = styled.div`
+  padding-top: 24px;
+  text-align: center;
+  color: ${props => props.theme.$subText}
+`
+
 const Summary: React.FC = () => {
-  // Category 的 filter
-  const [filter, setFilter] = useState(-1)
+  const [showMonth, toggleMonth] = useState(false)
   const [showFilter, toggleFilter] = useState(false)
-  const {fetchData, addRawRecord, filterRecordList} = useRecordList()
   const [showMoney, toggleMoney] = useState(false)
 
-  const {incomeTotal, expenseTotal} = {incomeTotal: 100, expenseTotal: 200}
-  const curtMonth = dayjs().format(MONTH)
+  const [month, setMonth] = useState(dayjs())
+  const [filterId, setFilterId] = useState(ALL_TYPE)
+  const {fetchData, addRawRecord, filterRecordList} = useRecordList()
+
+  const recordList = filterRecordList(filterId, month)
+  const [firstMonth] = recordList
+
+  const filter = ALL_CATEGORIES.find(c => c.id === filterId)
 
   const closeMoney = () => {
     fetchData()
     toggleMoney(false)
   }
-
-  const recordList = filterRecordList(filter)
 
   return (
     <StyledSummary>
@@ -90,49 +100,63 @@ const Summary: React.FC = () => {
 
         <section>
           <TypeButton onClick={() => toggleFilter(true)}>
-            <span>全部类型</span>
+            <span>{filter ? filter.name : '全部类型'}</span>
             <Divider color="#68C895"/>
             <Icon color="#edf5ed" name="application"/>
           </TypeButton>
         </section>
 
         <BriefSection>
-          <MonthButton>
-            <span>{curtMonth}</span>
+          <MonthButton onClick={() => toggleMonth(true)}>
+            <span>{month.format(MONTH)}</span>
             <Icon color="#A0D8BB" name="dropdown"/>
           </MonthButton>
           <span style={{marginRight: 12}}>
-            总支出￥{expenseTotal.toFixed(2)}
+            总支出￥{firstMonth ? firstMonth.expenseTotal.toFixed(2) : '0.00'}
           </span>
           <span>
-            总收入￥{incomeTotal.toFixed(2)}
+            总收入￥{firstMonth ? firstMonth.incomeTotal.toFixed(2) : '0.00'}
           </span>
         </BriefSection>
       </Header>
 
-      <RecordList>
-        {
-          recordList && recordList.map(monthRecord => (
-            <MonthRecord key={monthRecord.month} monthRecord={monthRecord}/>
-          ))
-        }
-      </RecordList>
+      {
+        recordList.length !== 0 ?
+          <RecordList>
+            {
+              recordList.map(monthRecord => (
+                <MonthRecord key={monthRecord.month} monthRecord={monthRecord}/>
+              ))
+            }
+          </RecordList>
+          :
+          <Empty>暂无数据</Empty>
+      }
 
       <Sticker onClick={() => toggleMoney(true)}>
         <Icon name="pen" size={22} color={theme.$success}/>
       </Sticker>
 
+      {/*选择月份*/}
+      <Drawer show={showMonth}
+              title="请选择月份"
+              closeDrawer={() => toggleMonth(false)}>
+        <MonthPanel value={month}
+                    closeDrawer={() => toggleMonth(false)}
+                    onSubmit={(newMonth: Dayjs) => setMonth(newMonth)}/>
+      </Drawer>
+
       {/*过滤 Category*/}
       <Drawer show={showFilter}
-              onClickShadow={() => toggleFilter(false)}>
-        <CategoryFilter value={filter}
+              closeDrawer={() => toggleFilter(false)}>
+        <CategoryFilter value={filterId}
                         closeDrawer={() => toggleFilter(false)}
-                        onSubmit={(id) => setFilter(id)}/>
+                        onSubmit={(id) => setFilterId(id)}/>
       </Drawer>
 
       {/*记账*/}
       <Drawer show={showMoney}
-              onClickShadow={closeMoney}>
+              closeDrawer={closeMoney}>
         <Money closeDrawer={closeMoney}
                onSubmit={(newRawRecord) => addRawRecord(newRawRecord)}/>
       </Drawer>
