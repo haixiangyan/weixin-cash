@@ -5,14 +5,14 @@ import Icon from '../components/Icon'
 import Divider from '../components/Dividier'
 import MonthRecord from '../components/MonthRecord'
 import useRecordList from '../hooks/useRecordList'
-import dayjs from 'dayjs'
+import dayjs, {Dayjs} from 'dayjs'
 import {MONTH} from '../lib/date'
 import Sticker from '../components/Sticker'
 import theme from '../theme'
 import Drawer from '../components/Drawer'
 import Money from '../components/Money'
 import CategoryFilter from '../components/CategoryFilter'
-import {ALL_CATEGORIES} from '../lib/category'
+import {ALL_CATEGORIES, ALL_TYPE} from '../lib/category'
 import MonthPanel from '../components/MonthPanel'
 
 const StyledSummary = styled.div`
@@ -79,7 +79,8 @@ const Summary: React.FC = () => {
   const [showFilter, toggleFilter] = useState(false)
   const [showMoney, toggleMoney] = useState(false)
 
-  const [filterId, setFilterId] = useState(-1)
+  const [month, setMonth] = useState(dayjs())
+  const [filterId, setFilterId] = useState(ALL_TYPE)
   const {fetchData, addRawRecord, filterRecordList} = useRecordList()
 
   const recordList = filterRecordList(filterId)
@@ -87,7 +88,6 @@ const Summary: React.FC = () => {
   const filter = ALL_CATEGORIES.find(c => c.id === filterId)
 
   const {incomeTotal, expenseTotal} = {incomeTotal: 100, expenseTotal: 200}
-  const curtMonth = dayjs().format(MONTH)
 
   const closeMoney = () => {
     fetchData()
@@ -108,8 +108,8 @@ const Summary: React.FC = () => {
         </section>
 
         <BriefSection>
-          <MonthButton>
-            <span>{curtMonth}</span>
+          <MonthButton onClick={() => toggleMonth(true)}>
+            <span>{month.format(MONTH)}</span>
             <Icon color="#A0D8BB" name="dropdown"/>
           </MonthButton>
           <span style={{marginRight: 12}}>
@@ -141,7 +141,9 @@ const Summary: React.FC = () => {
       {/*选择月份*/}
       <Drawer show={showMonth}
               onClickShadow={() => toggleMonth(false)}>
-        <MonthPanel closeDrawer={() => toggleMonth(false)}/>
+        <MonthPanel value={month}
+                    closeDrawer={() => toggleMonth(false)}
+                    onSubmit={(newMonth: Dayjs) => setMonth(newMonth)}/>
       </Drawer>
 
       {/*过滤 Category*/}

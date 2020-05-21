@@ -49,7 +49,7 @@ const CategoryItem = styled.div<TCategoryItem>`
   align-items: center;
   justify-content: center;
   width: 33.33333%;
-  height: 64px;
+  padding: 16px;
   border: 4px solid #FAFAFA;
   border-radius: 6px;
   font-size: 1.1em;

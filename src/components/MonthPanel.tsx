@@ -1,10 +1,16 @@
 import * as React from 'react'
 import Icon from './Icon'
 import styled from 'styled-components'
-import dayjs from 'dayjs'
+import dayjs, {Dayjs} from 'dayjs'
 
 type TProps = {
+  value: Dayjs
   closeDrawer: () => void
+  onSubmit: (newMonth: Dayjs) => void
+}
+
+type TMonthItem = {
+  selected: boolean
 }
 
 const Header = styled.header`
@@ -34,18 +40,19 @@ const MonthList = styled.ul`
   display: flex;
   flex-wrap: wrap;
   list-style: none;
-  > li {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 6px;
-    border: 4px solid #FAFAFA;
-    width: 25%;
-    height: 64px;
-    background: white;
-    font-size: 1.1em;
-    padding: 32px 16px;
-  }
+`
+
+const MonthItem = styled.li<TMonthItem>`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  border: 4px solid #FAFAFA;
+  width: 25%;
+  font-size: 1.1em;
+  padding: 16px;
+  background: ${props => props.selected ? props.theme.$success : 'white'};
+  color: ${props => props.selected ? 'white' : props.theme.$normalText}
 `
 
 const getPrevMonths = () => {
@@ -55,7 +62,7 @@ const getPrevMonths = () => {
 }
 
 const MonthPanel: React.FC<TProps> = (props) => {
-  const {closeDrawer} = props
+  const {closeDrawer, value, onSubmit} = props
 
   const thisYear = dayjs()
   const prevYear = dayjs().subtract(1, 'year')
@@ -63,6 +70,11 @@ const MonthPanel: React.FC<TProps> = (props) => {
   const prevMonths = getPrevMonths()
   const prevYearMonths = prevMonths.filter(m => m.isSame(prevYear, 'year'))
   const thisYearMonths = prevMonths.filter(m => m.isSame(thisYear, 'year'))
+
+  const submit = (newMonth: Dayjs) => {
+    onSubmit(newMonth)
+    closeDrawer()
+  }
 
   return (
     <div>
@@ -80,9 +92,11 @@ const MonthPanel: React.FC<TProps> = (props) => {
             <p>{thisYear.get('year')}</p>
             <MonthList>
               {thisYearMonths.map(m =>
-                <li key={m.get('month')}>
+                <MonthItem selected={m.isSame(value, 'date')}
+                           key={m.get('month')}
+                           onClick={() => submit(m)}>
                   {m.get('month') + 1}月
-                </li>
+                </MonthItem>
               )}
             </MonthList>
           </Year>
@@ -95,9 +109,11 @@ const MonthPanel: React.FC<TProps> = (props) => {
             <p>{prevYear.get('year')}</p>
             <MonthList>
               {prevYearMonths.map(m =>
-                <li key={m.get('month')}>
+                <MonthItem selected={m.isSame(value, 'date')}
+                           key={m.get('month')}
+                           onClick={() => submit(m)}>
                   {m.get('month') + 1}月
-                </li>
+                </MonthItem>
               )}
             </MonthList>
           </Year>
