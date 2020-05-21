@@ -132,7 +132,7 @@ const Summary: React.FC = () => {
       <Drawer show={showMoney}
               onClickShadow={closeMoney}>
         <Money closeDrawer={closeMoney}
-               submit={(newRawRecord) => addRawRecord(newRawRecord)}/>
+               onSubmit={(newRawRecord) => addRawRecord(newRawRecord)}/>
       </Drawer>
     </StyledSummary>
   )

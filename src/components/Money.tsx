@@ -10,7 +10,7 @@ import NumberPad from './NumbePad'
 
 type TProps = {
   closeDrawer: () => void
-  submit: (newRawRecord: TRawRecord) => void
+  onSubmit: (newRawRecord: TRawRecord) => void
 }
 
 const Header = styled.header`
@@ -86,7 +86,7 @@ const NumberPadSection = styled.section`
 `
 
 const Money: React.FC<TProps> = (props) => {
-  const {closeDrawer, submit} = props
+  const {closeDrawer, onSubmit} = props
   const [recordType, setRecordType] = useState<TRecordType>('expense')
   const [selectedCategoryId, setSelectedCategoryId] = useState<number>(DEFAULT_EXPENSE_CATEGORIES[0].id)
   const [amount, setAmount] = useState(0)
@@ -111,7 +111,7 @@ const Money: React.FC<TProps> = (props) => {
       type: recordType
     }
 
-    submit(newRawRecord)
+    onSubmit(newRawRecord)
 
     closeDrawer()
 
