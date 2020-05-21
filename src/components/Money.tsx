@@ -73,8 +73,11 @@ const CategoryText = styled.span`
 `
 
 const NoteSection = styled.section`
+  display: flex;
+  align-items: center;
   padding: 0 24px 24px;
   > span {
+    margin-right: 8px;
     color: ${props => props.theme.$linkText};
     cursor: pointer;
   }
@@ -102,7 +105,12 @@ const Money: React.FC<TProps> = (props) => {
   }
 
   const addNote = () => {
+    const MAX_NOTE_LENGTH = 20
+
     const newNote = prompt('添加备注', '') || ''
+
+    if (newNote.length > MAX_NOTE_LENGTH) return alert(`不能超过${MAX_NOTE_LENGTH}个字`)
+
     setNote(newNote)
   }
 
@@ -164,7 +172,8 @@ const Money: React.FC<TProps> = (props) => {
         }
       </CategoryList>
       <NoteSection>
-        <span onClick={addNote}>添加备注</span>
+        <span onClick={addNote}>{note ? '修改' : '添加备注'}</span>
+        <article>{note}</article>
       </NoteSection>
       <NumberPadSection>
         <NumberPad value={amountString}
