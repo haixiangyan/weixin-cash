@@ -1,22 +1,29 @@
 import * as React from 'react'
 import styled from 'styled-components'
+import {TRecordType} from '../hooks/useRecordList'
 
 type TProps = {
   value: string
+  recordType: TRecordType
   onChange: (newValue: string) => void
   onOK: () => void
 }
 
-const StyledNumberPad = styled.div`
+type TStyledNumberPad = {
+  recordType: TRecordType
+  value: string
+}
+
+const StyledNumberPad = styled.div<TStyledNumberPad>`
   > button {
     float: left;
     width: 25%;
     height: 64px;
-    border: none;
     background: white;
     font-size: 1.3em;
     outline: none;
     border-radius: 4px;
+    border: 4px solid #FAFAFA;
     &.zero {
       width: 50%;
     }
@@ -25,7 +32,8 @@ const StyledNumberPad = styled.div`
       float: right;
       font-size: 1em;
       color: white;
-      background: ${props => props.theme.$success};
+      opacity: ${props => props.value === '0' ? 0.6 : 1};
+      background: ${({recordType, theme}) => recordType === 'expense' ? theme.$success : theme.$warning};
     }
   }
 `
@@ -67,7 +75,7 @@ const updateAmount = (prevValue: string, text: string) => {
 }
 
 const NumberPad: React.FC<TProps> = (props) => {
-  const {value, onOK, onChange} = props
+  const {value, onOK, onChange, recordType} = props
 
   const onDel = () => {
     if (value === '0') return
@@ -83,7 +91,7 @@ const NumberPad: React.FC<TProps> = (props) => {
     if (!text) return
 
     // OK
-    if (text === 'OK') return onOK()
+    if (text === '确定') return onOK()
 
     // Del
     if (text === 'Del') return onDel()
@@ -94,7 +102,10 @@ const NumberPad: React.FC<TProps> = (props) => {
   }
 
   return (
-    <StyledNumberPad onClick={onClickPad}>
+    <StyledNumberPad recordType={recordType}
+                     value={value}
+                     className="clearfix"
+                     onClick={onClickPad}>
       <button>1</button>
       <button>2</button>
       <button>3</button>

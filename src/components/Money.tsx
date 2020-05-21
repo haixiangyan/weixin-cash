@@ -1,15 +1,16 @@
 import * as React from 'react'
+import {useState} from 'react'
 import styled from 'styled-components'
 import Icon from './Icon'
 import Category from './Category'
-import {DEFAULT_CATEGORIES} from '../lib/category'
-import {useState} from 'react'
-import {TRecordType} from '../hooks/useRecordList'
+import {DEFAULT_EXPENSE_CATEGORIES, DEFAULT_INCOME_CATEGORIES} from '../lib/category'
+import {TRawRecord, TRecordType} from '../hooks/useRecordList'
 import Button from './Button'
 import NumberPad from './NumbePad'
 
 type TProps = {
   closeDrawer: () => void
+  submit: (newRawRecord: TRawRecord) => void
 }
 
 const Header = styled.header`
@@ -17,7 +18,7 @@ const Header = styled.header`
 `
 
 const TypeSection = styled.section`
-  padding: 16px 24px;
+  padding: 16px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -49,6 +50,9 @@ const CategoryList = styled.ul`
   align-items: center;
   overflow-x: auto;
   list-style: none;
+  &::-webkit-scrollbar {
+    width: 0
+  }
 `
 
 const CategoryItem = styled.li`
@@ -77,19 +81,41 @@ const NoteSection = styled.section`
 `
 
 const NumberPadSection = styled.section`
-  padding: 12px;
+  padding: 4px;
   background: #FAFAFA;
 `
 
 const Money: React.FC<TProps> = (props) => {
-  const {closeDrawer} = props
-  const [type] = useState<TRecordType>('income')
+  const {closeDrawer, submit} = props
+  const [recordType, setRecordType] = useState<TRecordType>('expense')
+  const [selectedCategoryId, setSelectedCategoryId] = useState<number>(DEFAULT_EXPENSE_CATEGORIES[0].id)
   const [amount, setAmount] = useState(0)
   const [amountString, setAmountString] = useState('0')
+
+  const categories = recordType === 'expense' ? DEFAULT_EXPENSE_CATEGORIES : DEFAULT_INCOME_CATEGORIES
 
   const onChangeAmount = (newValue: string) => {
     setAmountString(newValue)
     setAmount(parseFloat(newValue))
+  }
+
+  const onOK = () => {
+    if (amount === 0) return alert('金额不能为0')
+
+    const newRawRecord = {
+      amount,
+      categoryId: selectedCategoryId,
+      date: new Date().toISOString(),
+      id: new Date().getTime().toString(),
+      note: '',
+      type: recordType
+    }
+
+    submit(newRawRecord)
+
+    closeDrawer()
+
+    alert('已添加该记录')
   }
 
   return (
@@ -99,10 +125,16 @@ const Money: React.FC<TProps> = (props) => {
       </Header>
       <TypeSection>
         <div>
-          <Button type={type === 'expense' ? 'success' : 'none'}>支出</Button>
-          <Button type={type === 'income' ? 'warning' : 'none'}>收入</Button>
+          <Button recordType={recordType === 'expense' ? 'success' : 'none'}
+                  onClick={() => setRecordType('expense')}>
+            支出
+          </Button>
+          <Button recordType={recordType === 'income' ? 'warning' : 'none'}
+                  onClick={() => setRecordType('income')}>
+            收入
+          </Button>
         </div>
-        <Button>
+        <Button style={{marginRight: 0}}>
           <span style={{marginRight: 4}}>5月5号</span>
           <Icon name="dropdown" size={8}/>
         </Button>
@@ -113,9 +145,12 @@ const Money: React.FC<TProps> = (props) => {
       </AmountSection>
       <CategoryList>
         {
-          DEFAULT_CATEGORIES.map((category => (
-            <CategoryItem key={category.id}>
-              <Category category={category} type="expense" size={18}/>
+          categories.map((category => (
+            <CategoryItem key={category.id}
+                          onClick={() => setSelectedCategoryId(category.id)}>
+              <Category category={category}
+                        recordType={selectedCategoryId === category.id ? recordType : 'none'}
+                        size={20}/>
               <CategoryText>{category.name}</CategoryText>
             </CategoryItem>
           )))
@@ -126,8 +161,9 @@ const Money: React.FC<TProps> = (props) => {
       </NoteSection>
       <NumberPadSection>
         <NumberPad value={amountString}
+                   recordType={recordType}
                    onChange={onChangeAmount}
-                   onOK={() => {}}/>
+                   onOK={onOK}/>
       </NumberPadSection>
     </div>
   )
