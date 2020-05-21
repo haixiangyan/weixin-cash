@@ -11,6 +11,7 @@ import theme from '../theme'
 import Drawer from '../components/Drawer'
 import {useState} from 'react'
 import Money from '../components/Money'
+import CategoryFilter from '../components/CategoryFilter'
 
 const StyledSummary = styled.div`
   height: 100%;
@@ -66,15 +67,17 @@ const RecordList = styled.ul`
 `
 
 const Summary: React.FC = () => {
+  const [categoryFilter, setCategoryFilter] = useState(-1)
+  const [showFilter, toggleFilter] = useState(true)
   const {recordList, fetchData, addRawRecord} = useRecordList()
-  const [showLedgerForm, setShowLedgerForm] = useState(false)
+  const [showMoney, toggleMoney] = useState(false)
 
   const {incomeTotal, expenseTotal} = {incomeTotal: 100, expenseTotal: 200}
   const curtMonth = dayjs().format(MONTH)
 
-  const closeDrawer = () => {
+  const closeMoney = () => {
     fetchData()
-    setShowLedgerForm(false)
+    toggleMoney(false)
   }
 
   const submit = (newRawRecord: TRawRecord) => {
@@ -87,7 +90,7 @@ const Summary: React.FC = () => {
         <p className="title">记账本</p>
 
         <section>
-          <TypeButton>
+          <TypeButton onClick={() => toggleFilter(true)}>
             <span>全部类型</span>
             <Divider color="#68C895"/>
             <Icon color="#edf5ed" name="application"/>
@@ -116,13 +119,19 @@ const Summary: React.FC = () => {
         }
       </RecordList>
 
-      <Sticker onClick={() => setShowLedgerForm(true)}>
+      <Sticker onClick={() => toggleMoney(true)}>
         <Icon name="pen" size={22} color={theme.$success}/>
       </Sticker>
 
-      <Drawer show={showLedgerForm}
-              onClickShadow={closeDrawer}>
-        <Money closeDrawer={closeDrawer} submit={submit}/>
+      {/*过滤 Category*/}
+      <Drawer show={showFilter}
+              onClickShadow={() => toggleFilter(false)}>
+        <CategoryFilter value={categoryFilter} closeDrawer={() => toggleFilter(false)} submit={() => {}}/>
+      </Drawer>
+      {/*记账*/}
+      <Drawer show={showMoney}
+              onClickShadow={closeMoney}>
+        <Money closeDrawer={closeMoney} submit={submit}/>
       </Drawer>
     </StyledSummary>
   )
