@@ -1,15 +1,15 @@
 import * as React from 'react'
+import {useState} from 'react'
 import styled from 'styled-components'
 import Icon from '../components/Icon'
 import Divider from '../components/Dividier'
 import MonthRecord from '../components/MonthRecord'
-import useRecordList, {TRawRecord} from '../hooks/useRecordList'
+import useRecordList from '../hooks/useRecordList'
 import dayjs from 'dayjs'
 import {MONTH} from '../lib/date'
 import Sticker from '../components/Sticker'
 import theme from '../theme'
 import Drawer from '../components/Drawer'
-import {useState} from 'react'
 import Money from '../components/Money'
 import CategoryFilter from '../components/CategoryFilter'
 
@@ -67,7 +67,8 @@ const RecordList = styled.ul`
 `
 
 const Summary: React.FC = () => {
-  const [categoryFilter, setCategoryFilter] = useState(-1)
+  // Category 的 filter
+  const [filter, setFilter] = useState(-1)
   const [showFilter, toggleFilter] = useState(true)
   const {recordList, fetchData, addRawRecord} = useRecordList()
   const [showMoney, toggleMoney] = useState(false)
@@ -78,10 +79,6 @@ const Summary: React.FC = () => {
   const closeMoney = () => {
     fetchData()
     toggleMoney(false)
-  }
-
-  const submit = (newRawRecord: TRawRecord) => {
-    addRawRecord(newRawRecord)
   }
 
   return (
@@ -126,12 +123,16 @@ const Summary: React.FC = () => {
       {/*过滤 Category*/}
       <Drawer show={showFilter}
               onClickShadow={() => toggleFilter(false)}>
-        <CategoryFilter value={categoryFilter} closeDrawer={() => toggleFilter(false)} submit={() => {}}/>
+        <CategoryFilter value={filter}
+                        closeDrawer={() => toggleFilter(false)}
+                        onSubmit={(id) => setFilter(id)}/>
       </Drawer>
+
       {/*记账*/}
       <Drawer show={showMoney}
               onClickShadow={closeMoney}>
-        <Money closeDrawer={closeMoney} submit={submit}/>
+        <Money closeDrawer={closeMoney}
+               submit={(newRawRecord) => addRawRecord(newRawRecord)}/>
       </Drawer>
     </StyledSummary>
   )

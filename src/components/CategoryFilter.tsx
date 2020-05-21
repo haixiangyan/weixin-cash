@@ -2,11 +2,12 @@ import * as React from 'react'
 import Icon from './Icon'
 import styled from 'styled-components'
 import {DEFAULT_EXPENSE_CATEGORIES, DEFAULT_INCOME_CATEGORIES} from '../lib/category'
+import {useState} from 'react'
 
 type TProps = {
   value: number
   closeDrawer: () => void
-  submit: () => void
+  onSubmit: (id: number) => void
 }
 
 type TCategoryItem = {
@@ -21,6 +22,13 @@ const Header = styled.header`
   border-bottom: 1px solid #eee;
   font-size: ${props => props.theme.$largeTextSize};
   background:  #FAFAFA;
+`
+
+const ConfirmButton = styled.button`
+  border: none;
+  outline: none;
+  background: transparent;
+  color: ${props => props.theme.$success}
 `
 
 const Main = styled.section`
@@ -52,31 +60,40 @@ const CategoryItem = styled.div<TCategoryItem>`
   height: 64px;
   border: 4px solid #FAFAFA;
   border-radius: 6px;
-  font-size: 1.2em;
-  font-weight: 300;
+  font-size: 1.1em;
   cursor: pointer;
   background: ${props => props.selected ? props.theme.$success : 'white'};
   color: ${props => props.selected ? 'white' : props.theme.$normalText}
 `
 
 const CategoryFilter: React.FC<TProps> = (props) => {
-  const {closeDrawer, value} = props
+  const {value, closeDrawer, onSubmit} = props
+
+  const [selected, setSelected] = useState(value)
+
+  const submit = () => {
+    onSubmit(selected)
+    closeDrawer()
+  }
 
   return (
     <div>
       <Header>
         <Icon onClick={closeDrawer} name="cancel" size={18}/>
         <span>请选择类型</span>
-        <Icon name="cancel" color="transparent"/>
+        <ConfirmButton onClick={submit}>确定</ConfirmButton>
       </Header>
       <Main>
-        <CategoryItem selected={value === -1}>全部类型</CategoryItem>
+        <CategoryItem selected={value === -1} onClick={() => onSubmit(-1)}>
+          全部类型
+        </CategoryItem>
 
         <Tag>支出</Tag>
         <FilterSection>
           {
             DEFAULT_EXPENSE_CATEGORIES.map(c => (
               <CategoryItem key={c.id}
+                            onClick={() => onSubmit(c.id)}
                             selected={value === c.id}>
                 {c.name}
               </CategoryItem>
@@ -89,6 +106,7 @@ const CategoryFilter: React.FC<TProps> = (props) => {
           {
             DEFAULT_INCOME_CATEGORIES.map(c => (
               <CategoryItem key={c.id}
+                            onClick={() => setSelected(c.id)}
                             selected={value === c.id}>
                 {c.name}
               </CategoryItem>
