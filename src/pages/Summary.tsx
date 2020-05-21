@@ -112,10 +112,10 @@ const Summary: React.FC = () => {
             <Icon color="#A0D8BB" name="dropdown"/>
           </MonthButton>
           <span style={{marginRight: 12}}>
-            总支出￥{firstMonth && firstMonth.expenseTotal.toFixed(2)}
+            总支出￥{firstMonth ? firstMonth.expenseTotal.toFixed(2) : '0.00'}
           </span>
           <span>
-            总收入￥{firstMonth && firstMonth.incomeTotal.toFixed(2)}
+            总收入￥{firstMonth ? firstMonth.incomeTotal.toFixed(2) : '0.00'}
           </span>
         </BriefSection>
       </Header>
