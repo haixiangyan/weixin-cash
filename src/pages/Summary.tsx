@@ -66,12 +66,20 @@ const RecordList = styled.ul`
   overflow: auto;
 `
 
+const Empty = styled.div`
+  padding-top: 24px;
+  text-align: center;
+  color: ${props => props.theme.$subText}
+`
+
 const Summary: React.FC = () => {
   // Category 的 filter
   const [filter, setFilter] = useState(-1)
   const [showFilter, toggleFilter] = useState(false)
   const {fetchData, addRawRecord, filterRecordList} = useRecordList()
   const [showMoney, toggleMoney] = useState(false)
+
+  const recordList = filterRecordList(filter)
 
   const {incomeTotal, expenseTotal} = {incomeTotal: 100, expenseTotal: 200}
   const curtMonth = dayjs().format(MONTH)
@@ -80,8 +88,6 @@ const Summary: React.FC = () => {
     fetchData()
     toggleMoney(false)
   }
-
-  const recordList = filterRecordList(filter)
 
   return (
     <StyledSummary>
@@ -110,13 +116,18 @@ const Summary: React.FC = () => {
         </BriefSection>
       </Header>
 
-      <RecordList>
-        {
-          recordList && recordList.map(monthRecord => (
-            <MonthRecord key={monthRecord.month} monthRecord={monthRecord}/>
-          ))
-        }
-      </RecordList>
+      {
+        recordList.length === 0 ?
+          <RecordList>
+            {
+              recordList.map(monthRecord => (
+                <MonthRecord key={monthRecord.month} monthRecord={monthRecord}/>
+              ))
+            }
+          </RecordList>
+          :
+          <Empty>暂无数据</Empty>
+      }
 
       <Sticker onClick={() => toggleMoney(true)}>
         <Icon name="pen" size={22} color={theme.$success}/>
