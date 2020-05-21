@@ -83,7 +83,7 @@ const Summary: React.FC = () => {
   const [filterId, setFilterId] = useState(ALL_TYPE)
   const {fetchData, addRawRecord, filterRecordList} = useRecordList()
 
-  const recordList = filterRecordList(filterId)
+  const recordList = filterRecordList(filterId, month)
 
   const filter = ALL_CATEGORIES.find(c => c.id === filterId)
 

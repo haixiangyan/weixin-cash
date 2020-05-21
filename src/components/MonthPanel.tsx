@@ -37,6 +37,7 @@ const Year = styled.section`
 `
 
 const MonthList = styled.ul`
+  padding-bottom: 16px;
   display: flex;
   flex-wrap: wrap;
   list-style: none;
