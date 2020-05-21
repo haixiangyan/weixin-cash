@@ -87,6 +87,8 @@ const NumberPadSection = styled.section`
 
 const Money: React.FC<TProps> = (props) => {
   const {closeDrawer, onSubmit} = props
+
+  const [note, setNote] = useState('')
   const [recordType, setRecordType] = useState<TRecordType>('expense')
   const [selectedCategoryId, setSelectedCategoryId] = useState<number>(DEFAULT_EXPENSE_CATEGORIES[0].id)
   const [amount, setAmount] = useState(0)
@@ -99,6 +101,11 @@ const Money: React.FC<TProps> = (props) => {
     setAmount(parseFloat(newValue))
   }
 
+  const addNote = () => {
+    const newNote = prompt('添加备注', '') || ''
+    setNote(newNote)
+  }
+
   const onOK = () => {
     if (amount === 0) return alert('金额不能为0')
 
@@ -107,7 +114,7 @@ const Money: React.FC<TProps> = (props) => {
       categoryId: selectedCategoryId,
       date: new Date().toISOString(),
       id: new Date().getTime().toString(),
-      note: '',
+      note,
       type: recordType
     }
 
@@ -157,7 +164,7 @@ const Money: React.FC<TProps> = (props) => {
         }
       </CategoryList>
       <NoteSection>
-        <span>添加备注</span>
+        <span onClick={addNote}>添加备注</span>
       </NoteSection>
       <NumberPadSection>
         <NumberPad value={amountString}

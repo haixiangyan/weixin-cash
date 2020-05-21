@@ -69,7 +69,7 @@ const RecordList = styled.ul`
 const Summary: React.FC = () => {
   // Category 的 filter
   const [filter, setFilter] = useState(-1)
-  const [showFilter, toggleFilter] = useState(true)
+  const [showFilter, toggleFilter] = useState(false)
   const {fetchData, addRawRecord, filterRecordList} = useRecordList()
   const [showMoney, toggleMoney] = useState(false)
 
