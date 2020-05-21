@@ -1,7 +1,7 @@
 import * as React from 'react'
 import Icon from './Icon'
 import styled from 'styled-components'
-import {DEFAULT_EXPENSE_CATEGORIES, DEFAULT_INCOME_CATEGORIES} from '../lib/category'
+import {ALL_TYPE, DEFAULT_EXPENSE_CATEGORIES, DEFAULT_INCOME_CATEGORIES} from '../lib/category'
 
 type TProps = {
   value: number
@@ -59,8 +59,6 @@ const CategoryItem = styled.div<TCategoryItem>`
 `
 
 const CategoryFilter: React.FC<TProps> = (props) => {
-  const ALL = -1
-
   const {value, closeDrawer, onSubmit} = props
 
   const submit = (id: number) => {
@@ -76,7 +74,7 @@ const CategoryFilter: React.FC<TProps> = (props) => {
         <Icon name="cancel" color="transparent"/>
       </Header>
       <Main>
-        <CategoryItem selected={value === -1} onClick={() => submit(ALL)}>
+        <CategoryItem selected={value === -1} onClick={() => submit(ALL_TYPE)}>
           全部类型
         </CategoryItem>
 

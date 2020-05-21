@@ -1,6 +1,7 @@
 import dayjs from 'dayjs'
 import {useEffect, useState} from 'react'
 import {DAY, MONTH} from '../lib/date'
+import {ALL_TYPE} from '../lib/category'
 
 export type TRecordType = 'expense' | 'income'
 export type TRawRecord = {
@@ -109,7 +110,6 @@ export const bulkAppendRecords = (prevRecordList: TMonthRecord[], rawRecordList:
 
 const useRecordList = () => {
   const ITEM_NAME = 'rawRecordList'
-  const ALL = -1
 
   const [rawRecordList, setRawRecordList] = useState<TRawRecord[]>([])
   const [recordList, setRecordList] = useState<TMonthRecord[]>([])
@@ -140,7 +140,7 @@ const useRecordList = () => {
   }
 
   const filterRecordList = (categoryId: number) => {
-    if (categoryId === ALL) return recordList
+    if (categoryId === ALL_TYPE) return recordList
 
     const filtered = rawRecordList.filter(r => r.categoryId === categoryId)
 
