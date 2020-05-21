@@ -144,7 +144,7 @@ const useRecordList = () => {
       if (categoryId === ALL_TYPE) return true // 所有类型
       return r.categoryId === categoryId // 对应类型
     }).filter(r => {
-      if (month.isSame(dayjs().get('month'))) return true // 当月
+      if (month.isSame(dayjs(), 'month')) return true // 当月
       return dayjs(r.date).isSame(month, 'month') // 对应月份
     })
 
