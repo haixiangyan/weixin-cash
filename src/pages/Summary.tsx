@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import Icon from '../components/Icon'
 import Divider from '../components/Dividier'
 import MonthRecord from '../components/MonthRecord'
-import useRecordList from '../hooks/useRecordList'
+import useRecordList, {TRawRecord} from '../hooks/useRecordList'
 import dayjs from 'dayjs'
 import {MONTH} from '../lib/date'
 import Sticker from '../components/Sticker'
@@ -66,7 +66,7 @@ const RecordList = styled.ul`
 `
 
 const Summary: React.FC = () => {
-  const {recordList, fetchData} = useRecordList()
+  const {recordList, fetchData, addRawRecord} = useRecordList()
   const [showLedgerForm, setShowLedgerForm] = useState(false)
 
   const {incomeTotal, expenseTotal} = {incomeTotal: 100, expenseTotal: 200}
@@ -75,6 +75,10 @@ const Summary: React.FC = () => {
   const closeDrawer = () => {
     fetchData()
     setShowLedgerForm(false)
+  }
+
+  const submit = (newRawRecord: TRawRecord) => {
+    addRawRecord(newRawRecord)
   }
 
   return (
@@ -118,7 +122,7 @@ const Summary: React.FC = () => {
 
       <Drawer show={showLedgerForm}
               onClickShadow={closeDrawer}>
-        <Money closeDrawer={closeDrawer}/>
+        <Money closeDrawer={closeDrawer} submit={submit}/>
       </Drawer>
     </StyledSummary>
   )
