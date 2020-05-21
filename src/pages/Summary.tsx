@@ -84,10 +84,9 @@ const Summary: React.FC = () => {
   const {fetchData, addRawRecord, filterRecordList} = useRecordList()
 
   const recordList = filterRecordList(filterId, month)
+  const [firstMonth] = recordList
 
   const filter = ALL_CATEGORIES.find(c => c.id === filterId)
-
-  const {incomeTotal, expenseTotal} = {incomeTotal: 100, expenseTotal: 200}
 
   const closeMoney = () => {
     fetchData()
@@ -113,10 +112,10 @@ const Summary: React.FC = () => {
             <Icon color="#A0D8BB" name="dropdown"/>
           </MonthButton>
           <span style={{marginRight: 12}}>
-            总支出￥{expenseTotal.toFixed(2)}
+            总支出￥{firstMonth && firstMonth.expenseTotal.toFixed(2)}
           </span>
           <span>
-            总收入￥{incomeTotal.toFixed(2)}
+            总收入￥{firstMonth && firstMonth.incomeTotal.toFixed(2)}
           </span>
         </BriefSection>
       </Header>
