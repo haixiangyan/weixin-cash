@@ -13,6 +13,7 @@ import Drawer from '../components/Drawer'
 import Money from '../components/Money'
 import CategoryFilter from '../components/CategoryFilter'
 import {ALL_CATEGORIES} from '../lib/category'
+import MonthPanel from '../components/MonthPanel'
 
 const StyledSummary = styled.div`
   height: 100%;
@@ -74,11 +75,12 @@ const Empty = styled.div`
 `
 
 const Summary: React.FC = () => {
-  // Category 的 filter
-  const [filterId, setFilterId] = useState(-1)
+  const [showMonth, toggleMonth] = useState(true)
   const [showFilter, toggleFilter] = useState(false)
-  const {fetchData, addRawRecord, filterRecordList} = useRecordList()
   const [showMoney, toggleMoney] = useState(false)
+
+  const [filterId, setFilterId] = useState(-1)
+  const {fetchData, addRawRecord, filterRecordList} = useRecordList()
 
   const recordList = filterRecordList(filterId)
 
@@ -135,6 +137,12 @@ const Summary: React.FC = () => {
       <Sticker onClick={() => toggleMoney(true)}>
         <Icon name="pen" size={22} color={theme.$success}/>
       </Sticker>
+
+      {/*选择月份*/}
+      <Drawer show={showMonth}
+              onClickShadow={() => toggleMonth(false)}>
+        <MonthPanel closeDrawer={() => toggleMonth(false)}/>
+      </Drawer>
 
       {/*过滤 Category*/}
       <Drawer show={showFilter}
