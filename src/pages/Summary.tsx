@@ -139,8 +139,9 @@ const Summary: React.FC = () => {
           <Empty>暂无数据</Empty>
       }
 
+      {/*记账*/}
       <Sticker onClick={() => toggleMoney(true)}>
-        <Icon name="pen" size={22} color={theme.$success}/>
+        <Icon name="survey" size={22} color={theme.$success}/>
       </Sticker>
 
       {/*选择月份*/}

@@ -94,7 +94,7 @@ const NumberPad: React.FC<TProps> = (props) => {
     if (text === '确定') return onOK()
 
     // Del
-    if (text === 'Del') return onDel()
+    if (text === 'DEL') return onDel()
 
     // 其他
     const newValue = updateAmount(value, text)
@@ -109,7 +109,7 @@ const NumberPad: React.FC<TProps> = (props) => {
       <button>1</button>
       <button>2</button>
       <button>3</button>
-      <button>Del</button>
+      <button>DEL</button>
 
       <button>4</button>
       <button>5</button>

@@ -3,9 +3,9 @@ import styled from 'styled-components'
 import {ALL_TYPE, DEFAULT_EXPENSE_CATEGORIES, DEFAULT_INCOME_CATEGORIES} from '../lib/category'
 
 type TProps = {
-  value: number
+  value: string
   closeDrawer: () => void
-  onSubmit: (id: number) => void
+  onSubmit: (id: string) => void
 }
 
 type TCategoryItem = {
@@ -50,14 +50,14 @@ const CategoryItem = styled.div<TCategoryItem>`
 const CategoryFilter: React.FC<TProps> = (props) => {
   const {value, closeDrawer, onSubmit} = props
 
-  const submit = (id: number) => {
+  const submit = (id: string) => {
     onSubmit(id)
     closeDrawer()
   }
 
   return (
     <StyledCategoryFilter>
-      <CategoryItem selected={value === -1} onClick={() => submit(ALL_TYPE)}>
+      <CategoryItem selected={value === ALL_TYPE} onClick={() => submit(ALL_TYPE)}>
         全部类型
       </CategoryItem>
 

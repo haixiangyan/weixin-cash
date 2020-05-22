@@ -90,14 +90,14 @@ const Money: React.FC<TProps> = (props) => {
     date: new Date().toISOString(),
     id: new Date().getTime().toString(),
     amount: 0,
-    categoryId: 1,
+    categoryId: '1',
     note: '',
     type: 'expense'
   }
 
   const [note, setNote] = useState(rawRecord.note)
   const [type, setType] = useState<TRecordType>(rawRecord.type)
-  const [categoryId, setCategoryId] = useState<number>(rawRecord.categoryId)
+  const [categoryId, setCategoryId] = useState(rawRecord.categoryId)
   const [amount, setAmount] = useState(rawRecord.amount)
   const [amountString, setAmountString] = useState(rawRecord.amount.toString())
 
