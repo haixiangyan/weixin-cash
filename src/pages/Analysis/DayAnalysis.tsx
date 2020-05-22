@@ -6,7 +6,7 @@ import Button from '../../components/Button'
 import {parseMonthRecord, TMonthRecord, TRawRecord, TRecordType} from '../../hooks/useRecordList'
 import dayjs, {Dayjs} from 'dayjs'
 import {getDaysInMonth} from '../../lib/date'
-import theme from '../../theme'
+import {barChart} from '../../lib/chart'
 
 type TProps = {
   month: Dayjs
@@ -23,10 +23,7 @@ const Header = styled.div`
 `
 
 const Main = styled.div`
-  overflow: auto;
-  > div {
-    width: 700px;
-  }
+  margin: 0 -24px;
 `
 
 const getYData = (days: number[], rawRecordList: TRawRecord[]) => {
@@ -42,47 +39,13 @@ const DayAnalysis: React.FC<TProps> = (props) => {
   const [type, setType] = useState<TRecordType>('expense')
 
   const rawRecordList = monthRecord ? parseMonthRecord(monthRecord).filter(r => r.type === type) : []
-  const xData = getDaysInMonth(month)
-  const yData = getYData(xData, rawRecordList)
 
-  const options = {
-    tooltip: {
-      show: true,
-      trigger: 'item',
-      axisPointer: {
-        type: 'shadow',
-        axis: 'auto',
-      },
-      padding: 5,
-      textStyle: {
-        color: '#eee'
-      },
-    },
-    xAxis: {
-      axisLabel: {
-        formatter: '{value}\n日',
-      },
-      data: xData
-    },
-    yAxis: {
-      show: false,
-    },
-    series: [
-      {
-        type: 'bar',
-        name: type === 'expense' ? '支出' : '收入',
-        data: yData,
-        label: {
-          show: true,
-          position: 'top',
-          color: theme.$success
-        },
-        itemStyle: {
-          color: theme.$success
-        },
-      }
-    ]
-  }
+  // 每日对比
+  const xDayData = getDaysInMonth(month)
+  const yDayData = getYData(xDayData, rawRecordList)
+  const dayChartOptions = barChart(xDayData, yDayData, type)
+
+  // 每月对比
 
   return (
     <section>
@@ -105,7 +68,7 @@ const DayAnalysis: React.FC<TProps> = (props) => {
 
       <Main>
         <div>
-          <ReactEcharts option={options} style={{height: 350}}/>
+          <ReactEcharts option={dayChartOptions}/>
         </div>
       </Main>
     </section>
