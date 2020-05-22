@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "249d772bd6e07302281eda008340afa1",
+    "revision": "acbe2e808e4efaa0d1beb8b3d350a874",
     "url": "/weixin-cash/index.html"
   },
   {
-    "revision": "bb29820358f22f4d6003",
+    "revision": "e6d62753967fccddb50f",
     "url": "/weixin-cash/static/css/main.810302d4.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/weixin-cash/static/js/2.24eda5c3.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "bb29820358f22f4d6003",
-    "url": "/weixin-cash/static/js/main.21d7c6b4.chunk.js"
+    "revision": "e6d62753967fccddb50f",
+    "url": "/weixin-cash/static/js/main.a731d8ea.chunk.js"
   },
   {
     "revision": "b582b2fea3c2a817e8e2",
