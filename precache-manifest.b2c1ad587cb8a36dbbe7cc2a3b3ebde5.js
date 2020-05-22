@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "9dd1e518f1072f9b1f9bdcf52ca9ba56",
+    "revision": "f979842ff2831a31570609af2e31e06a",
     "url": "/weixin-cash/index.html"
   },
   {
