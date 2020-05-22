@@ -10,7 +10,6 @@ type TMenuItem = {
 
 const StyledMenu = styled.div`
   padding: 12px 0;
-  display: flex;
   background: white;
   box-shadow: 0px -2px 12px 0px rgba(192,196,204,.4);
   z-index: 2;
@@ -24,6 +23,8 @@ const StyledMenu = styled.div`
 
 const MenuItem = styled(Link)<TMenuItem>`
   flex-grow: 1;
+  width: 33.333%;
+  float: left;
   color: ${props => props.theme.$normalText};
   font-size: ${props => props.theme.$normalTextSize};
   text-align: center;
@@ -38,7 +39,7 @@ const Menu: React.FC = () => {
   const {pathname} = useLocation()
 
   return (
-    <StyledMenu>
+    <StyledMenu className="clearfix">
       <MenuItem to="/" selected={pathname === '/'}>
         {
           pathname === '/' ?
