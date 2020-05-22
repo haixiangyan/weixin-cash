@@ -14,6 +14,7 @@ import Money from '../components/Money'
 import CategoryFilter from '../components/CategoryFilter'
 import {ALL_CATEGORIES, ALL_TYPE} from '../lib/category'
 import MonthPanel from '../components/MonthPanel'
+import Menu from '../components/Menu'
 
 const StyledSummary = styled.div`
   height: 100%;
@@ -167,6 +168,8 @@ const Summary: React.FC = () => {
         <Money closeDrawer={closeMoney}
                onSubmit={onAddRecord}/>
       </Drawer>
+
+      <Menu/>
     </StyledSummary>
   )
 }
