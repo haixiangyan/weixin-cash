@@ -21,17 +21,17 @@ type TStyledCategory = {
   fill: string
 }
 
-const StyledCategory = styled.span<TStyledCategory>(props =>({
-  padding: 6,
-  display: 'inline-flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  background: props.background,
-  borderRadius: '50%',
-  svg: {
-    fill: props.fill,
+const StyledCategory = styled.span<TStyledCategory>`
+  padding: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: ${props => props.background};
+  border-radius: 50%;
+  svg {
+    fill: ${props => props.fill}
   }
-}))
+`
 
 const Category: React.FC<TProps> = (props) => {
   const {category, recordType, size} = props
