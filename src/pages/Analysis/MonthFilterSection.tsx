@@ -3,9 +3,14 @@ import Divider from '../../components/Dividier'
 import theme from '../../theme'
 import Icon from '../../components/Icon'
 import styled from 'styled-components'
+import {TMonthRecord} from '../../hooks/useRecordList'
+import {Dayjs} from 'dayjs'
+import {MONTH} from '../../lib/date'
 
 type TProps = {
   showMonth: () => void
+  month: Dayjs
+  monthRecord?: TMonthRecord
 }
 
 const Section = styled.section`
@@ -45,12 +50,12 @@ const Income = styled.p`
 `
 
 const MonthFilterSection: React.FC<TProps> = (props) => {
-  const {showMonth} = props
+  const {showMonth, month, monthRecord} = props
 
   return (
     <Section>
       <MonthFilter onClick={showMonth}>
-        <span>2020年5月</span>
+        <span>{month.format(MONTH)}</span>
         <Divider gap={8} color={theme.$placeholder}/>
         <Icon color={theme.$normalText} name="drop-down"/>
       </MonthFilter>
@@ -59,10 +64,14 @@ const MonthFilterSection: React.FC<TProps> = (props) => {
 
       <Expense>
         <span>￥</span>
-        <span className="money">3000.00</span>
+        <span className="money">
+          {monthRecord ? monthRecord.expenseTotal.toFixed(2) : '0.00'}
+        </span>
       </Expense>
 
-      <Income>共收入￥0.00</Income>
+      <Income>
+        共收入￥{monthRecord ? monthRecord.incomeTotal.toFixed(2) : '0.00'}
+      </Income>
     </Section>
   )
 }

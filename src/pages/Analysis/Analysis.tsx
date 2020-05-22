@@ -6,6 +6,8 @@ import Drawer from '../../components/Drawer'
 import MonthPanel from '../../components/MonthPanel'
 import dayjs, {Dayjs} from 'dayjs'
 import {useState} from 'react'
+import useRecordList from '../../hooks/useRecordList'
+import {MONTH} from '../../lib/date'
 
 const StyledAnalysis = styled.div`
   flex-grow: 1;
@@ -13,13 +15,19 @@ const StyledAnalysis = styled.div`
 
 const Analysis: React.FC = () => {
   const [showMonth, toggleMonth] = useState(false)
-
   const [month, setMonth] = useState(dayjs())
+
+  const {getMonthRecord} = useRecordList()
+
+  // 选中的 month record
+  const selectedRecordList = getMonthRecord(month.format(MONTH))
 
   return (
     <Layout>
       <StyledAnalysis>
-        <MonthFilterSection showMonth={() => toggleMonth(true)}/>
+        <MonthFilterSection monthRecord={selectedRecordList}
+                            month={month}
+                            showMonth={() => toggleMonth(true)}/>
       </StyledAnalysis>
 
 
