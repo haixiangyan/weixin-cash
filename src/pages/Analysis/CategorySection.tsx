@@ -5,6 +5,8 @@ import Button from '../../components/Button'
 import {parseMonthRecord, TMonthRecord, TRawRecord, TRecordType} from '../../hooks/useRecordList'
 import {ALL_CATEGORIES} from '../../lib/category'
 import Category, {TCategory} from '../../components/Category'
+import ProgressBar from '../../components/ProgressBar'
+import theme from '../../theme'
 
 type TProps = {
   monthRecord?: TMonthRecord
@@ -47,7 +49,7 @@ const ClassItem = styled.li`
     display: inline-flex;
     align-items: center;
     &.ratio {
-      padding: 0 16px;
+      padding-right: 16px;
       justify-content: flex-end;
       text-align: right;
       flex-grow: 1;
@@ -126,7 +128,10 @@ const CategorySection: React.FC<TProps> = (props) => {
                   <span style={{marginLeft: 8}}>{category.name}</span>
                 </span>
                 <span className="ratio">
-                  {(ratio * 100).toFixed(2)}%
+                  <ProgressBar color={type === 'expense' ? theme.$success : theme.$warning}
+                               value={ratio}
+                               width={110}
+                               height={6}/>
                 </span>
                 <span className="amount">
                   ￥{amount.toFixed(2)}
