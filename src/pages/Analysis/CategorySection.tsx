@@ -90,7 +90,10 @@ const classify = (rawRecordList: TRawRecord[]) => {
     classified[categoryId].ratio = classified[categoryId].amount / total
   })
 
-  return Object.values(classified).sort((a, b) => a.ratio - b.ratio)
+  // 计算 ratio
+  Object.values(classified).forEach(c => c.ratio = c.amount / total)
+
+  return Object.values(classified).sort((a, b) => b.ratio - a.ratio)
 }
 
 const CategorySection: React.FC<TProps> = (props) => {
