@@ -15,6 +15,7 @@ import MonthAnalysis from './MonthAnalysis'
 
 const StyledAnalysis = styled.div`
   flex-grow: 1;
+  overflow: auto;
 `
 
 const Main = styled.section`
