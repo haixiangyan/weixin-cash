@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/weixin-cash/static/css/main.810302d4.chunk.css",
+    "main.js": "/weixin-cash/static/js/main.c9f85143.chunk.js",
+    "main.js.map": "/weixin-cash/static/js/main.c9f85143.chunk.js.map",
+    "runtime-main.js": "/weixin-cash/static/js/runtime-main.6c4d1b1a.js",
+    "runtime-main.js.map": "/weixin-cash/static/js/runtime-main.6c4d1b1a.js.map",
+    "static/js/2.24eda5c3.chunk.js": "/weixin-cash/static/js/2.24eda5c3.chunk.js",
+    "static/js/2.24eda5c3.chunk.js.map": "/weixin-cash/static/js/2.24eda5c3.chunk.js.map",
+    "index.html": "/weixin-cash/index.html",
+    "precache-manifest.101ad3ae69d3e7f6e1459014b0faaab4.js": "/weixin-cash/precache-manifest.101ad3ae69d3e7f6e1459014b0faaab4.js",
+    "service-worker.js": "/weixin-cash/service-worker.js",
+    "static/css/main.810302d4.chunk.css.map": "/weixin-cash/static/css/main.810302d4.chunk.css.map",
+    "static/js/2.24eda5c3.chunk.js.LICENSE.txt": "/weixin-cash/static/js/2.24eda5c3.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.6c4d1b1a.js",
+    "static/js/2.24eda5c3.chunk.js",
+    "static/css/main.810302d4.chunk.css",
+    "static/js/main.c9f85143.chunk.js"
+  ]
+}
