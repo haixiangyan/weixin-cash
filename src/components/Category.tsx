@@ -4,7 +4,7 @@ import Icon from './Icon'
 import {TRecordType} from '../hooks/useRecordList'
 import {CATEGORY_COLOR} from '../lib/category'
 
-type TCategory = {
+export type TCategory = {
   id: string
   name: string
   iconName: string

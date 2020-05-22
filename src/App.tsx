@@ -8,7 +8,7 @@ import {
 import Summary from './pages/Summary'
 import Details from './pages/Details'
 import theme from './theme'
-import Analysis from './pages/Analysis'
+import Analysis from './pages/Analysis/Analysis'
 import Settings from './pages/Settings'
 
 const StyledApp = styled.div`
