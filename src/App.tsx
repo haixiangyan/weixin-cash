@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react'
 import styled, {ThemeProvider} from 'styled-components'
 import {
   HashRouter as Router,
@@ -11,19 +11,34 @@ import theme from './theme'
 import Analysis from './pages/Analysis/Analysis'
 import Settings from './pages/Settings'
 
-const StyledApp = styled.div`
+type TStyledApp = {
+  height: number
+}
+
+const StyledApp = styled.div<TStyledApp>`
   position: relative;
   max-width: 480px;
   margin: 0 auto;
   background: #EDEDED;
-  height: 100vh;
+  height: ${props => props.height + 'px'}
 `
 
 const App: React.FC = () => {
+  const [height, setHeight] = useState(window.innerHeight)
+
+  const onResize = () => {
+    setHeight(window.innerHeight * 0.01)
+  }
+
+  useEffect(() => {
+    window.addEventListener('resize', onResize)
+    return window.removeEventListener('resize', onResize)
+  })
+
   return (
     <ThemeProvider theme={theme}>
       <Router>
-        <StyledApp>
+        <StyledApp height={height}>
           <Switch>
             <Route exact path="/">
               <Summary/>
