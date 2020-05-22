@@ -14,23 +14,7 @@ import Money from '../components/Money'
 import CategoryFilter from '../components/CategoryFilter'
 import {ALL_CATEGORIES, ALL_TYPE} from '../lib/category'
 import MonthPanel from '../components/MonthPanel'
-import Menu from '../components/Menu'
-
-const StyledSummary = styled.div`
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-`
-
-const Header = styled.header`
-  padding: 60px 14px 8px;
-  background: ${props => props.theme.$success};
-  color: ${props => props.theme.$white};
-  .title {
-    text-align: center;
-    font-size: ${props => props.theme.$largeTextSize};
-  }
-`
+import Layout from '../components/Layout'
 
 const FilterWrapper = styled.section`
   padding: 0 12px;
@@ -101,11 +85,7 @@ const Summary: React.FC = () => {
   }
 
   return (
-    <StyledSummary>
-      <Header>
-        <p className="title">记账本</p>
-      </Header>
-
+    <Layout>
       <FilterWrapper>
         <section>
           <TypeButton onClick={() => toggleFilter(true)}>
@@ -170,9 +150,7 @@ const Summary: React.FC = () => {
         <Money closeDrawer={closeMoney}
                onSubmit={onAddRecord}/>
       </Drawer>
-
-      <Menu/>
-    </StyledSummary>
+    </Layout>
   )
 }
 
