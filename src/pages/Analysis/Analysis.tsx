@@ -11,6 +11,7 @@ import {MONTH} from '../../lib/date'
 import CategorySection from './CategorySection'
 import Divider from '../../components/Dividier'
 import DayAnalysis from './DayAnalysis'
+import MonthAnalysis from './MonthAnalysis'
 
 const StyledAnalysis = styled.div`
   flex-grow: 1;
@@ -42,7 +43,13 @@ const Analysis: React.FC = () => {
 
           <Divider direction="horizontal" gap={24}/>
 
-          <DayAnalysis month={month} monthRecord={selectedRecordList}/>
+          <DayAnalysis month={month}
+                       monthRecord={selectedRecordList}
+                       />
+
+          <Divider direction="horizontal" gap={24}/>
+
+          <MonthAnalysis getMonthRecord={getMonthRecord}/>
         </Main>
       </StyledAnalysis>
 

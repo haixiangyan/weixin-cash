@@ -45,7 +45,7 @@ const MonthItem = styled.li<TMonthItem>`
   color: ${props => props.selected ? 'white' : props.theme.$normalText}
 `
 
-const getPrevMonths = () => {
+export const getPrevMonths = () => {
   const DURATION = 5
 
   return [...Array(DURATION)].map((_, index) => dayjs().subtract(index, 'month'))

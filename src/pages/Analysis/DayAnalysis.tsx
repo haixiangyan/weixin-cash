@@ -45,8 +45,6 @@ const DayAnalysis: React.FC<TProps> = (props) => {
   const yDayData = getYData(xDayData, rawRecordList)
   const dayChartOptions = barChart(xDayData, yDayData, type)
 
-  // 每月对比
-
   return (
     <section>
       <Header>
@@ -67,9 +65,7 @@ const DayAnalysis: React.FC<TProps> = (props) => {
       </Header>
 
       <Main>
-        <div>
-          <ReactEcharts option={dayChartOptions}/>
-        </div>
+        <ReactEcharts option={dayChartOptions}/>
       </Main>
     </section>
   )

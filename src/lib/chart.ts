@@ -21,11 +21,14 @@ export const barChart = (xData: any[], yData: any[], type: TRecordType) => {
     xAxis: {
       axisLabel: {
         formatter: '{value}\n号',
+        textStyle: {
+          color: theme.$subText
+        }
       },
       data: xData
     },
     yAxis: {
-      show: false,
+      show: false
     },
     series: [
       {
@@ -36,7 +39,7 @@ export const barChart = (xData: any[], yData: any[], type: TRecordType) => {
           show: true,
           position: 'top',
           color,
-          formatter: (data: any) => data.value === 0 ? '' : `￥${data.value}`
+          formatter: (data: any) => data.value === 0 ? '' : `￥${data.value.toFixed(2)}`
         },
         itemStyle: {
           color,
