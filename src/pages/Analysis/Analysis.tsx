@@ -8,6 +8,7 @@ import dayjs, {Dayjs} from 'dayjs'
 import {useState} from 'react'
 import useRecordList from '../../hooks/useRecordList'
 import {MONTH} from '../../lib/date'
+import CategorySection from './CategorySection'
 
 const StyledAnalysis = styled.div`
   flex-grow: 1;
@@ -28,6 +29,8 @@ const Analysis: React.FC = () => {
         <MonthFilterSection monthRecord={selectedRecordList}
                             month={month}
                             showMonth={() => toggleMonth(true)}/>
+
+        <CategorySection/>
       </StyledAnalysis>
 
 
