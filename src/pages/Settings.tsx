@@ -79,7 +79,7 @@ const Settings: React.FC = () => {
       <Drawer show={contact} closeDrawer={() => toggleContact(false)}>
         <Contact>
           <span style={{marginRight: 8}}>我的邮箱：</span>
-          <a href="mailto:haixiang6123@gmail.com" target="_blank">
+          <a href="mailto:haixiang6123@gmail.com" target="_blank" rel="noopener noreferrer">
             haixiang6123@gmail.com
           </a>
         </Contact>
