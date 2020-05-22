@@ -1,9 +1,9 @@
 import * as React from 'react'
+import {useState} from 'react'
 import Layout from '../components/Layout'
 import styled from 'styled-components'
 import Icon from '../components/Icon'
 import Drawer from '../components/Drawer'
-import {useState} from 'react'
 
 const Main = styled.div`
   flex-grow: 1;
@@ -11,13 +11,15 @@ const Main = styled.div`
 `
 
 const Item = styled.div`
+  padding-left: 16px;
   display: flex;
   align-items: center;
-  padding: 16px;
   background: white;
-  border-bottom: 1px solid #eee;
   > span {
-    margin-left: 8px;
+    padding: 16px 0;
+    margin-left: 16px;
+    font-size: 1.2em;
+    flex-grow: 1;
   }
   :active {
     background: #D6D6D6;
@@ -54,17 +56,17 @@ const Settings: React.FC = () => {
     <Layout>
       <Main>
         <Item style={{marginBottom: 8}} onClick={() => toggleQrcode(true)}>
-          <Icon name="qrcode"/>
+          <Icon size={22} name="qrcode" color="#ff9800"/>
           <span>把记账本推荐给朋友</span>
         </Item>
 
         <Item onClick={() => window.open(github, '_blank')}>
-          <Icon name="github"/>
-          <span>点个Star支持一下</span>
+          <Icon size={22} name="github" color="black"/>
+          <span style={{borderBottom: '1px solid #eee'}}>点个Star支持一下</span>
         </Item>
 
         <Item onClick={() => toggleContact(true)}>
-          <Icon name="message"/>
+          <Icon size={22} name="message" color="#03a9f4"/>
           <span>联系我</span>
         </Item>
       </Main>
