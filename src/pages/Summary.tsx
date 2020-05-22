@@ -55,6 +55,7 @@ const RecordList = styled.ul`
 
 const Empty = styled.div`
   padding-top: 24px;
+  height: 100%;
   text-align: center;
   color: ${props => props.theme.$subText}
 `
