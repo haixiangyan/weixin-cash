@@ -51,7 +51,7 @@ const MonthAnalysis: React.FC<TProps> = (props) => {
   const xData = months.map(m => m.get('month'))
   const yData = getYData(months, getMonthRecord)
 
-  const monthChartOptions = barChart(xData, yData, type)
+  const monthChartOptions = barChart(xData, yData, type, '月')
 
   return (
     <div>

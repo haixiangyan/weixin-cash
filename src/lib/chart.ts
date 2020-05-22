@@ -1,7 +1,7 @@
 import theme from '../theme'
 import {TRecordType} from '../hooks/useRecordList'
 
-export const barChart = (xData: any[], yData: any[], type: TRecordType) => {
+export const barChart = (xData: any[], yData: any[], type: TRecordType, unit: string) => {
   const color = type === 'expense' ? theme.$success : theme.$warning
   const name = type === 'expense' ? '支出' : '收入'
 
@@ -20,7 +20,7 @@ export const barChart = (xData: any[], yData: any[], type: TRecordType) => {
     },
     xAxis: {
       axisLabel: {
-        formatter: '{value}\n号',
+        formatter: `{value}\n${unit}`,
         textStyle: {
           color: theme.$subText
         }

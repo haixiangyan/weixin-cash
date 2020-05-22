@@ -43,7 +43,7 @@ const DayAnalysis: React.FC<TProps> = (props) => {
   // 每日对比
   const xDayData = getDaysInMonth(month)
   const yDayData = getYData(xDayData, rawRecordList)
-  const dayChartOptions = barChart(xDayData, yDayData, type)
+  const dayChartOptions = barChart(xDayData, yDayData, type, '号')
 
   return (
     <section>
