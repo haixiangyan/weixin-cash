@@ -78,7 +78,7 @@ const Summary: React.FC = () => {
     toggleMoney(false)
   }
 
-  const onAddRecord = (newRawRecord : TRawRecord) => {
+  const onAddRecord = (newRawRecord: TRawRecord) => {
     addRawRecord(newRawRecord)
 
     alert('已添加该记录')
@@ -128,28 +128,33 @@ const Summary: React.FC = () => {
       </Sticker>
 
       {/*选择月份*/}
-      <Drawer show={showMonth}
-              title="请选择月份"
-              closeDrawer={() => toggleMonth(false)}>
-        <MonthPanel value={month}
-                    closeDrawer={() => toggleMonth(false)}
-                    onSubmit={(newMonth: Dayjs) => setMonth(newMonth)}/>
-      </Drawer>
+      {
+        showMonth &&
+        <Drawer title="请选择月份" closeDrawer={() => toggleMonth(false)}>
+          <MonthPanel value={month}
+                      closeDrawer={() => toggleMonth(false)}
+                      onSubmit={(newMonth: Dayjs) => setMonth(newMonth)}/>
+        </Drawer>
+      }
 
       {/*过滤 Category*/}
-      <Drawer show={showFilter}
-              closeDrawer={() => toggleFilter(false)}>
-        <CategoryFilter value={filterId}
-                        closeDrawer={() => toggleFilter(false)}
-                        onSubmit={(id) => setFilterId(id)}/>
-      </Drawer>
+      {
+        showFilter &&
+        <Drawer closeDrawer={() => toggleFilter(false)}>
+          <CategoryFilter value={filterId}
+                          closeDrawer={() => toggleFilter(false)}
+                          onSubmit={(id) => setFilterId(id)}/>
+        </Drawer>
+      }
 
       {/*记账*/}
-      <Drawer show={showMoney}
-              closeDrawer={closeMoney}>
-        <Money closeDrawer={closeMoney}
-               onSubmit={onAddRecord}/>
-      </Drawer>
+      {
+        showMoney &&
+        <Drawer closeDrawer={closeMoney}>
+          <Money closeDrawer={closeMoney}
+                 onSubmit={onAddRecord}/>
+        </Drawer>
+      }
     </Layout>
   )
 }

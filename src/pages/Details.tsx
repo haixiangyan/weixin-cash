@@ -59,12 +59,14 @@ const Details: React.FC = () => {
       </Main>
 
       {/*记账*/}
-      <Drawer show={showMoney}
-              closeDrawer={() => toggleMoney(false)}>
-        <Money closeDrawer={() => toggleMoney(false)}
-               value={rawRecord}
-               onSubmit={onEdit}/>
-      </Drawer>
+      {
+        showMoney &&
+        <Drawer closeDrawer={() => toggleMoney(false)}>
+          <Money closeDrawer={() => toggleMoney(false)}
+                 value={rawRecord}
+                 onSubmit={onEdit}/>
+        </Drawer>
+      }
     </div>
   )
 }

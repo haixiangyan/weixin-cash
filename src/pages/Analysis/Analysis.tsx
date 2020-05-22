@@ -56,13 +56,14 @@ const Analysis: React.FC = () => {
 
 
       {/*选择月份*/}
-      <Drawer show={showMonth}
-              title="请选择月份"
-              closeDrawer={() => toggleMonth(false)}>
-        <MonthPanel value={month}
-                    closeDrawer={() => toggleMonth(false)}
-                    onSubmit={(newMonth: Dayjs) => setMonth(newMonth)}/>
-      </Drawer>
+      {
+        showMonth &&
+        <Drawer title="请选择月份" closeDrawer={() => toggleMonth(false)}>
+          <MonthPanel value={month}
+                      closeDrawer={() => toggleMonth(false)}
+                      onSubmit={(newMonth: Dayjs) => setMonth(newMonth)}/>
+        </Drawer>
+      }
     </Layout>
   )
 }

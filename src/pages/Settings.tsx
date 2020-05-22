@@ -45,8 +45,8 @@ const Contact = styled.div`
 `
 
 const Settings: React.FC = () => {
-  const [qrcode, toggleQrcode] = useState(false)
-  const [contact, toggleContact] = useState(false)
+  const [showQrCode, toggleQrcode] = useState(false)
+  const [showContact, toggleContact] = useState(false)
 
   const github = 'https://github.com/Haixiang6123/weixin-cash'
 
@@ -69,21 +69,27 @@ const Settings: React.FC = () => {
         </Item>
       </Main>
 
-      <Drawer show={qrcode} closeDrawer={() => toggleQrcode(false)}>
-        <QrCode>
-          <p>扫一下面二维码以分享该记账本</p>
-          <img src={require('../assets/img/qrcode.png')} alt="网站二维码"/>
-        </QrCode>
-      </Drawer>
+      {
+        showQrCode &&
+        <Drawer closeDrawer={() => toggleQrcode(false)}>
+          <QrCode>
+            <p>扫一下面二维码以分享该记账本</p>
+            <img src={require('../assets/img/qrcode.png')} alt="网站二维码"/>
+          </QrCode>
+        </Drawer>
+      }
 
-      <Drawer show={contact} closeDrawer={() => toggleContact(false)}>
-        <Contact>
-          <span style={{marginRight: 8}}>我的邮箱：</span>
-          <a href="mailto:haixiang6123@gmail.com" target="_blank" rel="noopener noreferrer">
-            haixiang6123@gmail.com
-          </a>
-        </Contact>
-      </Drawer>
+      {
+        showContact &&
+        <Drawer closeDrawer={() => toggleContact(false)}>
+          <Contact>
+            <span style={{marginRight: 8}}>我的邮箱：</span>
+            <a href="mailto:haixiang6123@gmail.com" target="_blank" rel="noopener noreferrer">
+              haixiang6123@gmail.com
+            </a>
+          </Contact>
+        </Drawer>
+      }
     </Layout>
   )
 }
