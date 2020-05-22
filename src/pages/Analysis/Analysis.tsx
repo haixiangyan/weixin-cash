@@ -42,7 +42,7 @@ const Analysis: React.FC = () => {
 
           <Divider direction="horizontal" gap={24}/>
 
-          <DayAnalysis/>
+          <DayAnalysis month={month} monthRecord={selectedRecordList}/>
         </Main>
       </StyledAnalysis>
 

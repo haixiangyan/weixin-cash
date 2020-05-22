@@ -1,11 +1,17 @@
 import * as React from 'react'
+import {useState} from 'react'
+import ReactEcharts from 'echarts-for-react'
 import styled from 'styled-components'
 import Button from '../../components/Button'
-import {useState} from 'react'
-import {TRecordType} from '../../hooks/useRecordList'
+import {parseMonthRecord, TMonthRecord, TRawRecord, TRecordType} from '../../hooks/useRecordList'
+import dayjs, {Dayjs} from 'dayjs'
+import {getDaysInMonth} from '../../lib/date'
+import theme from '../../theme'
 
-const Section = styled.section`
-`
+type TProps = {
+  month: Dayjs
+  monthRecord?: TMonthRecord
+}
 
 const Header = styled.div`
   display: flex;
@@ -16,11 +22,70 @@ const Header = styled.div`
   }
 `
 
-const DayAnalysis: React.FC = () => {
+const Main = styled.div`
+  overflow: auto;
+  > div {
+    width: 700px;
+  }
+`
+
+const getYData = (days: number[], rawRecordList: TRawRecord[]) => {
+  return days.map(d => {
+    const record = rawRecordList.find(r => dayjs(r.date).get('date') === d)
+    return record ? record.amount : 0.00
+  })
+}
+
+const DayAnalysis: React.FC<TProps> = (props) => {
+  const {month, monthRecord} = props
+
   const [type, setType] = useState<TRecordType>('expense')
 
+  const rawRecordList = monthRecord ? parseMonthRecord(monthRecord).filter(r => r.type === type) : []
+  const xData = getDaysInMonth(month)
+  const yData = getYData(xData, rawRecordList)
+
+  const options = {
+    tooltip: {
+      show: true,
+      trigger: 'item',
+      axisPointer: {
+        type: 'shadow',
+        axis: 'auto',
+      },
+      padding: 5,
+      textStyle: {
+        color: '#eee'
+      },
+    },
+    xAxis: {
+      axisLabel: {
+        formatter: '{value}\n日',
+      },
+      data: xData
+    },
+    yAxis: {
+      show: false,
+    },
+    series: [
+      {
+        type: 'bar',
+        name: type === 'expense' ? '支出' : '收入',
+        data: yData,
+        label: {
+          show: true,
+          position: 'top',
+          color: theme.$success
+        },
+        itemStyle: {
+          color: theme.$success
+        },
+      }
+    ]
+  }
+
   return (
-    <Section>
+    <section>
       <Header>
         <span>每日对比</span>
 
@@ -37,7 +102,13 @@ const DayAnalysis: React.FC = () => {
           </Button>
         </span>
       </Header>
-    </Section>
+
+      <Main>
+        <div>
+          <ReactEcharts option={options} style={{height: 350}}/>
+        </div>
+      </Main>
+    </section>
   )
 }
 

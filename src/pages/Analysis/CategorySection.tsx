@@ -62,12 +62,6 @@ const Empty = styled.div`
   color: ${props => props.theme.$subText};
 `
 
-const getRawRecordList = (monthRecord: TMonthRecord | undefined, type: TRecordType) => {
-  if (!monthRecord) return []
-
-  return parseMonthRecord(monthRecord).filter(r => r.type === type)
-}
-
 const classify = (rawRecordList: TRawRecord[]) => {
   let classified: { [key: string]: TClass } = {}
   let total = 0
@@ -100,7 +94,7 @@ const CategorySection: React.FC<TProps> = (props) => {
 
   const [type, setType] = useState<TRecordType>('expense')
 
-  const rawRecordList = getRawRecordList(monthRecord, type)
+  const rawRecordList = monthRecord ? parseMonthRecord(monthRecord).filter(r => r.type === type) : []
   const classified = classify(rawRecordList)
 
   return (
