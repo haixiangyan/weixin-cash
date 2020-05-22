@@ -37,12 +37,10 @@ const Analysis: React.FC = () => {
         <MonthFilterSection monthRecord={selectedRecordList}
                             month={month}
                             showMonth={() => toggleMonth(true)}/>
-
-
         <Main>
           <CategorySection monthRecord={selectedRecordList}/>
 
-          <Divider direction="horizontal"/>
+          <Divider direction="horizontal" gap={24}/>
 
           <DayAnalysis/>
         </Main>

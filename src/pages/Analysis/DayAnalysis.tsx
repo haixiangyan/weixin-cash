@@ -26,10 +26,12 @@ const DayAnalysis: React.FC = () => {
 
         <span>
           <Button recordType={type === 'expense' ? 'success' : 'none'}
+                  size="small"
                   onClick={() => setType('expense')}>
             支出
           </Button>
           <Button recordType={type === 'income' ? 'warning' : 'none'}
+                  size="small"
                   onClick={() => setType('income')}>
             收入
           </Button>
