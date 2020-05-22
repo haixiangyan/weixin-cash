@@ -36,8 +36,17 @@ const QrCode = styled.div`
   }
 `
 
+const Contact = styled.div`
+  padding: 24px;
+  text-align: center;
+  span, a {
+    font-size: ${props => props.theme.$largeTextSize};
+  }
+`
+
 const Settings: React.FC = () => {
   const [qrcode, toggleQrcode] = useState(false)
+  const [contact, toggleContact] = useState(false)
 
   const github = 'https://github.com/Haixiang6123/weixin-cash'
 
@@ -54,7 +63,7 @@ const Settings: React.FC = () => {
           <span>点个Star支持一下</span>
         </Item>
 
-        <Item>
+        <Item onClick={() => toggleContact(true)}>
           <Icon name="message"/>
           <span>联系我</span>
         </Item>
@@ -63,8 +72,17 @@ const Settings: React.FC = () => {
       <Drawer show={qrcode} closeDrawer={() => toggleQrcode(false)}>
         <QrCode>
           <p>扫一下面二维码以分享该记账本</p>
-          <img src={require('../assets/img/qrcode.png')} alt=""/>
+          <img src={require('../assets/img/qrcode.png')} alt="网站二维码"/>
         </QrCode>
+      </Drawer>
+
+      <Drawer show={contact} closeDrawer={() => toggleContact(false)}>
+        <Contact>
+          <span style={{marginRight: 8}}>我的邮箱：</span>
+          <a href="mailto:haixiang6123@gmail.com" target="_blank">
+            haixiang6123@gmail.com
+          </a>
+        </Contact>
       </Drawer>
     </Layout>
   )
