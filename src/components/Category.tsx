@@ -5,7 +5,7 @@ import {TRecordType} from '../hooks/useRecordList'
 import {CATEGORY_COLOR} from '../lib/category'
 
 type TCategory = {
-  id: number
+  id: string
   name: string
   iconName: string
 }

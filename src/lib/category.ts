@@ -15,189 +15,78 @@ export const CATEGORY_COLOR = {
   }
 }
 
-export const ALL_TYPE = -1
+export const ALL_TYPE = '-1'
+export const OTHER_TYPE = '0'
 
 export const ALL_CATEGORIES = [
   {
-    id: 1,
-    name: '服饰美容',
-    iconName: 'shirt'
-  },
-  {
-    id: 2,
-    name: '餐饮',
-    iconName: 'rice'
-  },
-  {
-    id: 3,
-    name: '交通',
-    iconName: 'bus'
-  },
-  {
-    id: 4,
-    name: '住房缴费',
-    iconName: 'house'
-  },
-  {
-    id: 5,
-    name: '购物',
-    iconName: 'shop-bag'
-  },
-  {
-    id: 6,
-    name: '生活服务',
-    iconName: 'water-drop'
-  },
-  {
-    id: 7,
-    name: '学习',
-    iconName: 'study'
-  },
-  {
-    id: 8,
-    name: '娱乐',
-    iconName: 'microphone'
-  },
-  {
-    id: 9,
-    name: '运动',
-    iconName: 'basketball'
-  },
-  {
-    id: 10,
-    name: '旅游',
-    iconName: 'balloon'
-  },
-  {
-    id: 11,
-    name: '酒店',
-    iconName: 'taxi'
-  },
-  {
-    id: 12,
-    name: '亲子',
-    iconName: 'baby'
-  },
-  {
-    id: 13,
-    name: '宠物',
-    iconName: 'footprint'
-  },
-  {
-    id: 14,
-    name: '医疗',
-    iconName: 'pill'
-  },
-  {
-    id: 15,
-    name: '其他人情',
-    iconName: 'smile'
-  },
-  {
-    id: 16,
+    id: '0',
     name: '其他',
     iconName: 'rmb'
   },
-]
-
-export const DEFAULT_INCOME_CATEGORIES = [
   {
-    id: 1,
-    name: '服饰美容',
-    iconName: 'shirt'
+    id: '1',
+    name: '衣服',
+    iconName: 'clothes'
   },
   {
-    id: 2,
+    id: '2',
+    name: '购物',
+    iconName: 'bag'
+  },
+  {
+    id: '3',
+    name: '交通',
+    iconName: 'bus'
+  },
+  {
+    id: '4',
     name: '餐饮',
     iconName: 'rice'
   },
   {
-    id: 3,
-    name: '交通',
-    iconName: 'bus'
+    id: '5',
+    name: '旅行',
+    iconName: 'luggage'
   },
+  {
+    id: '6',
+    name: '股票',
+    iconName: 'stock'
+  },
+  {
+    id: '7',
+    name: '水电媒',
+    iconName: 'water-drop'
+  },
+  {
+    id: '8',
+    name: '信用卡',
+    iconName: 'card'
+  },
+  {
+    id: '9',
+    name: '工资',
+    iconName: 'salary'
+  },
+  {
+    id: '10',
+    name: '转账',
+    iconName: 'transfer'
+  }
+]
+
+const [
+  other, clothes, shopping,
+  traffic, eat, travel, stock,
+  living, salary, transfer
+] = ALL_CATEGORIES
+
+export const DEFAULT_INCOME_CATEGORIES = [
+  salary, transfer, stock, other
 ]
 
 export const DEFAULT_EXPENSE_CATEGORIES = [
-  {
-    id: 1,
-    name: '服饰美容',
-    iconName: 'shirt'
-  },
-  {
-    id: 2,
-    name: '餐饮',
-    iconName: 'rice'
-  },
-  {
-    id: 3,
-    name: '交通',
-    iconName: 'bus'
-  },
-  {
-    id: 4,
-    name: '住房缴费',
-    iconName: 'house'
-  },
-  {
-    id: 5,
-    name: '购物',
-    iconName: 'shop-bag'
-  },
-  {
-    id: 6,
-    name: '生活服务',
-    iconName: 'water-drop'
-  },
-  {
-    id: 7,
-    name: '学习',
-    iconName: 'study'
-  },
-  {
-    id: 8,
-    name: '娱乐',
-    iconName: 'microphone'
-  },
-  {
-    id: 9,
-    name: '运动',
-    iconName: 'basketball'
-  },
-  {
-    id: 10,
-    name: '旅游',
-    iconName: 'balloon'
-  },
-  {
-    id: 11,
-    name: '酒店',
-    iconName: 'taxi'
-  },
-  {
-    id: 12,
-    name: '亲子',
-    iconName: 'baby'
-  },
-  {
-    id: 13,
-    name: '宠物',
-    iconName: 'footprint'
-  },
-  {
-    id: 14,
-    name: '医疗',
-    iconName: 'pill'
-  },
-  {
-    id: 15,
-    name: '其他人情',
-    iconName: 'smile'
-  },
-  {
-    id: 16,
-    name: '其他',
-    iconName: 'rmb'
-  },
+  clothes, shopping, traffic, eat, travel, stock, living, transfer, other
 ]
 

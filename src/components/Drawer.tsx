@@ -51,9 +51,9 @@ const Drawer: React.FC<TProps> = (props) => {
     <Shadow show={show} onClick={closeDrawer}>
       <Main show={show} onClick={e => e.stopPropagation()}>
         <Header>
-          <Icon onClick={closeDrawer} name="cancel" size={18}/>
+          <Icon onClick={closeDrawer} name="close" size={18}/>
           <span>{title}</span>
-          <Icon name="cancel" color="transparent"/>
+          <Icon name="close" color="transparent"/>
         </Header>
 
         {props.children}

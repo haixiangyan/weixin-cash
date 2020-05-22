@@ -7,7 +7,7 @@ export type TRecordType = 'expense' | 'income'
 export type TRawRecord = {
   id: string
   date: string
-  categoryId: number
+  categoryId: string
   amount: number
   note: string
   type: TRecordType
@@ -29,7 +29,7 @@ export const DEFAULT_RECORDS: TRawRecord[] = [
   {
     id: '1',
     date: dayjs('2020-04-04').toISOString(),
-    categoryId: 2,
+    categoryId: '4',
     amount: 300,
     note: '吃黄焖鸡米饭',
     type: 'expense'
@@ -37,7 +37,7 @@ export const DEFAULT_RECORDS: TRawRecord[] = [
   {
     id: '2',
     date: dayjs('2020-03-04').toISOString(),
-    categoryId: 3,
+    categoryId: '9',
     amount: 400,
     note: '工资',
     type: 'income'
@@ -45,17 +45,17 @@ export const DEFAULT_RECORDS: TRawRecord[] = [
   {
     id: '3',
     date: dayjs('2020-03-03').toISOString(),
-    categoryId: 4,
+    categoryId: '1',
     amount: 200,
-    note: '衣服',
+    note: '买衣服',
     type: 'expense'
   },
   {
     id: '4',
     date: dayjs('2020-03-03').toISOString(),
-    categoryId: 1,
+    categoryId: '5',
     amount: 500,
-    note: '学费',
+    note: '去巴哈马',
     type: 'expense'
   }
 ]
@@ -139,7 +139,7 @@ const useRecordList = () => {
     setRecordList(bulkAppendRecords([], newRawRecordList))
   }
 
-  const filterRecordList = (categoryId: number, month: Dayjs) => {
+  const filterRecordList = (categoryId: string, month: Dayjs) => {
     const filtered = rawRecordList.filter(r => {
       if (categoryId === ALL_TYPE) return true // 所有类型
       return r.categoryId === categoryId // 对应类型
