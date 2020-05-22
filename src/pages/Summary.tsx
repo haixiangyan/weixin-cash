@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import Icon from '../components/Icon'
 import Divider from '../components/Dividier'
 import MonthRecord from '../components/MonthRecord'
-import useRecordList, {TRawRecord} from '../hooks/useRecordList'
+import useRecordList, {TRawRecord, TRecordType} from '../hooks/useRecordList'
 import dayjs, {Dayjs} from 'dayjs'
 import {MONTH} from '../lib/date'
 import Sticker from '../components/Sticker'
@@ -67,9 +67,10 @@ const Summary: React.FC = () => {
 
   const [month, setMonth] = useState(dayjs())
   const [filterId, setFilterId] = useState(ALL_TYPE)
+  const [filterType, setFilterType] = useState<TRecordType>('expense')
   const {fetchData, addRawRecord, filterRecordList} = useRecordList()
 
-  const recordList = filterRecordList(filterId, month)
+  const recordList = filterRecordList(filterId, month, filterType)
   const [firstMonth] = recordList
 
   const filter = ALL_CATEGORIES.find(c => c.id === filterId)
@@ -143,8 +144,12 @@ const Summary: React.FC = () => {
         showFilter &&
         <Drawer closeDrawer={() => toggleFilter(false)}>
           <CategoryFilter value={filterId}
+                          recordType={filterType}
                           closeDrawer={() => toggleFilter(false)}
-                          onSubmit={(id) => setFilterId(id)}/>
+                          onSubmit={(id, type) => {
+                            setFilterId(id)
+                            setFilterType(type)
+                          }}/>
         </Drawer>
       }
 

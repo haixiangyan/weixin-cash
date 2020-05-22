@@ -1,15 +1,24 @@
 import * as React from 'react'
 import styled from 'styled-components'
 import {ALL_TYPE, DEFAULT_EXPENSE_CATEGORIES, DEFAULT_INCOME_CATEGORIES} from '../lib/category'
+import {TRecordType} from '../hooks/useRecordList'
+import theme from '../theme'
 
 type TProps = {
+  recordType: TRecordType
   value: string
   closeDrawer: () => void
-  onSubmit: (id: string) => void
+  onSubmit: (id: string, type: TRecordType) => void
 }
 
 type TCategoryItem = {
+  recordType: TRecordType
   selected: boolean
+}
+
+const BACKGROUND = {
+  expense: theme.$success,
+  income: theme.$warning
 }
 
 const StyledCategoryFilter = styled.section`
@@ -43,21 +52,23 @@ const CategoryItem = styled.div<TCategoryItem>`
   border-radius: 6px;
   font-size: 1.1em;
   cursor: pointer;
-  background: ${props => props.selected ? props.theme.$success : 'white'};
+  background: ${props => props.selected ? BACKGROUND[props.recordType] : 'white'};
   color: ${props => props.selected ? 'white' : props.theme.$normalText}
 `
 
 const CategoryFilter: React.FC<TProps> = (props) => {
-  const {value, closeDrawer, onSubmit} = props
+  const {value, recordType, closeDrawer, onSubmit} = props
 
-  const submit = (id: string) => {
-    onSubmit(id)
+  const submit = (id: string, type: TRecordType) => {
+    onSubmit(id, type)
     closeDrawer()
   }
 
   return (
     <StyledCategoryFilter>
-      <CategoryItem selected={value === ALL_TYPE} onClick={() => submit(ALL_TYPE)}>
+      <CategoryItem selected={value === ALL_TYPE}
+                    recordType="expense"
+                    onClick={() => submit(ALL_TYPE, 'expense')}>
         全部类型
       </CategoryItem>
 
@@ -66,8 +77,9 @@ const CategoryFilter: React.FC<TProps> = (props) => {
         {
           DEFAULT_EXPENSE_CATEGORIES.map(c => (
             <CategoryItem key={c.id}
-                          onClick={() => submit(c.id)}
-                          selected={value === c.id}>
+                          recordType="expense"
+                          onClick={() => submit(c.id, 'expense')}
+                          selected={recordType === 'expense' && value === c.id}>
               {c.name}
             </CategoryItem>
           ))
@@ -79,8 +91,9 @@ const CategoryFilter: React.FC<TProps> = (props) => {
         {
           DEFAULT_INCOME_CATEGORIES.map(c => (
             <CategoryItem key={c.id}
-                          onClick={() => submit(c.id)}
-                          selected={value === c.id}>
+                          recordType="income"
+                          onClick={() => submit(c.id, 'income')}
+                          selected={recordType === 'income' && value === c.id}>
               {c.name}
             </CategoryItem>
           ))

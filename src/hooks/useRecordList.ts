@@ -149,10 +149,10 @@ const useRecordList = () => {
     setRecordList(bulkAppendRecords([], newRawRecordList))
   }
 
-  const filterRecordList = (categoryId: string, month: Dayjs) => {
+  const filterRecordList = (categoryId: string, month: Dayjs, type: TRecordType) => {
     const filtered = rawRecordList.filter(r => {
       if (categoryId === ALL_TYPE) return true // 所有类型
-      return r.categoryId === categoryId // 对应类型
+      return r.type === type && r.categoryId === categoryId // 对应类型和种类
     }).filter(r => {
       if (month.isSame(dayjs(), 'month')) return true // 当月
       return dayjs(r.date).isSame(month, 'month') // 对应月份
