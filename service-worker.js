@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/weixin-cash/precache-manifest.101ad3ae69d3e7f6e1459014b0faaab4.js"
+  "/weixin-cash/precache-manifest.0c9915388b57ad413f81eda5e3b9b7fe.js"
 );
 
 self.addEventListener('message', (event) => {
