@@ -39,6 +39,8 @@ const QrCode = styled.div`
 const Settings: React.FC = () => {
   const [qrcode, toggleQrcode] = useState(false)
 
+  const github = 'https://github.com/Haixiang6123/weixin-cash'
+
   return (
     <Layout>
       <Main>
@@ -47,7 +49,7 @@ const Settings: React.FC = () => {
           <span>把记账本推荐给朋友</span>
         </Item>
 
-        <Item>
+        <Item onClick={() => window.open(github, '_blank')}>
           <Icon name="github"/>
           <span>点个Star支持一下</span>
         </Item>
