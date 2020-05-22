@@ -19,8 +19,7 @@ type TClass = {
 }
 
 const Section = styled.section`
-  margin: 8px 0;
-  padding: 24px;
+  padding: 24px 0;
   background: white;
 `
 
@@ -29,7 +28,7 @@ const Header = styled.div`
   align-items: center;
   justify-content: space-between;
   > span {
-    font-size: ${props => props.theme.$largeTextSize};
+    font-size: ${props => props.theme.$mainTextSize};
   }
 `
 

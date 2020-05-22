@@ -9,9 +9,17 @@ import {useState} from 'react'
 import useRecordList from '../../hooks/useRecordList'
 import {MONTH} from '../../lib/date'
 import CategorySection from './CategorySection'
+import Divider from '../../components/Dividier'
+import DayAnalysis from './DayAnalysis'
 
 const StyledAnalysis = styled.div`
   flex-grow: 1;
+`
+
+const Main = styled.section`
+  margin-top: 8px;
+  background: white;
+  padding: 24px;
 `
 
 const Analysis: React.FC = () => {
@@ -30,7 +38,14 @@ const Analysis: React.FC = () => {
                             month={month}
                             showMonth={() => toggleMonth(true)}/>
 
-        <CategorySection monthRecord={selectedRecordList}/>
+
+        <Main>
+          <CategorySection monthRecord={selectedRecordList}/>
+
+          <Divider direction="horizontal"/>
+
+          <DayAnalysis/>
+        </Main>
       </StyledAnalysis>
 
 
