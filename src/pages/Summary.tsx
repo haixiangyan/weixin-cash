@@ -32,6 +32,12 @@ const Header = styled.header`
   }
 `
 
+const FilterWrapper = styled.section`
+  padding: 0 12px;
+  background: ${props => props.theme.$success};
+  color: ${props => props.theme.$white};
+`
+
 const TypeButton = styled.button`
   margin-top: 26px;
   padding: 8px 16px;
@@ -52,15 +58,9 @@ const MonthButton = styled.button`
   background: none;
 `
 
-const BriefSection = styled.section`
-  margin-top: 8px;
+const MonthFilterSection = styled.section`
+  padding-top: 8px;
   font-weight: 300;
-  svg {
-    margin-left: 8px;
-    width: .6em;
-    height: .6em;
-    fill: #A0D8BB;
-  }
 `
 
 const RecordList = styled.ul`
@@ -104,7 +104,9 @@ const Summary: React.FC = () => {
     <StyledSummary>
       <Header>
         <p className="title">记账本</p>
+      </Header>
 
+      <FilterWrapper>
         <section>
           <TypeButton onClick={() => toggleFilter(true)}>
             <span>{filter ? filter.name : '全部类型'}</span>
@@ -113,10 +115,10 @@ const Summary: React.FC = () => {
           </TypeButton>
         </section>
 
-        <BriefSection>
+        <MonthFilterSection>
           <MonthButton onClick={() => toggleMonth(true)}>
-            <span>{month.format(MONTH)}</span>
-            <Icon color="#A0D8BB" name="dropdown"/>
+            <span style={{marginRight: 4}}>{month.format(MONTH)}</span>
+            <Icon color="#A0D8BB" name="drop-down"/>
           </MonthButton>
           <span style={{marginRight: 12}}>
             总支出￥{firstMonth ? firstMonth.expenseTotal.toFixed(2) : '0.00'}
@@ -124,8 +126,8 @@ const Summary: React.FC = () => {
           <span>
             总收入￥{firstMonth ? firstMonth.incomeTotal.toFixed(2) : '0.00'}
           </span>
-        </BriefSection>
-      </Header>
+        </MonthFilterSection>
+      </FilterWrapper>
 
       {
         recordList.length !== 0 ?

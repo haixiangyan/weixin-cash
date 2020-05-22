@@ -58,8 +58,8 @@ const Menu: React.FC = () => {
       <MenuItem activeClassName="selected" to="/settings" onClick={() => setSelected('settings')}>
         {
           selected === 'settings' ?
-            <Icon name="solid-setting" size={24} color={theme.$success}/> :
-            <Icon name="setting" size={24}/>
+            <Icon name="solid-settings" size={24} color={theme.$success}/> :
+            <Icon name="settings" size={24}/>
         }
         <span>设置</span>
       </MenuItem>
