@@ -9,7 +9,7 @@ const StyledLayout = styled.div`
 `
 
 const Header = styled.header`
-  padding: 60px 14px 8px;
+  padding: 52px 14px 16px;
   background: ${props => props.theme.$success};
   color: ${props => props.theme.$white};
   .title {
