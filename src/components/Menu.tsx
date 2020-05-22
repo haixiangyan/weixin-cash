@@ -1,17 +1,28 @@
 import * as React from 'react'
 import Icon from './Icon'
 import styled from 'styled-components'
+import {NavLink} from 'react-router-dom'
+import {useState} from 'react'
+import theme from '../theme'
 
-const StyledMenu = styled.ul`
+type TMenu = 'home' | 'analysis' | 'settings'
+
+const StyledMenu = styled.div`
   padding: 12px 0;
   display: flex;
   background: white;
   list-style: none;
   box-shadow: 0px -2px 12px 0px rgba(192,196,204,.4);
   z-index: 2;
+  a {
+    text-decoration: none;
+  }
+  .selected {
+    color: ${props => props.theme.$success}
+  }
 `
 
-const MenuItem = styled.li`
+const MenuItem = styled(NavLink)`
   display: inline-flex;
   flex-direction: column;
   align-items: center;
@@ -24,18 +35,32 @@ const MenuItem = styled.li`
 `
 
 const Menu: React.FC = () => {
+  const [selected, setSelected] = useState<TMenu>('home')
+
   return (
     <StyledMenu>
-      <MenuItem>
-        <Icon name="order" size={24}/>
+      <MenuItem activeClassName="selected" to="/" onClick={() => setSelected('home')}>
+        {
+          selected === 'home' ?
+            <Icon name="solid-order" size={24} color={theme.$success}/> :
+            <Icon name="order" size={24}/>
+        }
         <span>明细</span>
       </MenuItem>
-      <MenuItem>
-        <Icon name="chart" size={24}/>
+      <MenuItem activeClassName="selected" to="/analysis" onClick={() => setSelected('analysis')}>
+        {
+          selected === 'analysis' ?
+            <Icon name="solid-chart" size={24} color={theme.$success}/> :
+            <Icon name="chart" size={24}/>
+        }
         <span>统计</span>
       </MenuItem>
-      <MenuItem>
-        <Icon name="setting" size={24}/>
+      <MenuItem activeClassName="selected" to="/settings" onClick={() => setSelected('settings')}>
+        {
+          selected === 'settings' ?
+            <Icon name="solid-setting" size={24} color={theme.$success}/> :
+            <Icon name="setting" size={24}/>
+        }
         <span>设置</span>
       </MenuItem>
     </StyledMenu>

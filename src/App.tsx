@@ -8,6 +8,8 @@ import {
 import Summary from './pages/Summary'
 import Details from './pages/Details'
 import theme from './theme'
+import Analysis from './pages/Analysis'
+import Settings from './pages/Settings'
 
 const StyledApp = styled.div`
   position: relative;
@@ -25,6 +27,12 @@ const App: React.FC = () => {
           <Switch>
             <Route exact path="/">
               <Summary/>
+            </Route>
+            <Route path="/analysis">
+              <Analysis/>
+            </Route>
+            <Route path="/settings">
+              <Settings/>
             </Route>
             <Route path="/record/:id">
               <Details/>
