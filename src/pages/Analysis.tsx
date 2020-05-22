@@ -1,10 +1,15 @@
 import * as React from 'react'
 import Layout from '../components/Layout'
+import styled from 'styled-components'
+
+const Main = styled.div`
+  flex-grow: 1;
+`
 
 const Analysis: React.FC = () => {
   return (
     <Layout>
-      <div>图表</div>
+      <Main>图表</Main>
     </Layout>
   )
 }
