@@ -1,11 +1,12 @@
 import * as React from 'react'
 import Icon from './Icon'
 import styled from 'styled-components'
-import {NavLink} from 'react-router-dom'
-import {useState} from 'react'
+import {Link, useLocation} from 'react-router-dom'
 import theme from '../theme'
 
-type TMenu = 'home' | 'analysis' | 'settings'
+type TMenuItem = {
+  selected: boolean
+}
 
 const StyledMenu = styled.div`
   padding: 12px 0;
@@ -22,7 +23,7 @@ const StyledMenu = styled.div`
   }
 `
 
-const MenuItem = styled(NavLink)`
+const MenuItem = styled(Link)<TMenuItem>`
   display: inline-flex;
   flex-direction: column;
   align-items: center;
@@ -31,33 +32,34 @@ const MenuItem = styled(NavLink)`
   font-size: ${props => props.theme.$normalTextSize};
   > span {
     margin-top: 4px;
+    color: ${props => props.selected ? props.theme.$success : props.theme.$normalText}
   }
 `
 
 const Menu: React.FC = () => {
-  const [selected, setSelected] = useState<TMenu>('home')
+  const {pathname} = useLocation()
 
   return (
     <StyledMenu>
-      <MenuItem activeClassName="selected" to="/" onClick={() => setSelected('home')}>
+      <MenuItem to="/" selected={pathname === '/'}>
         {
-          selected === 'home' ?
+          pathname === '/' ?
             <Icon name="solid-order" size={24} color={theme.$success}/> :
             <Icon name="order" size={24}/>
         }
         <span>明细</span>
       </MenuItem>
-      <MenuItem activeClassName="selected" to="/analysis" onClick={() => setSelected('analysis')}>
+      <MenuItem to="/analysis" selected={pathname === '/analysis'}>
         {
-          selected === 'analysis' ?
+          pathname === '/analysis' ?
             <Icon name="solid-chart" size={24} color={theme.$success}/> :
             <Icon name="chart" size={24}/>
         }
         <span>统计</span>
       </MenuItem>
-      <MenuItem activeClassName="selected" to="/settings" onClick={() => setSelected('settings')}>
+      <MenuItem to="/settings" selected={pathname === '/settings'}>
         {
-          selected === 'settings' ?
+          pathname === '/settings' ?
             <Icon name="solid-settings" size={24} color={theme.$success}/> :
             <Icon name="settings" size={24}/>
         }
