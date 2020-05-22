@@ -12,10 +12,6 @@
 
 * Styled Components
 
-## 原型
-
-![](./prototype/主页.jpeg)
-
 ## 废话
 
 最近学了一下 React + TypeScript，加之在武汉隔离，就想做一个仿记账本来练习一下。感觉微信记账本还挺好看的，UI也比较简洁，
