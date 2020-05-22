@@ -108,6 +108,16 @@ export const bulkAppendRecords = (prevRecordList: TMonthRecord[], rawRecordList:
   return recordList
 }
 
+export const parseMonthRecord = (monthRecord: TMonthRecord) => {
+  let rawRecordList: TRawRecord[] = []
+  monthRecord.recordList.forEach(m =>
+    m.recordList.forEach((d =>
+      rawRecordList.push(d))
+    )
+  )
+  return rawRecordList
+}
+
 const useRecordList = () => {
   const ITEM_NAME = 'rawRecordList'
 

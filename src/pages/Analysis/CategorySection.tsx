@@ -2,7 +2,19 @@ import * as React from 'react'
 import {useState} from 'react'
 import styled from 'styled-components'
 import Button from '../../components/Button'
-import {TRecordType} from '../../hooks/useRecordList'
+import {parseMonthRecord, TMonthRecord, TRawRecord, TRecordType} from '../../hooks/useRecordList'
+import {ALL_CATEGORIES} from '../../lib/category'
+import Category, {TCategory} from '../../components/Category'
+
+type TProps = {
+  monthRecord?: TMonthRecord
+}
+
+type TClass = {
+  amount: number
+  category: TCategory
+  ratio: number
+}
 
 const Section = styled.section`
   margin: 8px 0;
@@ -19,13 +31,73 @@ const Header = styled.div`
   }
 `
 
-const CategoryList = styled.ul`
-  margin-top: 24px;
+const ClassList = styled.ul`
+  margin-top: 32px;
   list-style: none;
 `
 
-const CategorySection: React.FC = () => {
+const ClassItem = styled.li`
+  display: flex;
+  margin-bottom: 24px;
+  &:last-child {
+    margin-bottom: 0;
+  }
+  
+  > span {
+    display: inline-flex;
+    align-items: center;
+    &.ratio {
+      padding: 0 16px;
+      justify-content: flex-end;
+      text-align: right;
+      flex-grow: 1;
+    }
+  }
+`
+
+const Empty = styled.div`
+  margin-top: 32px;
+  text-align: center;
+  color: ${props => props.theme.$subText};
+`
+
+const getRawRecordList = (monthRecord: TMonthRecord | undefined, type: TRecordType) => {
+  if (!monthRecord) return []
+
+  return parseMonthRecord(monthRecord).filter(r => r.type === type)
+}
+
+const classify = (rawRecordList: TRawRecord[]) => {
+  let classified: { [key: string]: TClass } = {}
+  let total = 0
+
+  rawRecordList.forEach(r => {
+    const {categoryId} = r
+
+    if (!(categoryId in classified)) {
+      classified[categoryId] = {
+        amount: 0,
+        category: ALL_CATEGORIES.find(c => c.id === categoryId)!,
+        ratio: 0.0
+      }
+    }
+
+    total += r.amount
+
+    classified[categoryId].amount += r.amount
+    classified[categoryId].ratio = classified[categoryId].amount / total
+  })
+
+  return Object.values(classified).sort((a, b) => a.ratio - b.ratio)
+}
+
+const CategorySection: React.FC<TProps> = (props) => {
+  const {monthRecord} = props
+
   const [type, setType] = useState<TRecordType>('expense')
+
+  const rawRecordList = getRawRecordList(monthRecord, type)
+  const classified = classify(rawRecordList)
 
   return (
     <Section>
@@ -44,9 +116,27 @@ const CategorySection: React.FC = () => {
         </span>
       </Header>
 
-      <CategoryList>
-        <li>hello</li>
-      </CategoryList>
+      {
+        classified.length !== 0 ?
+          <ClassList>
+            {classified.map(({category, amount, ratio}) => (
+              <ClassItem key={category.id}>
+                <span className="category">
+                  <Category category={category} recordType={type} size={14}/>
+                  <span style={{marginLeft: 8}}>{category.name}</span>
+                </span>
+                <span className="ratio">
+                  {(ratio * 100).toFixed(2)}%
+                </span>
+                <span className="amount">
+                  ￥{amount.toFixed(2)}
+                </span>
+              </ClassItem>
+            ))}
+          </ClassList>
+          :
+          <Empty>暂无数据</Empty>
+      }
     </Section>
   )
 }

@@ -30,7 +30,7 @@ const Analysis: React.FC = () => {
                             month={month}
                             showMonth={() => toggleMonth(true)}/>
 
-        <CategorySection/>
+        <CategorySection monthRecord={selectedRecordList}/>
       </StyledAnalysis>
 
 
